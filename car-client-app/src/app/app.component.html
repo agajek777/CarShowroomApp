@@ -1,1 +1,14 @@
-<div class="header"></div>
+<nav>
+  <div class="header">
+    <div class="brand">
+      <p class="link" [routerLink]="['/']">CarShowroomApp</p>
+    </div>
+    <div class="nav-item">
+      <p class="link" [routerLink]="['/add']">Dodaj nowy pojazd</p>
+    </div>
+  </div>
+</nav>
+<br>
+<div class="outer-outlet">
+  <router-outlet></router-outlet>
+</div>

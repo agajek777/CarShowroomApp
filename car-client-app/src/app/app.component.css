@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  background: linear-gradient(to right, rgb(131, 96, 195), rgb(46, 191, 145));
+  height: 8em;
+}
+
+.brand {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 7em;
+  letter-spacing: 0.25em;
+  font-size: large;
+  font-weight: 500;
+  color: white;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 6em;
+  color: #071e3d;
+}
