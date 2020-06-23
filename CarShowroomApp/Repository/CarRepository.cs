@@ -40,11 +40,13 @@ namespace CarShowroomApp.Repository
         {
             return _db.Cars.ToList();
         }
-        public void Update(Car dbEntity, CarDto entity)
+        public CarDto Update(Car dbEntity, CarDto entity)
         {
-            dbEntity = _mapper.Map<Car>(entity);
+            var carInDb = _db.Cars.FirstOrDefault(c => c.Id == dbEntity.Id);
+            _mapper.Map<CarDto, Car>(entity, carInDb);
+            //carInDb = _mapper.Map<Car>(entity);
             _db.SaveChanges();
-
+            return _mapper.Map<CarDto>(carInDb);
         }
     }
 }

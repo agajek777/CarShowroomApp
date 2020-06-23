@@ -1,7 +1,7 @@
 <div class="overview-container">
   <div *ngFor="let car of cars">
     <div class="overview-container-image-size">
-      <a [routerLink]="['/edit/', car.id]">
+      <div [routerLink]="['/edit/', car.id]">
         <div>
           <img class="overview-image-size" [src]="getImgContent(car.imagePath)">
         </div>
@@ -22,7 +22,7 @@
               <strong>Opis: </strong><span>{{car.description}}</span>
           </p>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 </div>

@@ -29,3 +29,20 @@
   padding-left: 6em;
   color: #071e3d;
 }
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00e0ff;
+  padding: 1em 1em 1em 1em;
+  border-radius: 50%;
+  position: absolute;
+  right: 15em;
+  top: 6.5em;
+  font-weight: 800;
+}
+
+.button:hover {
+  cursor: pointer;
+}

@@ -3,11 +3,11 @@
     <div class="brand">
       <p class="link" [routerLink]="['/']">CarShowroomApp</p>
     </div>
-    <div class="nav-item">
-      <p class="link" [routerLink]="['/add']">Dodaj nowy pojazd</p>
-    </div>
   </div>
 </nav>
+<span class="button" [routerLink]="['/add']">
+  <i class="material-icons">add</i>
+</span>
 <br>
 <div class="outer-outlet">
   <router-outlet></router-outlet>

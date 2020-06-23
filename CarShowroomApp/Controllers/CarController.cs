@@ -55,8 +55,8 @@ namespace CarShowroomApp.Controllers
                 {
                     return BadRequest();
                 }
-                _carRepository.Update(carInDb, carDto);
-                return Ok(carInDb);
+                var outcome = _carRepository.Update(carInDb, carDto);
+                return Ok(outcome);
             }
             return BadRequest();
         }

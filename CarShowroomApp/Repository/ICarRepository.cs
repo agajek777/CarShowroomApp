@@ -10,7 +10,7 @@ namespace CarShowroomApp.Repository
         IEnumerable<TEntity> GetAll();
         TEntity Get(int id);
         void Add(TEntity entity);
-        void Update(TEntity dbEntity, TEntityDto entity);
+        TEntityDto Update(TEntity dbEntity, TEntityDto entity);
         void Delete(TEntity entity);
     }
 }
