@@ -2,7 +2,7 @@
   <div *ngFor="let car of cars">
     <div class="overview-container-image-size">
       <div [routerLink]="['/edit/', car.id]">
-        <div>
+        <div style="display: flex; align-items: center; justify-content: center; margin-top: 0.5em;">
           <img class="overview-image-size" [src]="getImgContent(car.imagePath)">
         </div>
         <div>

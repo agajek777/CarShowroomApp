@@ -1,1 +1,61 @@
-<p>add works!</p>
+<div class="add-car-main">
+  <div class="container car-form">
+    <h3>Wprowadź dane ogłoszenia</h3>
+    <form>
+      <div class="form-group">
+        <label>Marka</label>
+        <input type="text" class="form-control" [(ngModel)]="car.brand" required>
+      </div>
+      <div class="form-group">
+        <label>Model</label>
+        <input type="text" class="form-control" [(ngModel)]="car.model" required>
+      </div>
+      <div class="form-group">
+        <label>Silnik</label>
+        <input type="text" class="form-control" [(ngModel)]="car.engine">
+      </div>
+      <div class="form-group">
+        <label>Moc</label>
+        <input type="number" class="form-control" [(ngModel)]="car.power">
+      </div>
+      <div class="form-group">
+        <label>Przebieg</label>
+        <input type="number" class="form-control" [(ngModel)]="car.mileage">
+      </div>
+      <div class="form-group">
+        <label>Rok produkcji</label>
+        <input type="text" class="form-control" [(ngModel)]="car.production">
+      </div>
+      <div class="form-group">
+        <label>Link do zdjęcia</label>
+        <input type="url" class="form-control" [(ngModel)]="car.imagePath">
+      </div>
+      <div class="form-group">
+        <label>Opis</label>
+        <textarea class="form-control" [(ngModel)]="car.description"></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+    <div class="overview-container-image-size">
+      <div style="display: flex; align-items: center; justify-content: center; margin-top: 0.5em;">
+        <img class="overview-image-size" [src]="getImgContent(car.imagePath)">
+      </div>
+      <div>
+        <p style="padding-left: 10px;">
+          <strong>Samochód: </strong><span>{{car.brand}} {{car.model}}</span>
+        </p>
+        <p style="padding-left: 10px;">
+            <strong>Silnik: </strong><span>{{car.engine}} {{car.power}} KM</span>
+        </p>
+        <p style="padding-left: 10px;">
+            <strong>Przebieg: </strong><span>{{car.mileage}}</span>
+        </p>
+        <p style="padding-left: 10px;">
+            <strong>Rok produkcji: </strong><span>{{car.production}}</span>
+        </p>
+        <p style="padding-left: 10px;">
+            <strong>Opis: </strong><span>{{car.description}}</span>
+        </p>
+    </div>
+</div>

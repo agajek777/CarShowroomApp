@@ -10,7 +10,8 @@
   background-color: #4bc2c5;
   margin-right: 3em;
   margin-bottom: 3em;
-  width: 19em;
+  padding: 1em 1em 1em 1em;
+  width: 18em;
   height: 30em;
   display: flex;
   flex-direction: column;
@@ -23,12 +24,7 @@
   transform: scale(1.1);
 }
 
-.overview-container-image-size: {
-
-}
-
 .overview-image-size {
-  padding: 1em 1em 1em 1em;
   width: 16em;
   max-height: 11em;
 }
