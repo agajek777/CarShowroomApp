@@ -34,5 +34,42 @@ namespace CarShowroomApp.Controllers
             var carInDb = _carRepository.Get(id);
             return Ok(_mapper.Map<CarDto>(carInDb));
         }
+        [HttpPost]
+        public IActionResult Post([FromBody] CarDto carDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var car = _mapper.Map<Car>(carDto);
+                _carRepository.Add(car);
+                return Ok(Json(car));
+            }
+            return BadRequest();
+        }
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] CarDto carDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var carInDb = _carRepository.Get(id);
+                if (carInDb == null)
+                {
+                    return BadRequest();
+                }
+                _carRepository.Update(carInDb, carDto);
+                return Ok(carInDb);
+            }
+            return BadRequest();
+        }
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var car = _carRepository.Get(id);
+            if (id == 0 || car == null)
+            {
+                return BadRequest();
+            }
+            _carRepository.Delete(car);
+            return Ok();
+        }
     }
 }
