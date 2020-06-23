@@ -1,6 +1,32 @@
-<a [routerLink]="['/edit/1']">
-  <img class="overview-image-size" src="https://mklr.pl/uimages/services/motokiller/i18n/pl_PL/201801/$_bmw_e39_m5_v8_$1516124740_by_Amotive.jpg?1516171255">
-</a>
+<div class="overview-container">
+  <div *ngFor="let car of cars">
+    <div class="overview-container-image-size">
+      <a [routerLink]="['/edit/', car.id]">
+        <div>
+          <img class="overview-image-size" [src]="getImgContent(car.imagePath)">
+        </div>
+        <div>
+          <p style="padding-left: 10px;">
+            <strong>Samochód: </strong><span>{{car.brand}} {{car.model}}</span>
+          </p>
+          <p style="padding-left: 10px;">
+              <strong>Silnik: </strong><span>{{car.engine}} {{car.power}} KM</span>
+          </p>
+          <p style="padding-left: 10px;">
+              <strong>Przebieg: </strong><span>{{car.mileage}}</span>
+          </p>
+          <p style="padding-left: 10px;">
+              <strong>Rok produkcji: </strong><span>{{car.production}}</span>
+          </p>
+          <p style="padding-left: 10px;">
+              <strong>Opis: </strong><span>{{car.description}}</span>
+          </p>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
 <div class="inner-outlet">
   <router-outlet></router-outlet>
 </div>

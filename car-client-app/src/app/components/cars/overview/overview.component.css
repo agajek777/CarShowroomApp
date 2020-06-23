@@ -1,0 +1,23 @@
+.overview-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 3em 5em 5em 5em;
+  justify-content: center;
+}
+
+.overview-container-image-size {
+  background-color: red;
+  margin-right: 3em;
+  width: 18em;
+  height: 30em;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.overview-image-size {
+  padding: 1em 1em 1em 1em;
+  width: 16em;
+  max-height: 11em;
+}
