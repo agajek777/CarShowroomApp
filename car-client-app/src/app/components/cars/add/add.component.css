@@ -51,4 +51,6 @@
 .overview-image-size {
   width: 16em;
   max-height: 11em;
+  margin-bottom: 0.5em;
 }
+

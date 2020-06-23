@@ -4,42 +4,42 @@
     <form>
       <div class="form-group">
         <label>Marka</label>
-        <input type="text" class="form-control" [(ngModel)]="car.brand" required>
+        <input type="text" class="form-control" name="brand" [(ngModel)]="car.brand" required>
       </div>
       <div class="form-group">
         <label>Model</label>
-        <input type="text" class="form-control" [(ngModel)]="car.model" required>
+        <input type="text" class="form-control" name="model" [(ngModel)]="car.model" required>
       </div>
       <div class="form-group">
         <label>Silnik</label>
-        <input type="text" class="form-control" [(ngModel)]="car.engine">
+        <input type="text" class="form-control" name="silnik" [(ngModel)]="car.engine">
       </div>
       <div class="form-group">
         <label>Moc</label>
-        <input type="number" class="form-control" [(ngModel)]="car.power">
+        <input type="number" class="form-control" name="moc" [(ngModel)]="car.power">
       </div>
       <div class="form-group">
         <label>Przebieg</label>
-        <input type="number" class="form-control" [(ngModel)]="car.mileage">
+        <input type="number" class="form-control" name="przebieg" [(ngModel)]="car.mileage">
       </div>
       <div class="form-group">
         <label>Rok produkcji</label>
-        <input type="text" class="form-control" [(ngModel)]="car.production">
+        <input type="text" class="form-control" name="rok" [(ngModel)]="car.production">
       </div>
       <div class="form-group">
         <label>Link do zdjęcia</label>
-        <input type="url" class="form-control" [(ngModel)]="car.imagePath">
+        <input type="url" class="form-control" name="imagePath" [(ngModel)]="car.imagePath">
       </div>
       <div class="form-group">
         <label>Opis</label>
-        <textarea class="form-control" [(ngModel)]="car.description"></textarea>
+        <textarea class="form-control" name="opis" [(ngModel)]="car.description"></textarea>
       </div>
       <button type="submit" class="btn btn-success">Submit</button>
     </form>
   </div>
     <div class="overview-container-image-size">
       <div style="display: flex; align-items: center; justify-content: center; margin-top: 0.5em;">
-        <img class="overview-image-size" [src]="getImgContent(car.imagePath)">
+        <img class="overview-image-size" [src]="car.imagePath === '' ? getImgContent(this.noImage) : getImgContent(car.imagePath)">
       </div>
       <div>
         <p style="padding-left: 10px;">

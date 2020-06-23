@@ -10,6 +10,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class AddComponent {
   public car: Car;
+  public noImage: string = "https://softsmart.co.za/wp-content/uploads/2018/06/image-not-found-1038x576.jpg";
 
   constructor(private httpService: HttpService, private sanitizer: DomSanitizer) {
     this.car = {
@@ -17,7 +18,7 @@ export class AddComponent {
       brand: "",
       model: "",
       engine: "",
-      imagePath: "https://softsmart.co.za/wp-content/uploads/2018/06/image-not-found-1038x576.jpg",
+      imagePath: "",
       mileage: 1,
       description: "",
       power: 1,
