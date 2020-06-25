@@ -1,14 +1,17 @@
-<nav>
+<nav class="sticky">
   <div class="header">
     <div class="brand">
       <p class="link" [routerLink]="['/']">CarShowroomApp</p>
     </div>
   </div>
+  <span class="button" style="right: 15em; top: 6.5em;" [routerLink]="['/add']">
+    <i class="material-icons">add</i>
+  </span>
+  <span class="button" style="right: 20em; top: 6.5em;" [routerLink]="['/']">
+    <i class="material-icons">home</i>
+  </span>
 </nav>
-<span class="button" [routerLink]="['/add']">
-  <i class="material-icons">add</i>
-</span>
 <br>
-<div class="outer-outlet">
+<div style="" class="outer-outlet">
   <router-outlet></router-outlet>
 </div>

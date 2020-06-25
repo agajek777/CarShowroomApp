@@ -34,7 +34,7 @@
         <label>Opis</label>
         <textarea class="form-control" name="opis" [(ngModel)]="car.description"></textarea>
       </div>
-      <button type="submit" class="btn btn-success">Submit</button>
+      <button type="submit" class="btn btn-success" (click)="onSubmit()">Dodaj</button>
     </form>
   </div>
     <div class="overview-container-image-size">

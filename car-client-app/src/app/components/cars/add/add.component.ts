@@ -29,13 +29,21 @@ export class AddComponent {
 
    public addCar() {
     let route: string = "https://localhost:44332/api/car/";
+    if (this.car.imagePath === '') {
+      this.car.imagePath = this.noImage;
+    }
     this.httpService.addData(route, this.car)
       .subscribe((result) => {
-        alert("Udało się")
+        console.log("Udało się")
       },
       (error) => {
         console.error(error);
       });
+   }
+
+  public onSubmit() {
+    console.log('car added');
+    this.addCar();
    }
 
    getImgContent(url: string): SafeUrl {

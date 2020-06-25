@@ -38,11 +38,20 @@
   padding: 1em 1em 1em 1em;
   border-radius: 50%;
   position: absolute;
-  right: 15em;
-  top: 6.5em;
   font-weight: 800;
 }
 
 .button:hover {
   cursor: pointer;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.outer-outlet {
+  padding-top: 9em;
 }
