@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from "../../../models/car";
 import { HttpService } from "../../../services/http.service";
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add',
@@ -9,10 +10,21 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent {
+  carForm = this.fb.group({
+    brand: ['', Validators.required],
+    model: ['', Validators.required],
+    engine: [''],
+    imagePath: [''],
+    mileage: [''],
+    description: [''],
+    power: [''],
+    production: ['', [Validators.min(1970), Validators.max(2020)]],
+    price: ['']
+  });
   public car: Car;
   public noImage: string = "https://softsmart.co.za/wp-content/uploads/2018/06/image-not-found-1038x576.jpg";
 
-  constructor(private httpService: HttpService, private sanitizer: DomSanitizer) {
+  constructor(private fb: FormBuilder, private httpService: HttpService, private sanitizer: DomSanitizer) {
     this.car = {
       id: 0,
       brand: "",
