@@ -22,7 +22,7 @@ export class AddComponent {
       mileage: 1,
       description: "",
       power: 1,
-      production: "2015-01-01T00:00:00",
+      production: "2020",
       price: 1
     }
    }
@@ -32,6 +32,7 @@ export class AddComponent {
     if (this.car.imagePath === '') {
       this.car.imagePath = this.noImage;
     }
+    this.car.production += '-01-01T00:00:00';
     this.httpService.addData(route, this.car)
       .subscribe((result) => {
         console.log("Udało się")
