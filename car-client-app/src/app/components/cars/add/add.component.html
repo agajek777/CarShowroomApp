@@ -64,16 +64,16 @@
         <p style="padding-left: 10px;">
           <strong>Samochód: </strong><span>{{ carForm.value.brand }} {{carForm.value.model}}</span>
         </p>
-        <p style="padding-left: 10px;">
+        <p *ngIf="carForm.value.engine !== ''" style="padding-left: 10px;">
             <strong>Silnik: </strong><span>{{carForm.value.engine}} {{carForm.value.power}} KM</span>
         </p>
         <p style="padding-left: 10px;">
             <strong>Przebieg: </strong><span>{{carForm.value.mileage}}</span>
         </p>
-        <p style="padding-left: 10px;">
+        <p *ngIf="carForm.value.production !== ''" style="padding-left: 10px;">
             <strong>Rok produkcji: </strong><span>{{carForm.value.production}}</span>
         </p>
-        <p style="padding-left: 10px;">
+        <p *ngIf="carForm.value.description !== ''" style="padding-left: 10px;">
             <strong>Opis: </strong><span>{{carForm.value.description}}</span>
         </p>
     </div>
