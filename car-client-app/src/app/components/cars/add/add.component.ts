@@ -21,7 +21,10 @@ export class AddComponent {
       Validators.required
     ]),
     engine: [''],
-    power: [''],
+    'power': new FormControl(100, [
+      Validators.required,
+      Validators.min(0)
+    ]),
     'production': new FormControl('', [
       Validators.required,
       Validators.min(1970),
@@ -30,12 +33,17 @@ export class AddComponent {
     price: [1],
     imagePath: [''],
     description: [''],
-    mileage: ['']
+    'mileage': new FormControl(1000, [
+      Validators.required,
+      Validators.min(0)
+    ])
   });
 
   public get brand() { return this.carForm.get('brand'); }
   public get model() { return this.carForm.get('model'); }
   public get production() { return this.carForm.get('production'); }
+  public get power() { return this.carForm.get('power'); }
+  public get mileage() { return this.carForm.get('mileage'); }
 
   public noImage: string = "https://softsmart.co.za/wp-content/uploads/2018/06/image-not-found-1038x576.jpg";
 

@@ -9,7 +9,7 @@
           <p style="padding-left: 10px;">
             <strong>Samochód: </strong><span>{{car.brand}} {{car.model}}</span>
           </p>
-          <p style="padding-left: 10px;">
+          <p *ngIf="car.engine !== ''" style="padding-left: 10px;">
               <strong>Silnik: </strong><span>{{car.engine}} {{car.power}} KM</span>
           </p>
           <p style="padding-left: 10px;">
@@ -18,7 +18,7 @@
           <p style="padding-left: 10px;">
               <strong>Rok produkcji: </strong><span>{{car.production.substr(0,4)}}</span>
           </p>
-          <p style="padding-left: 10px;">
+          <p *ngIf="car.description !== ''" style="padding-left: 10px;">
               <strong>Opis: </strong><span>{{car.description}}</span>
           </p>
         </div>

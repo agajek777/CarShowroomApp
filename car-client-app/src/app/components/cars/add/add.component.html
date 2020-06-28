@@ -22,11 +22,19 @@
       </div>
       <div class="form-group">
         <label>Moc</label>
-        <input type="number" class="form-control" name="moc" formControlName="power">
+        <input [ngClass]="power.invalid && (power.dirty || power.touched) ? 'error' : ''" type="number" class="form-control" name="moc" formControlName="power">
+        <div *ngIf="power.invalid && (power.dirty || power.touched)">
+          <div class="alert" *ngIf="power.errors.required">Moc jest wymagana.</div>
+          <div class="alert" *ngIf="power.errors.min">Podana moc jest nieprawidłowa.</div>
+        </div>
       </div>
       <div class="form-group">
         <label>Przebieg</label>
-        <input type="number" class="form-control" name="przebieg" formControlName="mileage">
+        <input [ngClass]="mileage.invalid && (mileage.dirty || mileage.touched) ? 'error' : ''" type="number" class="form-control" name="przebieg" formControlName="mileage">
+        <div *ngIf="mileage.invalid && (mileage.dirty || mileage.touched)">
+          <div class="alert" *ngIf="mileage.errors.required">Przebieg jest wymagany.</div>
+          <div class="alert" *ngIf="mileage.errors.min">Podany przebieg jest nieprawidłowy.</div>
+        </div>
       </div>
       <div class="form-group">
         <label>Rok produkcji</label>

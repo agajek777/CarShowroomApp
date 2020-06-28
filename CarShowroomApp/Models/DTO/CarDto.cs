@@ -14,7 +14,7 @@ namespace CarShowroomApp.Models.DTO
         [Required]
         public string Model { get; set; }
         public string Engine { get; set; }
-        public int Power { get; set; }
+        public int? Power { get; set; }
         [Required]
         public DateTime Production { get; set; }
         [Required]
