@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from "../../../models/car";
 import { HttpService } from "../../../services/http.service";
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-add',
@@ -12,40 +12,31 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class AddComponent {
   carForm = this.fb.group({
     brand: ['', Validators.required],
+    /*brand: new FormControl('', [
+      Validators.required
+    ]),*/
     model: ['', Validators.required],
     engine: [''],
-    imagePath: [''],
-    mileage: [''],
-    description: [''],
     power: [''],
     production: ['', [Validators.min(1970), Validators.max(2020)]],
-    price: ['']
+    price: [1],
+    imagePath: [''],
+    description: [''],
+    mileage: ['']
   });
-  public car: Car;
   public noImage: string = "https://softsmart.co.za/wp-content/uploads/2018/06/image-not-found-1038x576.jpg";
 
-  constructor(private fb: FormBuilder, private httpService: HttpService, private sanitizer: DomSanitizer) {
-    this.car = {
-      id: 0,
-      brand: "",
-      model: "",
-      engine: "",
-      imagePath: "",
-      mileage: 1,
-      description: "",
-      power: 1,
-      production: "2020",
-      price: 1
-    }
-   }
+  constructor(private fb: FormBuilder, private httpService: HttpService, private sanitizer: DomSanitizer) {}
+
 
    public addCar() {
     let route: string = "https://localhost:44332/api/car/";
-    if (this.car.imagePath === '') {
-      this.car.imagePath = this.noImage;
+    if (this.carForm.value.imagePath === '') {
+      this.carForm.value.imagePath = this.noImage;
     }
-    this.car.production += '-01-01T00:00:00';
-    this.httpService.addData(route, this.car)
+    this.carForm.value.production += '-01-01T00:00:00';
+    var car: Car = this.carForm.value;
+    this.httpService.addData(route, car)
       .subscribe((result) => {
         console.log("Udało się")
       },
