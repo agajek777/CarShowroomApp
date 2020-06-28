@@ -4,12 +4,17 @@
     <form [formGroup]="carForm">
       <div class="form-group">
         <label>Marka</label>
-        <input type="text" class="form-control" name="brand" formControlName="brand">
-        <span *ngIf="carForm."></span>
+        <input [ngClass]="brand.invalid && (brand.dirty || brand.touched) ? 'error' : ''" type="text" id="brand" class="form-control" name="brand" formControlName="brand">
+        <div *ngIf="brand.invalid && (brand.dirty || brand.touched)">
+          <div class="alert" *ngIf="brand.errors.required">Marka jest wymagana.</div>
+        </div>
       </div>
       <div class="form-group">
         <label>Model</label>
-        <input type="text" class="form-control" name="model" formControlName="model">
+        <input [ngClass]="model.invalid && (model.dirty || model.touched) ? 'error' : ''" type="text" class="form-control" name="model" formControlName="model">
+        <div *ngIf="model.invalid && (model.dirty || model.touched)">
+          <div class="alert" *ngIf="model.errors.required">Model jest wymagany.</div>
+        </div>
       </div>
       <div class="form-group">
         <label>Silnik</label>
@@ -25,7 +30,12 @@
       </div>
       <div class="form-group">
         <label>Rok produkcji</label>
-        <input type="number" class="form-control" name="rok" formControlName="production">
+        <input [ngClass]="production.invalid && (production.dirty || production.touched) ? 'error' : ''" type="number" class="form-control" name="rok" formControlName="production">
+        <div *ngIf="production.invalid && (production.dirty || production.touched)">
+          <div class="alert" *ngIf="production.errors.required">Rok produkcji jest wymagany.</div>
+          <div class="alert" *ngIf="production.errors.min">Rok produkcji jest nieprawidłowy.</div>
+          <div class="alert" *ngIf="production.errors.max">Rok produkcji jest nieprawidłowy.</div>
+        </div>
       </div>
       <div class="form-group">
         <label>Link do zdjęcia</label>

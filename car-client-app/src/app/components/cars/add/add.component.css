@@ -54,3 +54,17 @@
   margin-bottom: 0.5em;
 }
 
+
+.alert {
+  display: flex;
+  align-items: center;
+  padding-top: 0.65em;
+  padding-bottom: 0.65em;
+  color: white;
+  margin-bottom: 1em;
+  background-color: #ff5858;
+}
+
+.error {
+  border: 1px solid #ff5858;
+}

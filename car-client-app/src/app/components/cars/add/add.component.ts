@@ -10,24 +10,34 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent {
+  constructor(private fb: FormBuilder, private httpService: HttpService, private sanitizer: DomSanitizer) {}
+
   carForm = this.fb.group({
-    brand: ['', Validators.required],
-    /*brand: new FormControl('', [
+    'brand': new FormControl('', [
       Validators.required
-    ]),*/
-    model: ['', Validators.required],
+      ],
+    ),
+    'model': new FormControl('', [
+      Validators.required
+    ]),
     engine: [''],
     power: [''],
-    production: ['', [Validators.min(1970), Validators.max(2020)]],
+    'production': new FormControl('', [
+      Validators.required,
+      Validators.min(1970),
+      Validators.max(2020)
+    ]),
     price: [1],
     imagePath: [''],
     description: [''],
     mileage: ['']
   });
+
+  public get brand() { return this.carForm.get('brand'); }
+  public get model() { return this.carForm.get('model'); }
+  public get production() { return this.carForm.get('production'); }
+
   public noImage: string = "https://softsmart.co.za/wp-content/uploads/2018/06/image-not-found-1038x576.jpg";
-
-  constructor(private fb: FormBuilder, private httpService: HttpService, private sanitizer: DomSanitizer) {}
-
 
    public addCar() {
     let route: string = "https://localhost:44332/api/car/";
