@@ -1,0 +1,32 @@
+.upper-section h2 {
+  padding: 15px 15px 15px;
+}
+
+.cars-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.car-item {
+  height: 420px;
+  width: 270px;
+  background-color: #b6fa9c;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.car-item:hover {
+  transform: scale(1.04);
+  box-shadow: 5px 5px 15px rgb(133, 133, 133);
+}
+
+.avatar img {
+  width: 270px;
+}
+
+.details {
+  padding: 10px 25px 0;
+}

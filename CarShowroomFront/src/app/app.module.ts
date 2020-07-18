@@ -15,6 +15,7 @@ import { AddComponent } from "./components/cars/add/add.component";
 import { DetailsComponent } from './components/cars/details/details.component';
 import { OverviewComponent } from './components/cars/overview/overview.component';
 import { HomeComponent } from './components/cars/home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { HomeComponent } from './components/cars/home/home.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
