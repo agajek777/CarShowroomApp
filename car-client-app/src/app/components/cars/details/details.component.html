@@ -1,5 +1,39 @@
-<a [routerLink]="['/update/1']">Edytuj</a>
-<a [routerLink]="['/delete/1']">Usuń</a>
+<div class="details">
+  <div class="details-panel">
+    <div class="upper-panel">
+      <div class="photo">
+        <img src="{{ car.imagePath }}" style="width: 30vw;">
+      </div>
+      <div class="parameters">
+        <p style="padding-left: 10px;">
+          <strong>Samochód: </strong><span>{{car.brand}} {{car.model}}</span>
+        </p>
+        <p *ngIf="car.engine !== ''" style="padding-left: 10px;">
+            <strong>Silnik: </strong><span>{{car.engine}} {{car.power}} KM</span>
+        </p>
+        <p style="padding-left: 10px;">
+            <strong>Przebieg: </strong><span>{{car.mileage}}</span>
+        </p>
+        <p style="padding-left: 10px;">
+            <strong>Rok produkcji: </strong><span>{{car.production.substr(0,4)}}</span>
+        </p>
+      </div>
+    </div>
+    <div class="description">
+      <p *ngIf="car.description !== ''" style="padding-left: 10px;">
+          <strong>Opis: </strong><span>{{car.description}}</span>
+      </p>
+    </div>
+    <div class="buttons">
+      <button (click)="onClickDelete()" mat-raised-button color="primary">
+        Edytuj
+      </button>
+      <button (click)="onClickDelete()" mat-raised-button color="warn">
+        Usun
+      </button>
+    </div>
+  </div>
+</div>
 <br>
 <div class="outer-outlet">
   <router-outlet></router-outlet>

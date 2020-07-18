@@ -15,8 +15,7 @@ export class AddComponent {
   carForm = this.fb.group({
     'brand': new FormControl('', [
       Validators.required
-      ],
-    ),
+    ]),
     'model': new FormControl('', [
       Validators.required
     ]),
@@ -37,6 +36,9 @@ export class AddComponent {
       Validators.required,
       Validators.min(0)
     ])
+  },
+  {
+    updateOn: 'blur'
   });
 
   public get brand() { return this.carForm.get('brand'); }

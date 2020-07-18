@@ -16,4 +16,8 @@ export class HttpService {
   public addData(route: string, body: Car) {
     return this.httpService.post(route, body);
   }
+
+  public deleteData(route: string) {
+    return this.httpService.delete(route);
+  }
 }

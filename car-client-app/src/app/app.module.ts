@@ -10,6 +10,8 @@ import { DeleteComponent } from './components/cars/delete/delete.component';
 import { DetailsComponent } from './components/cars/details/details.component';
 import { OverviewComponent } from './components/cars/overview/overview.component';
 import { UpdateComponent } from './components/cars/update/update.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { UpdateComponent } from './components/cars/update/update.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
