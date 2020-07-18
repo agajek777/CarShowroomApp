@@ -10,6 +10,10 @@
   background: inherit;
 }
 
+.mat-sidenav-content {
+  background-color: #b0f8dc;
+}
+
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;
