@@ -1,11 +1,23 @@
 .upper-section h2 {
   padding: 15px 15px 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.lower-section {
+  display: flex;
+  justify-content: center;
 }
 
 .cars-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  max-width: 920px;
+}
+
+.cars-list::after {
+  content: '';
+  flex: auto;
 }
 
 .car-item {
@@ -16,6 +28,7 @@
   flex-direction: column;
   margin-bottom: 40px;
   transition: transform .3s, box-shadow .3s;
+  cursor: pointer;
 }
 
 .car-item:hover {
@@ -29,4 +42,48 @@
 
 .details {
   padding: 10px 25px 0;
+}
+
+@media screen and (min-width: 628px) {
+  .cars-list {
+    margin-left: 35px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 610px;
+  }
+
+  .car-item {
+    height: 420px;
+    width: 270px;
+    background-color: #b6fa9c;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+    margin-right: 35px;
+    transition: transform .3s, box-shadow .3s;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .cars-list {
+    margin-left: 35px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 915px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .cars-list {
+    margin-left: 35px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1220px;
+  }
 }

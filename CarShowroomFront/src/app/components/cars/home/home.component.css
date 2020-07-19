@@ -14,7 +14,7 @@
 
 .image-container {
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
@@ -30,7 +30,7 @@
 
 .text-container {
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%,-50%);
   z-index: 1; /* Places this below the image container */
