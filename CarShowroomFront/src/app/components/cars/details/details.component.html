@@ -1,4 +1,4 @@
-<div class="main">
+<div class="main" *ngIf="isLoaded">
   <div class="details-section">
     <div class="title">
       <h2> {{ car.brand + ' ' + car.model + ' - ' }} <span> {{ car.price + ' $' }} </span></h2>
