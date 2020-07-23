@@ -66,10 +66,10 @@ namespace CarShowroomApp.Controllers
             var car = _carRepository.Get(id);
             if (id == 0 || car == null)
             {
-                return BadRequest();
+                return BadRequest("Error while deleting.");
             }
             _carRepository.Delete(car);
-            return Ok();
+            return Ok(new { text = "Car deleted successfully!" });
         }
     }
 }

@@ -1,0 +1,104 @@
+.details-section {
+  padding: 25px 15px 0;
+}
+
+.title {
+  color: #086972;
+  padding: 0 0 15px;
+}
+
+.title h1 {
+  font-weight: 500;
+}
+
+.title span {
+  color: crimson;
+}
+
+.avatar {
+  padding: 0 0 15px;
+}
+
+.avatar img {
+  width: 90vw;
+}
+
+.car-details {
+  padding: 15px 0 0;
+}
+
+.car-details p {
+  font-size: 20px;
+}
+
+.car-details span {
+  color: #086972;
+}
+
+.description-bigger {
+  display: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.buttons button {
+  margin: 10px 7px 0;
+}
+
+.edit-button {
+  background-color: #086972;
+}
+
+@media screen and (min-width: 768px) {
+  .avatar img {
+    width: 50vw;
+    margin-right: 20px;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+
+  .tabandpcs {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .description-bigger {
+    display: block;
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    margin: 20px 0 90px;
+  }
+
+  .description-bigger span {
+    color: #086972;
+    margin-right: 15px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .avatar img {
+    max-height: 35vh;
+    width: auto;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .avatar img {
+    width: 30vw;
+    margin-right: 20px;
+  }
+}

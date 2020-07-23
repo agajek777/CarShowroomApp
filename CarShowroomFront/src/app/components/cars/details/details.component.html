@@ -1,1 +1,34 @@
-<p>details works!</p>
+<div class="main">
+  <div class="details-section">
+    <div class="title">
+      <h2> {{ car.brand + ' ' + car.model + ' - ' }} <span> {{ car.price + ' $' }} </span></h2>
+    </div>
+    <div class="tabandpcs">
+      <div class="avatar">
+        <img [src]="car.imagePath">
+      </div>
+      <div class="car-details">
+        <p><span>Model</span>: {{ car.brand }} {{ car.model }}</p>
+        <p><span>Engine</span>: {{ car.engine }} {{ car.power }}</p>
+        <p><span>Production</span>: {{ car.production.substr(0, 4) }}</p>
+        <p><span>Price</span>: {{ car.price }} $</p>
+        <p class="mobile"><span>Description</span>: {{ car.description }}</p>
+      </div>
+    </div>
+    <div class="description-bigger">
+      <div><span>Description:</span></div>
+      <div>{{ car.description }}</div>
+    </div>
+  </div>
+  <div class="buttons">
+    <button [routerLink]="['/overview']" mat-fab style="background-color: #17b978;">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button mat-fab class="edit-button">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button (click)="onClickDelete()" mat-fab color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>

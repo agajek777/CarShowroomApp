@@ -3,7 +3,7 @@
 </div>
 <div class="lower-section">
   <div class="cars-list">
-    <div *ngFor="let car of cars" class="car-item">
+    <div *ngFor="let car of cars" class="car-item" [routerLink]="['/details/' + car.id]">
       <div class="avatar">
         <img [src]="car.imagePath">
       </div>

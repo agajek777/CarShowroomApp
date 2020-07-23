@@ -11,11 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from "@angular/material/dialog";
 import { AddComponent } from "./components/cars/add/add.component";
 import { DetailsComponent } from './components/cars/details/details.component';
 import { OverviewComponent } from './components/cars/overview/overview.component';
 import { HomeComponent } from './components/cars/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DialogComponent } from './components/cars/details/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     AddComponent,
     DetailsComponent,
     OverviewComponent,
-    HomeComponent
+    HomeComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

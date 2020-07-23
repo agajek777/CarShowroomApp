@@ -10,8 +10,8 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getData(id?: number) {
-    if (typeof(id) === 'undefined' || id === null) {
+  public getData(id?: string) {
+    if (typeof(id) === 'undefined' || id === null || id === '') {
       return this.httpClient.get(this.route);
     }
     return this.httpClient.get(this.route + id);
@@ -19,5 +19,9 @@ export class HttpService {
 
   public addData(body: Car) {
     return this.httpClient.post(this.route, body);
+  }
+
+  public deleteData(id: number) {
+    return this.httpClient.delete(this.route + id);
   }
 }
