@@ -7,6 +7,7 @@
     <mat-nav-list>
       <a mat-list-item [routerLink]="['/']">Home</a>
       <a mat-list-item [routerLink]="['/overview']">Overview</a>
+      <a mat-list-item [routerLink]="['/add']">New offer</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -23,6 +24,7 @@
       <div class="menu-links" *ngIf="!(isHandset$ | async)">
         <a [routerLink]="['/']">Home</a>
         <a [routerLink]="['/overview']">Overview</a>
+        <a [routerLink]="['/add']">New offer</a>
       </div>
     </mat-toolbar>
     <ng-content></ng-content>

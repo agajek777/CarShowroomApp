@@ -1,0 +1,95 @@
+<form [formGroup]="carForm">
+  <div class="upper-section">
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Brand</mat-label>
+        <input formControlName="brand" matInput placeholder="Ex. Mercedes - Benz">
+        <mat-icon matSuffix>directions_car</mat-icon>
+        <mat-hint>Enter your car's brand</mat-hint>
+        <mat-error *ngIf="hasError('brand', 'required')">Brand is required</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Model</mat-label>
+        <input formControlName="model" matInput placeholder="Ex. C 63 AMG">
+        <mat-icon matSuffix>sticky_note_2</mat-icon>
+        <mat-hint>Enter your car's model</mat-hint>
+        <mat-error *ngIf="hasError('model', 'required')">Model is required</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Engine</mat-label>
+        <input formControlName="engine" matInput placeholder="Ex. 6.3">
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-hint>Enter your car's engine</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Power</mat-label>
+        <input formControlName="power" matInput type="number" placeholder="Ex. 350">
+        <span matSuffix>HP</span>
+        <mat-hint>Enter your car engine's power</mat-hint>
+        <mat-error *ngIf="hasError('power', 'min')">Power must be greater than zero</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Production</mat-label>
+        <input formControlName="production" matInput type="number" placeholder="Ex. 2020">
+        <mat-icon matSuffix>calendar_today</mat-icon>
+        <mat-hint>Enter your car's production date</mat-hint>
+        <mat-error *ngIf="hasError('production', 'required')">Production date is required</mat-error>
+        <mat-error *ngIf="hasError('production', 'min') || hasError('production', 'max')">
+          Please enter proper production date
+        </mat-error>
+      </mat-form-field>
+    </p>
+  </div>
+  <div class="lower-section">
+    <p>
+      <mat-form-field class="price" appearance="standard">
+        <mat-label>Price</mat-label>
+        <input formControlName="price" matInput type="number" placeholder="Ex. 120 000">
+        <span matPrefix>$&nbsp;</span>
+        <span matSuffix>.00</span>
+        <mat-hint>Enter your car's price</mat-hint>
+        <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
+        <mat-error *ngIf="hasError('price', 'min')">Price must be greater than zero</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Mileage</mat-label>
+        <input formControlName="mileage" matInput type="number" placeholder="Ex. 100 000">
+        <span matSuffix>KM</span>
+        <mat-hint>Enter your car's mileage</mat-hint>
+        <mat-error *ngIf="hasError('mileage', 'min')">Power must be greater than zero</mat-error>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Image Path</mat-label>
+        <input formControlName="imagePath" matInput type="link">
+        <mat-icon matSuffix>camera_alt</mat-icon>
+        <mat-hint>Link to the image</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" class="description" matInput></textarea>
+      </mat-form-field>
+    </p>
+  </div>
+</form>
+<div class="buttons">
+  <button [routerLink]="['/overview']" mat-fab color="warn">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button (click)="onSubmit()" [disabled]="carForm.invalid" [ngClass]="{'disabled': carForm.invalid}" mat-fab class="edit-button">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

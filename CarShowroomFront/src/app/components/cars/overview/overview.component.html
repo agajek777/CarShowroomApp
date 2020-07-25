@@ -5,7 +5,8 @@
   <div class="cars-list">
     <div *ngFor="let car of cars" class="car-item" [routerLink]="['/details/' + car.id]">
       <div class="avatar">
-        <img [src]="car.imagePath">
+        <img *ngIf="car.imagePath !== ''" [src]="car.imagePath">
+        <img *ngIf="car.imagePath === ''" src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png" >
       </div>
       <div class="details">
         <p>Model: {{ car.brand }} {{ car.model }}</p>

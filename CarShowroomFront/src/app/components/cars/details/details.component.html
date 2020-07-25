@@ -9,7 +9,7 @@
       </div>
       <div class="car-details">
         <p><span>Model</span>: {{ car.brand }} {{ car.model }}</p>
-        <p><span>Engine</span>: {{ car.engine }} {{ car.power }}</p>
+        <p><span>Engine</span>: {{ car.engine }} {{ car.power }} HP</p>
         <p><span>Production</span>: {{ car.production.substr(0, 4) }}</p>
         <p><span>Price</span>: {{ car.price }} $</p>
         <p class="mobile"><span>Description</span>: {{ car.description }}</p>
@@ -17,7 +17,7 @@
     </div>
     <div class="description-bigger">
       <div><span>Description:</span></div>
-      <div>{{ car.description }}</div>
+      <div style="max-width: 450px;">{{ car.description }}</div>
     </div>
   </div>
   <div class="buttons">
