@@ -29,47 +29,39 @@ namespace CarShowroomApp.Controllers
             return Ok(_carRepository.GetAll());
         }
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var carInDb = _carRepository.Get(id);
-            return Ok(_mapper.Map<CarDto>(carInDb));
+            var carInDb = await _carRepository.Get(id);
+            if (carInDb == null)
+            {
+                return BadRequest();
+            }
+            return Ok(carInDb);
         }
         [HttpPost]
-        public IActionResult Post([FromBody] CarDto carDto)
+        public async Task<IActionResult> Post([FromBody] CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                var car = _mapper.Map<Car>(carDto);
-                _carRepository.Add(car);
-                return Ok(Json(car));
+                CarDto model = await _carRepository.Add(carDto);
+                return Ok(model);
             }
             return BadRequest();
         }
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] CarDto carDto)
+        public async Task<IActionResult> Put(int id, [FromBody] CarDto carDto)
         {
             if (ModelState.IsValid)
             {
-                var carInDb = _carRepository.Get(id);
-                if (carInDb == null)
-                {
-                    return BadRequest();
-                }
-                var outcome = _carRepository.Update(carInDb, carDto);
+                var outcome = await _carRepository.Update(id, carDto);
                 return Ok(outcome);
             }
             return BadRequest();
         }
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var car = _carRepository.Get(id);
-            if (id == 0 || car == null)
-            {
-                return BadRequest("Error while deleting.");
-            }
-            _carRepository.Delete(car);
-            return Ok(new { text = "Car deleted successfully!" });
+            return await _carRepository.Delete(id);
         }
     }
 }

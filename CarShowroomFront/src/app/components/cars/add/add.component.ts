@@ -3,6 +3,7 @@ import { Car } from 'src/app/models/car';
 import { HttpService } from 'src/app/services/http.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../details/dialog/dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add',
@@ -20,6 +21,8 @@ export class AddComponent implements OnInit {
       (result) => {
         this.openDialog('Offer added successfully!');
         console.log(result as Car);
+        var car = result as Car;
+        car.id
       },
       (error) => {
         this.openDialog('Error while creating an offer.');

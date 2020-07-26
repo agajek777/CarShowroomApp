@@ -98,7 +98,7 @@
 
 @media screen and (min-width: 1600px) {
   .avatar img {
-    width: 30vw;
+    max-height: 39vh;
     margin-right: 20px;
   }
 }

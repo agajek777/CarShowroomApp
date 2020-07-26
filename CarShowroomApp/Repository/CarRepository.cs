@@ -2,6 +2,8 @@
 using CarShowroomApp.Data;
 using CarShowroomApp.Models;
 using CarShowroomApp.Models.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,34 +21,92 @@ namespace CarShowroomApp.Repository
             _db = db;
             _mapper = mapper;
         }
-        public void Add(Car entity)
+
+        public IEnumerable<CarDto> GetAll()
         {
-            _db.Cars.Add(entity);
-            _db.SaveChanges();
+            return _db.Cars.ToList().Select(p => _mapper.Map<CarDto>(p));
         }
 
-        public void Delete(Car entity)
+        public async Task<CarDto> Get(int id)
         {
-            _db.Cars.Remove(entity);
-            _db.SaveChanges();
+            Car outcome;
+
+            try
+            {
+                outcome = await _db.Cars.SingleAsync(a => a.Id == id);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+            return _mapper.Map<CarDto>(outcome);
         }
 
-        public Car Get(int id)
+        public async Task<CarDto> Add(CarDto entity)
         {
-            return _db.Cars.FirstOrDefault(a => a.Id == id);
+            Car model = _mapper.Map<Car>(entity);
+            await _db.Cars.AddAsync(model);
+            await _db.SaveChangesAsync();
+            return _mapper.Map<CarDto>(model);
         }
 
-        public IEnumerable<Car> GetAll()
+        public async Task<CarDto> Update(int id, CarDto entity)
         {
-            return _db.Cars.ToList();
+            Car outcome;
+
+            try
+            {
+                outcome = await _db.Cars.SingleAsync(a => a.Id == id);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+            outcome = _mapper.Map<CarDto, Car>(entity, outcome);
+
+            _db.Update(outcome);
+            await _db.SaveChangesAsync();
+
+            return _mapper.Map<CarDto>(outcome);
         }
-        public CarDto Update(Car dbEntity, CarDto entity)
+
+        public async Task<IActionResult> Delete(int id)
         {
-            var carInDb = _db.Cars.FirstOrDefault(c => c.Id == dbEntity.Id);
-            _mapper.Map<CarDto, Car>(entity, carInDb);
-            //carInDb = _mapper.Map<Car>(entity);
+            Car carInDb;
+
+            try
+            {
+                carInDb = await _db.Cars.SingleAsync(a => a.Id == id);
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new BadRequestResult();
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new BadRequestResult();
+            }
+
+            _db.Cars.Remove(carInDb);
             _db.SaveChanges();
-            return _mapper.Map<CarDto>(carInDb);
+
+            return new OkResult();
         }
     }
 }
