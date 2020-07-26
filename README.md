@@ -12,7 +12,7 @@ API has its own validation (Data annotations) and it's transfering data via DTO 
 
 I created GUI with Angular 9. HttpService is responsible for communicating with API. OverviewComponent is the main page where we can see the list of all cars in database. Data is fetched using API. AddComponent allows (Reactive Form) adding new cars to the database and it also validates data by showing alerts (Default validators like 'required', 'min' and 'max').
 
-Summary, what I have used:
+Summary, what this project contains:
 - .Net Core 3.1 / C#
 - Entity Framework Core (Code First)
 - WEB API
