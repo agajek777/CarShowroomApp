@@ -26,7 +26,8 @@ namespace CarShowroomApp.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_carRepository.GetAll());
+            var outcome = _carRepository.GetAll();
+            return outcome == null ? (IActionResult)BadRequest() : Ok(outcome);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

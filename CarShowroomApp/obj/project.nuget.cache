@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fd0ZQ4AtXtOgll6v3V3IzMqVJYpd1tGIU54a63cLhyDxdPulMcMdkfN2mD1Q19RM3YKVMMY5z429Htuz8axfYw==",
+  "dgSpecHash": "vrDsyfvgDDtm10pHZBlRvaIE6sxjklKznA8JJ0T6deu2dEvSKcXIyT6uBKZ8Una9BsYSi9OEAfKAZEKaqFeNZA==",
   "success": true,
   "projectFilePath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomApp.csproj",
   "expectedPackageFiles": [
@@ -161,7 +161,14 @@
     "C:\\Users\\adamg\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\adamg\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\adamg\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\adamg\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\adamg\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\adamg\\.nuget\\packages\\xunit\\2.4.1\\xunit.2.4.1.nupkg.sha512",
+    "C:\\Users\\adamg\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\adamg\\.nuget\\packages\\xunit.analyzers\\0.10.0\\xunit.analyzers.0.10.0.nupkg.sha512",
+    "C:\\Users\\adamg\\.nuget\\packages\\xunit.assert\\2.4.1\\xunit.assert.2.4.1.nupkg.sha512",
+    "C:\\Users\\adamg\\.nuget\\packages\\xunit.core\\2.4.1\\xunit.core.2.4.1.nupkg.sha512",
+    "C:\\Users\\adamg\\.nuget\\packages\\xunit.extensibility.core\\2.4.1\\xunit.extensibility.core.2.4.1.nupkg.sha512",
+    "C:\\Users\\adamg\\.nuget\\packages\\xunit.extensibility.execution\\2.4.1\\xunit.extensibility.execution.2.4.1.nupkg.sha512"
   ],
   "logs": []
 }

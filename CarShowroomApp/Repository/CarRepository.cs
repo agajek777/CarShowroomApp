@@ -24,7 +24,17 @@ namespace CarShowroomApp.Repository
 
         public IEnumerable<CarDto> GetAll()
         {
-            return _db.Cars.ToList().Select(p => _mapper.Map<CarDto>(p));
+            IEnumerable<CarDto> result;
+            try
+            {
+                result = _db.Cars.ToList().Select(p => _mapper.Map<CarDto>(p));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return result = null;
+            }
+            return result;
         }
 
         public async Task<CarDto> Get(int id)
@@ -53,7 +63,14 @@ namespace CarShowroomApp.Repository
         {
             Car model = _mapper.Map<Car>(entity);
             await _db.Cars.AddAsync(model);
-            await _db.SaveChangesAsync();
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
             return _mapper.Map<CarDto>(model);
         }
 

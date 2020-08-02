@@ -7,7 +7,6 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\CarShowroomApp.runtimeconfig.dev.json
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\CarShowroomApp.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\CarShowroomApp.pdb
-C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.csprojAssemblyReference.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.AssemblyInfoInputs.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.AssemblyInfo.cs
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.RazorTargetAssemblyInfo.cache
@@ -128,5 +127,10 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.csprojAssemblyReference.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\xunit.abstractions.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\xunit.assert.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\xunit.core.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\bin\Debug\netcoreapp3.1\xunit.execution.dotnet.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.csproj.CoreCompileInputs.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.MvcApplicationPartsAssemblyInfo.cache
