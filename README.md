@@ -6,7 +6,7 @@ Application built to manage the Car showroom.
 ## RESTful WEB API
 
 It is a Full-stack project. I started from creating the Web API in .Net Core 3.1. I used Entity Framework Core (Code first approach) to generate database with migrations. 
-API has its own validation (Data annotations) and it's transfering data via DTO objects in JSON format. I used "Repository design pattern" to impart business logic from the data mapping layer (ICarRepository interface). In the repository entities are mapped to proper (DTO or original) objects with AutoMapper. Operations in API are being executed asynchronously.
+API has its own validation (Data annotations) and it's transfering data via DTO objects in JSON format. I used "Repository design pattern" to impart business logic from the data mapping layer (ICarRepository interface). In the repository entities are mapped to proper (DTO or original) objects with AutoMapper. Operations in API are being executed asynchronously. API has Unit Tests (XUnit) using InMemory database.
 
 ## Angular 9 GUI
 
@@ -17,6 +17,7 @@ Summary, what this project contains:
 - Entity Framework Core (Code First)
 - RESTful WEB API
 - Angular 9 (AppRouting, HttpClient, ReactiveForms)
+- Unit Tests (XUnit)
 - Angular Material Design
 - TypeScript
 - CSS
