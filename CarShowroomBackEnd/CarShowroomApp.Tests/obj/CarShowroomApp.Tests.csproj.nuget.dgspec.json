@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp.Tests\\CarShowroomApp.Tests.csproj": {}
+    "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\CarShowroomApp.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp.Tests\\CarShowroomApp.Tests.csproj": {
+    "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\CarShowroomApp.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp.Tests\\CarShowroomApp.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\CarShowroomApp.Tests.csproj",
         "projectName": "CarShowroomApp.Tests",
-        "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp.Tests\\CarShowroomApp.Tests.csproj",
+        "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\CarShowroomApp.Tests.csproj",
         "packagesPath": "C:\\Users\\adamg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp.Tests\\obj\\",
+        "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -31,8 +31,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomApp.csproj": {
-                "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomApp.csproj"
+              "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp\\CarShowroomApp.csproj": {
+                "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp\\CarShowroomApp.csproj"
               }
             }
           }
@@ -109,14 +109,14 @@
         }
       }
     },
-    "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomApp.csproj": {
+    "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp\\CarShowroomApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomApp.csproj",
+        "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp\\CarShowroomApp.csproj",
         "projectName": "CarShowroomApp",
-        "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomApp.csproj",
+        "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp\\CarShowroomApp.csproj",
         "packagesPath": "C:\\Users\\adamg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\obj\\",
+        "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

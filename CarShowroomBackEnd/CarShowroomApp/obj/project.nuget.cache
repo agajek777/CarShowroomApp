@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vrDsyfvgDDtm10pHZBlRvaIE6sxjklKznA8JJ0T6deu2dEvSKcXIyT6uBKZ8Una9BsYSi9OEAfKAZEKaqFeNZA==",
+  "dgSpecHash": "0AxxUzsgo5inasWqFb4drtQiOovlwrox8oXY0lgKTejmgOtLPlSEc2sdlAsrvpLX7Xl5UJMJ/8V9K/mvii7r4A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomApp.csproj",
+  "projectFilePath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp\\CarShowroomApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\adamg\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\adamg\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\7.0.0\\automapper.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
