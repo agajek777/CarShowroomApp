@@ -6,7 +6,6 @@ using AutoMapper;
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarShowroom.UI.Controllers

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Infra.Data.Repositories;
-using CarShowroomApp.Controllers;
+using CarShowroom.UI.Controllers;
 using CarShowroomApp.Data;
 using CarShowroomApp.Tests.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +30,7 @@ namespace CarShowroom.UI.Tests.Data
             // Create Mapper
             var configuration = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MappingProfiles());
+                cfg.AddProfile(new MappingProfile());
             });
             var mapper = configuration.CreateMapper();
 
@@ -69,7 +69,7 @@ namespace CarShowroom.UI.Tests.Data
             // Create Mapper
             var configuration = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MappingProfiles());
+                cfg.AddProfile(new MappingProfile());
             });
             var mapper = configuration.CreateMapper();
 
@@ -110,7 +110,7 @@ namespace CarShowroom.UI.Tests.Data
             // Create Mapper
             var configuration = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MappingProfiles());
+                cfg.AddProfile(new MappingProfile());
             });
             var mapper = configuration.CreateMapper();
 

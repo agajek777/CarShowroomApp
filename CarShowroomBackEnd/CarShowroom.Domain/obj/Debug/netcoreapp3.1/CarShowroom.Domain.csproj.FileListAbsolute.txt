@@ -1,6 +1,5 @@
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\bin\Debug\netcoreapp3.1\CarShowroom.Domain.deps.json
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\bin\Debug\netcoreapp3.1\CarShowroom.Domain.dll
-C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\obj\Debug\netcoreapp3.1\CarShowroom.Domain.csprojAssemblyReference.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\obj\Debug\netcoreapp3.1\CarShowroom.Domain.AssemblyInfoInputs.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\obj\Debug\netcoreapp3.1\CarShowroom.Domain.AssemblyInfo.cs
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\bin\Debug\netcoreapp3.1\CarShowroom.Domain.pdb
