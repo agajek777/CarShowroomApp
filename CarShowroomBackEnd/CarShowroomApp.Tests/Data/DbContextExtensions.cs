@@ -1,5 +1,5 @@
-﻿using CarShowroomApp.Data;
-using CarShowroomApp.Models;
+﻿using CarShowroom.Domain.Models;
+using CarShowroom.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Text;

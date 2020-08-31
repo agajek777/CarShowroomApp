@@ -212,3 +212,9 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp.Tests\bin\Debug\netcor
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp.Tests\obj\Debug\netcoreapp3.1\CarShowroomApp.Tests.csproj.CoreCompileInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\obj\Debug\netcoreapp3.1\CarShowroomApp.Tests.csprojAssemblyReference.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\obj\Debug\netcoreapp3.1\CarShowroomApp.Tests.csproj.CoreCompileInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\obj\Debug\netcoreapp3.1\CarShowroomApp.Tests.AssemblyInfoInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\obj\Debug\netcoreapp3.1\CarShowroomApp.Tests.AssemblyInfo.cs
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\obj\Debug\netcoreapp3.1\CarShowroomApp.Tests.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\obj\Debug\netcoreapp3.1\CarShowroomApp.Tests.pdb

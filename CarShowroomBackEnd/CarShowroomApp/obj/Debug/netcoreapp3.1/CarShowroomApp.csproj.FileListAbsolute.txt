@@ -270,3 +270,13 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\obj
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\obj\Debug\netcoreapp3.1\CarShowroomApp.genruntimeconfig.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyModel.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\CarShowroom.Domain.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp\bin\Debug\netcoreapp3.1\CarShowroom.Infra.Data.dll

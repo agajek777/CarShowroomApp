@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CarShowroomApp.Models;
-using CarShowroomApp.Models.DTO;
-using CarShowroomApp.Repository;
+using CarShowroom.Domain.Interfaces;
+using CarShowroom.Domain.Models;
+using CarShowroom.Domain.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

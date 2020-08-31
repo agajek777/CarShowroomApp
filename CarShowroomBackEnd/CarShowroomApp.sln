@@ -3,9 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroomApp", "CarShowroomApp\CarShowroomApp.csproj", "{FCC83E75-227E-4E4D-81F8-3697FAE110C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroom.UI", "CarShowroomApp\CarShowroom.UI.csproj", "{FCC83E75-227E-4E4D-81F8-3697FAE110C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShowroomApp.Tests", "CarShowroomApp.Tests\CarShowroomApp.Tests.csproj", "{62687B6D-BB9C-4639-B9CE-4288289BFF99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroom.UI.Tests", "CarShowroomApp.Tests\CarShowroom.UI.Tests.csproj", "{62687B6D-BB9C-4639-B9CE-4288289BFF99}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarShowroomApp.Application", "CarShowroomApp.Application", "{5035B536-9545-4B75-915C-3217C2ED6DDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarShowroomApp.Domain", "CarShowroomApp.Domain", "{8B08DB25-77BC-4079-9B9A-EB8D9BAB1645}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarShowroomApp.Infrastructure.Data", "CarShowroomApp.Infrastructure.Data", "{32D7AEFF-FB6E-40D4-BF8C-1A8C76F875A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarShowroomApp.Infrastructure.IoC", "CarShowroomApp.Infrastructure.IoC", "{0BB35C90-DE1E-462E-872E-61DDEF2A544A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroom.Domain", "CarShowroom.Domain\CarShowroom.Domain.csproj", "{9EC3CD56-208F-4F43-BADA-83EC4C03943C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroom.Infra.Data", "CarShowroom.Infra.Data\CarShowroom.Infra.Data.csproj", "{A881E652-8AB2-4908-88E8-8372B973DEFE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroom.Application", "CarShowroom.Application\CarShowroom.Application.csproj", "{1CAA542E-C489-4891-9557-2B2C785FAD23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarShowroomApp.UI", "CarShowroomApp.UI", "{0DF5555B-B72C-43B3-A2A4-176111CCC435}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarShowroomApp.Tests", "CarShowroomApp.Tests", "{9E3129DA-E235-41A0-A5B0-2F81F79ED089}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +39,28 @@ Global
 		{62687B6D-BB9C-4639-B9CE-4288289BFF99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62687B6D-BB9C-4639-B9CE-4288289BFF99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62687B6D-BB9C-4639-B9CE-4288289BFF99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EC3CD56-208F-4F43-BADA-83EC4C03943C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EC3CD56-208F-4F43-BADA-83EC4C03943C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EC3CD56-208F-4F43-BADA-83EC4C03943C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EC3CD56-208F-4F43-BADA-83EC4C03943C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A881E652-8AB2-4908-88E8-8372B973DEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A881E652-8AB2-4908-88E8-8372B973DEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A881E652-8AB2-4908-88E8-8372B973DEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A881E652-8AB2-4908-88E8-8372B973DEFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CAA542E-C489-4891-9557-2B2C785FAD23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CAA542E-C489-4891-9557-2B2C785FAD23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CAA542E-C489-4891-9557-2B2C785FAD23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CAA542E-C489-4891-9557-2B2C785FAD23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FCC83E75-227E-4E4D-81F8-3697FAE110C3} = {0DF5555B-B72C-43B3-A2A4-176111CCC435}
+		{62687B6D-BB9C-4639-B9CE-4288289BFF99} = {9E3129DA-E235-41A0-A5B0-2F81F79ED089}
+		{9EC3CD56-208F-4F43-BADA-83EC4C03943C} = {8B08DB25-77BC-4079-9B9A-EB8D9BAB1645}
+		{A881E652-8AB2-4908-88E8-8372B973DEFE} = {32D7AEFF-FB6E-40D4-BF8C-1A8C76F875A4}
+		{1CAA542E-C489-4891-9557-2B2C785FAD23} = {5035B536-9545-4B75-915C-3217C2ED6DDD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCF4C2DF-8BBD-42FB-AFD4-1CF2A965E9C4}

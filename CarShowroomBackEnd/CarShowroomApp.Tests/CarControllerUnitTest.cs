@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using CarShowroom.Domain.Models.DTO;
+using CarShowroom.Infra.Data.Repositories;
 using CarShowroomApp.Controllers;
 using CarShowroomApp.Data;
-using CarShowroomApp.Models;
-using CarShowroomApp.Models.DTO;
-using CarShowroomApp.Repository;
+using CarShowroomApp.Tests.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CarShowroomApp.Tests.Data
+namespace CarShowroom.UI.Tests.Data
 {
     public class CarControllerUnitTest
     {

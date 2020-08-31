@@ -1,4 +1,4 @@
-﻿using CarShowroomApp.Data;
+﻿using CarShowroom.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

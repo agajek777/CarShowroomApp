@@ -1,0 +1,9 @@
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\bin\Debug\netcoreapp3.1\CarShowroom.Application.deps.json
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\bin\Debug\netcoreapp3.1\CarShowroom.Application.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\bin\Debug\netcoreapp3.1\CarShowroom.Application.pdb
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\obj\Debug\netcoreapp3.1\CarShowroom.Application.csprojAssemblyReference.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\obj\Debug\netcoreapp3.1\CarShowroom.Application.csproj.CoreCompileInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\obj\Debug\netcoreapp3.1\CarShowroom.Application.AssemblyInfoInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\obj\Debug\netcoreapp3.1\CarShowroom.Application.AssemblyInfo.cs
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\obj\Debug\netcoreapp3.1\CarShowroom.Application.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\obj\Debug\netcoreapp3.1\CarShowroom.Application.pdb
