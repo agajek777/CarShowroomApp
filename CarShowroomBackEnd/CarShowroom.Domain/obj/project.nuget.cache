@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PdtBeZ/i7F2DTdp/o3koclKhHg6StjAR/xehBHCmPOtwHqINhe4JCJN9bA8qBYvqX8/v5bDRQCFnAUbmEcs75Q==",
+  "dgSpecHash": "zCRhgaz5Vrn6b9jAvmxO7Ias0W7dHXmV8ohxjQJ3G0zDbwDuVbddBDvNmTPrDJQqAwzXl5RQkOpTezHQyPSVbA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj",
+  "projectFilePath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\adamg\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\adamg\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",

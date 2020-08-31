@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\CarShowroom.Application.csproj",
+      "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\CarShowroom.Application.csproj",
       "projectName": "CarShowroom.Application",
-      "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\CarShowroom.Application.csproj",
+      "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\CarShowroom.Application.csproj",
       "packagesPath": "C:\\Users\\adamg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\obj\\",
+      "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

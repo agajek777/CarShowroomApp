@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarShowroomApp.UI\CarShowroom.UI.csproj" />
-    <ProjectReference Include="..\CarShowroomApp\CarShowroom.UI.csproj" />
   </ItemGroup>
 
 </Project>

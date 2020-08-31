@@ -10185,8 +10185,8 @@
     },
     "CarShowroom.UI/1.0.0": {
       "type": "project",
-      "path": "../CarShowroomApp/CarShowroom.UI.csproj",
-      "msbuildProject": "../CarShowroomApp/CarShowroom.UI.csproj"
+      "path": "../CarShowroomApp.UI/CarShowroom.UI.csproj",
+      "msbuildProject": "../CarShowroomApp.UI/CarShowroom.UI.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -10210,11 +10210,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\CarShowroom.UI.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\CarShowroom.UI.Tests.csproj",
       "projectName": "CarShowroom.UI.Tests",
-      "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\CarShowroom.UI.Tests.csproj",
+      "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\CarShowroom.UI.Tests.csproj",
       "packagesPath": "C:\\Users\\adamg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\obj\\",
+      "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -10234,11 +10234,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.UI\\CarShowroom.UI.csproj": {
-              "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.UI\\CarShowroom.UI.csproj"
-            },
-            "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp\\CarShowroom.UI.csproj": {
-              "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp\\CarShowroom.UI.csproj"
+            "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.UI\\CarShowroom.UI.csproj": {
+              "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.UI\\CarShowroom.UI.csproj"
             }
           }
         }

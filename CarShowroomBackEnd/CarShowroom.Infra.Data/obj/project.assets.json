@@ -6595,11 +6595,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\CarShowroom.Infra.Data.csproj",
+      "projectUniqueName": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\CarShowroom.Infra.Data.csproj",
       "projectName": "CarShowroom.Infra.Data",
-      "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\CarShowroom.Infra.Data.csproj",
+      "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\CarShowroom.Infra.Data.csproj",
       "packagesPath": "C:\\Users\\adamg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\obj\\",
+      "outputPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -6619,8 +6619,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj": {
-              "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj"
+            "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj": {
+              "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj"
             }
           }
         }

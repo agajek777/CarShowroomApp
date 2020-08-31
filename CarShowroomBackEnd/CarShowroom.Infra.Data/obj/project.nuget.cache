@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "np5XT03PIu0Ym9mKqtdQfoyWEijpzN/WMsk8M7Uy+Ee8YxZUW940KnwGqyavuxOBID404IznyAvU1t/eyi6Cww==",
+  "dgSpecHash": "JHStitk/eqi/4l5+QmrkVbcvfQwrNLQUBlxP3NIN1dYD2GPdYo2XyT+qeKXxnApdx/Wnmd4pyebTVoYsgcWboA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\CarShowroom.Infra.Data.csproj",
+  "projectFilePath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\CarShowroom.Infra.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\adamg\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
     "C:\\Users\\adamg\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
