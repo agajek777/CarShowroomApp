@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using CarShowroom.Domain.Interfaces;
-using CarShowroom.Domain.Models;
+using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,24 +13,23 @@ namespace CarShowroom.UI.Controllers
     [ApiController]
     public class CarController : Controller
     {
-        private readonly ICarRepository<Car, CarDto> _carRepository;
+        private readonly ICarService _carService;
         private readonly IMapper _mapper;
 
-        public CarController(ICarRepository<Car, CarDto> carRepository, IMapper mapper)
+        public CarController(ICarService carService)
         {
-            this._carRepository = carRepository;
-            this._mapper = mapper;
+            this._carService = carService;
         }
         [HttpGet]
         public IActionResult GetAll()
         {
-            var outcome = _carRepository.GetAll();
+            var outcome = _carService.GetAllCars();
             return outcome == null ? (IActionResult)BadRequest() : Ok(outcome);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var carInDb = await _carRepository.Get(id);
+            var carInDb = await _carService.GetCar(id);
             if (carInDb == null)
             {
                 return BadRequest();
@@ -43,7 +41,7 @@ namespace CarShowroom.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                CarDto model = await _carRepository.Add(carDto);
+                CarDto model = await _carService.AddCar(carDto);
                 return Ok(model);
             }
             return BadRequest();
@@ -53,7 +51,7 @@ namespace CarShowroom.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var outcome = await _carRepository.Update(id, carDto);
+                var outcome = await _carService.UpdateCar(id, carDto);
                 return Ok(outcome);
             }
             return BadRequest();
@@ -61,7 +59,7 @@ namespace CarShowroom.UI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            return await _carRepository.Delete(id);
+            return await _carService.DeleteCar(id);
         }
     }
 }

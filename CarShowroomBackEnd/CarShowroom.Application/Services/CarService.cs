@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CarShowroom.Application.Services
 {
-    class CarService : ICarService
+    public class CarService : ICarService
     {
         private readonly ICarRepository<Car, CarDto> _carRepository;
 

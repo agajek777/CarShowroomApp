@@ -3048,6 +3048,19 @@
           "lib/netstandard1.1/xunit.execution.dotnet.dll": {}
         }
       },
+      "CarShowroom.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "CarShowroom.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CarShowroom.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CarShowroom.Application.dll": {}
+        }
+      },
       "CarShowroom.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -9531,6 +9544,11 @@
         "xunit.extensibility.execution.nuspec"
       ]
     },
+    "CarShowroom.Application/1.0.0": {
+      "type": "project",
+      "path": "../CarShowroom.Application/CarShowroom.Application.csproj",
+      "msbuildProject": "../CarShowroom.Application/CarShowroom.Application.csproj"
+    },
     "CarShowroom.Domain/1.0.0": {
       "type": "project",
       "path": "../CarShowroom.Domain/CarShowroom.Domain.csproj",
@@ -9546,6 +9564,7 @@
     ".NETCoreApp,Version=v3.1": [
       "AutoMapper >= 9.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
+      "CarShowroom.Application >= 1.0.0",
       "CarShowroom.Domain >= 1.0.0",
       "CarShowroom.Infra.Data >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 3.1.6",
@@ -9586,6 +9605,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
+            "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\CarShowroom.Application.csproj": {
+              "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\CarShowroom.Application.csproj"
+            },
             "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj": {
               "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj"
             },
