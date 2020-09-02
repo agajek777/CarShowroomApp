@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CarShowroom.Application.Interfaces;
+using CarShowroom.Application.Services;
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
@@ -54,6 +56,7 @@ namespace CarShowroomApp
 
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICarRepository<Car, CarDto>, CarRepository>();
+            services.AddScoped<ICarService, CarService>();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );

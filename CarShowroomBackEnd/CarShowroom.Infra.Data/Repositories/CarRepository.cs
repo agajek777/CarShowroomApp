@@ -29,7 +29,7 @@ namespace CarShowroom.Infra.Data.Repositories
             IEnumerable<CarDto> result;
             try
             {
-                result = _db.Cars.ToList().Select(p => _mapper.Map<CarDto>(p));
+                result = _db.Cars.ToListAsync().Result.Select(p => _mapper.Map<CarDto>(p));
             }
             catch (Exception ex)
             {

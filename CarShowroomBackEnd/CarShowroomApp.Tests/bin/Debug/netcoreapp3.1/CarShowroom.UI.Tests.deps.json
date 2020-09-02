@@ -2323,6 +2323,14 @@
       },
       "xunit.runner.console/2.4.1": {},
       "xunit.runner.visualstudio/2.4.2": {},
+      "CarShowroom.Application/1.0.0": {
+        "dependencies": {
+          "CarShowroom.Domain": "1.0.0"
+        },
+        "runtime": {
+          "CarShowroom.Application.dll": {}
+        }
+      },
       "CarShowroom.Domain/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
@@ -2342,6 +2350,21 @@
         },
         "runtime": {
           "CarShowroom.Infra.Data.dll": {}
+        }
+      },
+      "CarShowroom.UI/1.0.0": {
+        "dependencies": {
+          "AutoMapper": "9.0.0",
+          "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
+          "CarShowroom.Application": "1.0.0",
+          "CarShowroom.Infra.Data": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.6",
+          "Microsoft.EntityFrameworkCore": "3.1.7",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.4",
+          "xunit": "2.4.1"
+        },
+        "runtime": {
+          "CarShowroom.UI.dll": {}
         }
       }
     }
@@ -3745,12 +3768,22 @@
       "path": "xunit.runner.visualstudio/2.4.2",
       "hashPath": "xunit.runner.visualstudio.2.4.2.nupkg.sha512"
     },
+    "CarShowroom.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "CarShowroom.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "CarShowroom.Infra.Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CarShowroom.UI/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

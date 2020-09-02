@@ -445,3 +445,5 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.genruntimeconfig.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\CarShowroom.Application.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\CarShowroom.Application.pdb
