@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarShowroom.Application.Services;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Infra.Data.Repositories;
 using CarShowroom.UI.Controllers;
@@ -34,11 +35,10 @@ namespace CarShowroom.UI.Tests.Data
             });
             var mapper = configuration.CreateMapper();
 
-            // Create Repository
-            var carRepository = new CarRepository(dbContext, mapper);
+            var carService = new CarService(new CarRepository(dbContext, mapper));
 
             // Create API Controller
-            var controller = new CarController(carRepository, mapper);
+            var controller = new CarController(carService);
 
             /*
              * Act
@@ -73,11 +73,10 @@ namespace CarShowroom.UI.Tests.Data
             });
             var mapper = configuration.CreateMapper();
 
-            // Create Repository
-            var carRepository = new CarRepository(dbContext, mapper);
+            var carService = new CarService(new CarRepository(dbContext, mapper));
 
             // Create API Controller
-            var controller = new CarController(carRepository, mapper);
+            var controller = new CarController(carService);
 
             var id = 3;
 
@@ -114,11 +113,10 @@ namespace CarShowroom.UI.Tests.Data
             });
             var mapper = configuration.CreateMapper();
 
-            // Create Repository
-            var carRepository = new CarRepository(dbContext, mapper);
+            var carService = new CarService(new CarRepository(dbContext, mapper));
 
             // Create API Controller
-            var controller = new CarController(carRepository, mapper);
+            var controller = new CarController(carService);
 
             var carDto = new CarDto()
             {

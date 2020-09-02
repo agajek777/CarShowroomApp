@@ -26,7 +26,7 @@
         "dependencies": {
           "AutoMapper": "9.0.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
-          "CarShowroom.Domain": "1.0.0",
+          "CarShowroom.Application": "1.0.0",
           "CarShowroom.Infra.Data": "1.0.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.6",
           "Microsoft.EntityFrameworkCore": "3.1.7",
@@ -2533,6 +2533,17 @@
         },
         "compile": {
           "lib/netstandard1.1/xunit.execution.dotnet.dll": {}
+        }
+      },
+      "CarShowroom.Application/1.0.0": {
+        "dependencies": {
+          "CarShowroom.Domain": "1.0.0"
+        },
+        "runtime": {
+          "CarShowroom.Application.dll": {}
+        },
+        "compile": {
+          "CarShowroom.Application.dll": {}
         }
       },
       "CarShowroom.Domain/1.0.0": {
@@ -5541,6 +5552,11 @@
       "sha512": "sha512-7e/1jqBpcb7frLkB6XDrHCGXAbKN4Rtdb88epYxCSRQuZDRW8UtTfdTEVpdTl8s4T56e07hOBVd4G0OdCxIY2A==",
       "path": "xunit.extensibility.execution/2.4.1",
       "hashPath": "xunit.extensibility.execution.2.4.1.nupkg.sha512"
+    },
+    "CarShowroom.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "CarShowroom.Domain/1.0.0": {
       "type": "project",
