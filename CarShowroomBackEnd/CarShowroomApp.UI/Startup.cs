@@ -14,6 +14,7 @@ using CarShowroomApp.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,11 +51,13 @@ namespace CarShowroomApp
                 mc.AddProfile(new MappingProfile());
             });
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<DatabaseContext>();
+
             IMapper mapper = mapperConfig.CreateMapper();
-
             services.AddSingleton(mapper);
-
             services.AddAutoMapper(typeof(Startup));
+
             services.AddScoped<ICarRepository<Car, CarDto>, CarRepository>();
             services.AddScoped<ICarService, CarService>();
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -76,6 +79,7 @@ namespace CarShowroomApp
 
             app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

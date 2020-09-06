@@ -21,10 +21,10 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\bin\Debug\netcoreapp3.1\CarShowroom.Domain.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\bin\Debug\netcoreapp3.1\CarShowroom.Domain.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.csprojAssemblyReference.cache
-C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.csproj.CoreCompileInputs.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.AssemblyInfoInputs.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.AssemblyInfo.cs
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.csproj.CopyComplete
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.genruntimeconfig.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.csproj.CoreCompileInputs.cache

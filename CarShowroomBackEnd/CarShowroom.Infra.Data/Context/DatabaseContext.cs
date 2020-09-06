@@ -1,4 +1,5 @@
 ﻿using CarShowroom.Domain.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace CarShowroom.Infra.Data.Context
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {

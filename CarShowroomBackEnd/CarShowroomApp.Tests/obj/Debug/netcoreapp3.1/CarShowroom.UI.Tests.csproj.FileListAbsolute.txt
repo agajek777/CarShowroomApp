@@ -448,3 +448,8 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\CarShowroom.Infra.Data.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\obj\Debug\netcoreapp3.1\CarShowroom.UI.Tests.csproj.CopyComplete
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\obj\Debug\netcoreapp3.1\CarShowroom.UI.Tests.genruntimeconfig.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
