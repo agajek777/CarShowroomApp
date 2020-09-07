@@ -1,4 +1,5 @@
-﻿using CarShowroom.Infra.Data.Context;
+﻿using CarShowroom.Domain.Models.Identity;
+using CarShowroom.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,13 @@ namespace CarShowroomApp.Tests.Data
 {
     public static class DbContextMocker
     {
-        public static DatabaseContext GetDatabaseContext(string dbname)
+        public static DatabaseContext<User, Role> GetDatabaseContext(string dbname)
         {
             // Create options for DbContext instance
-            var options = new DbContextOptionsBuilder<DatabaseContext>().UseInMemoryDatabase(databaseName: dbname).Options;
+            var options = new DbContextOptionsBuilder<DatabaseContext<User, Role>>().UseInMemoryDatabase(databaseName: dbname).Options;
 
             // Create instance of DbContext
-            var dbContext = new DatabaseContext(options);
+            var dbContext = new DatabaseContext<User, Role>(options);
 
             // Seed data
             dbContext.Seed();

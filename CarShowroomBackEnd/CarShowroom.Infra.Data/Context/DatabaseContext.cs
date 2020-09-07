@@ -8,7 +8,10 @@ using System.Text;
 
 namespace CarShowroom.Infra.Data.Context
 {
-    public class DatabaseContext : IdentityDbContext<User>
+    public class DatabaseContext<TUser, TRole> 
+            : IdentityDbContext<TUser, TRole, string> 
+                where TUser : User
+                where TRole : Role
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {

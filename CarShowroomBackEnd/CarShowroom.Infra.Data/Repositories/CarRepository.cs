@@ -2,6 +2,7 @@
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
+using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,10 @@ namespace CarShowroom.Infra.Data.Repositories
 {
     public class CarRepository : ICarRepository<Car, CarDto>
     {
-        private readonly DatabaseContext _db;
+        private readonly DatabaseContext<User, Role> _db;
         private readonly IMapper _mapper;
 
-        public CarRepository(DatabaseContext db, IMapper mapper)
+        public CarRepository(DatabaseContext<User, Role> db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;

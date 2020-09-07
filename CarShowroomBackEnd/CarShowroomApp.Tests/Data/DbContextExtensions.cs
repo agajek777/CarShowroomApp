@@ -1,4 +1,5 @@
 ﻿using CarShowroom.Domain.Models;
+using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace CarShowroomApp.Tests.Data
     public static class DbContextExtensions
     {
         // Insert data to Unit Tests
-        public static void Seed(this DatabaseContext db)
+        public static void Seed(this DatabaseContext<User, Role> db)
         {
             db.Cars.Add(
                 new Car()

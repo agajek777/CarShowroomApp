@@ -16,8 +16,8 @@ namespace CarShowroomApp.Data
         {
             CreateMap<Car, CarDto>();
             CreateMap<CarDto, Car>();
-            CreateMap<IdentityRole, RoleDto>();
-            CreateMap<RoleDto, IdentityRole>();
+            CreateMap<Role, RoleDto>();
+            CreateMap<RoleDto, Role>();
         }
     }
 }

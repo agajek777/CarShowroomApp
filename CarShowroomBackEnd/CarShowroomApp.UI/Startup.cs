@@ -37,7 +37,7 @@ namespace CarShowroomApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(options => 
+            services.AddDbContext<DatabaseContext<User, Role>>(options => 
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors(options =>
             {
@@ -52,9 +52,9 @@ namespace CarShowroomApp
                 mc.AddProfile(new MappingProfile());
             });
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<DatabaseContext>();
+            services.AddIdentity<User, Role>()
+                .AddRoles<Role>()
+                .AddEntityFrameworkStores<DatabaseContext<User, Role>>();
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);

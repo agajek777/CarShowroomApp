@@ -14,10 +14,10 @@ namespace CarShowroom.UI.Controllers
     [ApiController]
     public class AdminController : Controller
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly IMapper _mapper;
 
-        public AdminController(RoleManager<IdentityRole> roleManager, IMapper mapper)
+        public AdminController(RoleManager<Role> roleManager, IMapper mapper)
         {
             _roleManager = roleManager;
             _mapper = mapper;
@@ -31,7 +31,7 @@ namespace CarShowroom.UI.Controllers
             if (await _roleManager.RoleExistsAsync(roleDto.Name))
                 return Conflict("Provided Role already exists.");
 
-            var result = await _roleManager.CreateAsync(new IdentityRole(roleDto.Name));
+            var result = await _roleManager.CreateAsync(new Role() { Name = roleDto.Name });
 
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
