@@ -22,6 +22,8 @@ namespace CarShowroomApp.Data
 
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
+            CreateMap<User, UserForRegisterDto>();
+            CreateMap<UserForRegisterDto, User>();
         }
     }
 }
