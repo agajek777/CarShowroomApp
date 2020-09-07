@@ -15,11 +15,13 @@ namespace CarShowroom.UI.Controllers
     public class AdminController : Controller
     {
         private readonly RoleManager<Role> _roleManager;
+        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public AdminController(RoleManager<Role> roleManager, IMapper mapper)
+        public AdminController(RoleManager<Role> roleManager, UserManager<User> userManager, IMapper mapper)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
             _mapper = mapper;
         }
         [HttpPost("AddRole", Name = "AddRole")]
@@ -37,6 +39,49 @@ namespace CarShowroom.UI.Controllers
                 return BadRequest(result.Errors);
 
             var roleInDb = await _roleManager.FindByNameAsync(roleDto.Name);
+
+            return Ok(_mapper.Map<RoleDto>(roleInDb));
+        }
+
+        [HttpDelete("DeleteRole", Name = "DeleteRole")]
+        public async Task<IActionResult> DeleteRole([FromBody] RoleDto roleDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid Role Name");
+
+            if (!await _roleManager.RoleExistsAsync(roleDto.Name))
+                return NotFound("Provided Role does not exist.");
+
+            var roleInDb = await _roleManager.FindByNameAsync(roleDto.Name);
+
+            var result = await _roleManager.DeleteAsync(roleInDb);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            return NoContent();
+        }
+
+        [HttpPut("EditRole/{roleName}", Name = "EditRole")]
+        public async Task<IActionResult> EditRole([FromBody] RoleDto roleDto, string roleName)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid Role Name");
+
+            if (!await _roleManager.RoleExistsAsync(roleName))
+                return NotFound($"No role with '{roleName}' name found.");
+
+            if (roleName == roleDto.Name)
+                return BadRequest();
+
+            var roleInDb = await _roleManager.FindByNameAsync(roleName);
+
+            _mapper.Map<RoleDto, Role>(roleDto, roleInDb);
+
+            var result = await _roleManager.UpdateAsync(roleInDb);
+
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
 
             return Ok(_mapper.Map<RoleDto>(roleInDb));
         }
