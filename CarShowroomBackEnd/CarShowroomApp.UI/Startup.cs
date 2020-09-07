@@ -8,6 +8,7 @@ using CarShowroom.Application.Services;
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
+using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using CarShowroom.Infra.Data.Repositories;
 using CarShowroomApp.Data;
@@ -51,7 +52,8 @@ namespace CarShowroomApp
                 mc.AddProfile(new MappingProfile());
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DatabaseContext>();
 
             IMapper mapper = mapperConfig.CreateMapper();
