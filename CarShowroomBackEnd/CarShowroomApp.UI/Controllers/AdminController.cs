@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Administrator")]
     public class AdminController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
