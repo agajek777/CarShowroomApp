@@ -7,6 +7,7 @@ using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarShowroom.UI.Controllers
 {
@@ -24,6 +25,13 @@ namespace CarShowroom.UI.Controllers
             _userManager = userManager;
             _mapper = mapper;
         }
+
+        [HttpGet("GetRoles")]
+        public  IActionResult GetRoles()
+        {
+            return Ok(_roleManager.Roles.ToList().Select(r => _mapper.Map<RoleDto>(r)));
+        }
+
         [HttpPost("AddRole", Name = "AddRole")]
         public async Task<IActionResult> AddRole([FromBody] RoleDto roleDto)
         {
