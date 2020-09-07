@@ -5,29 +5,27 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminController : Controller
+    public class RoleController : ControllerBase
     {
         private readonly RoleManager<Role> _roleManager;
-        private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public AdminController(RoleManager<Role> roleManager, UserManager<User> userManager, IMapper mapper)
+        public RoleController(RoleManager<Role> roleManager, UserManager<User> userManager, IMapper mapper)
         {
             _roleManager = roleManager;
-            _userManager = userManager;
             _mapper = mapper;
         }
 
         [HttpGet("GetRoles")]
-        public  IActionResult GetRoles()
+        public IActionResult GetRoles()
         {
             return Ok(_roleManager.Roles.ToList().Select(r => _mapper.Map<RoleDto>(r)));
         }
