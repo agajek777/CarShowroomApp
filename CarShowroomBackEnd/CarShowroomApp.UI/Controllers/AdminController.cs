@@ -33,11 +33,11 @@ namespace CarShowroom.UI.Controllers
             var users = _userManager.Users;
             var roles = _roleManager.Roles;
 
-            var usersWithRoles = new List<UserWithRoles>();
+            var usersWithRoles = new List<UserWithRolesDto>();
             
             foreach (var user in users)
             {
-                usersWithRoles.Add(new UserWithRoles()
+                usersWithRoles.Add(new UserWithRolesDto()
                 {
                     User = _mapper.Map<UserDto>(user),
                     Roles = (await _userManager.GetRolesAsync(user)).Select(r => new RoleDto()
@@ -48,6 +48,57 @@ namespace CarShowroom.UI.Controllers
             }
 
             return Ok(usersWithRoles);
+        }
+        [HttpPost("GetUserWithRoles")]
+        public async Task<IActionResult> GetUserWithRoles(UserDto userDto)
+        {
+            var user = await _userManager.FindByNameAsync(userDto.UserName);
+
+            if (user == null)
+                return BadRequest($"No user with UserName {userDto.UserName} found.");
+
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            return Ok(new UserWithRolesDto
+            {
+                User = _mapper.Map<UserDto>(user),
+                Roles = userRoles.Select(r => new RoleDto { Name = r })
+            });
+        }
+
+        [HttpPost("EditUserRoles")]
+        public async Task<IActionResult> EditUserRoles(UserWithRolesDto userWithRoles)
+        {
+            var user = await _userManager.FindByNameAsync(userWithRoles.User.UserName);
+
+            if (user == null)
+                return BadRequest($"No user with UserName {userWithRoles.User.UserName} found.");
+            
+            var backupUserRoles = await _userManager.GetRolesAsync(user);
+
+            var roles = userWithRoles.Roles.ToList().Select(r => r.Name);
+
+            var resultRemove = await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));
+
+            if (roles.Count() == 0)
+            {
+                if (!resultRemove.Succeeded)
+                    return BadRequest(resultRemove.Errors);
+                return Ok($"User {user.UserName} from now on belongs to none of roles.");
+            }
+
+            try
+            {
+                var resultAdd = await _userManager.AddToRolesAsync(user, roles);
+            }
+            catch (InvalidOperationException ex)
+            {
+                await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));
+                var result = await _userManager.AddToRolesAsync(user, backupUserRoles);
+                return BadRequest(ex.Message);
+            }
+
+            return await GetUserWithRoles(_mapper.Map<UserDto>(user));
         }
     }
 }

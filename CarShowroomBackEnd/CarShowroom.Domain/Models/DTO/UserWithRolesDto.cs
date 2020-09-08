@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarShowroom.Domain.Models.DTO
 {
-    public class UserWithRoles
+    public class UserWithRolesDto
     {
         public UserDto User { get; set; }
         public IEnumerable<RoleDto> Roles { get; set; }
