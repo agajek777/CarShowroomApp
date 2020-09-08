@@ -41,7 +41,7 @@ namespace CarShowroom.UI.Controllers
             var userCreated = await _userManager.FindByNameAsync(user.UserName);
 
             // Add to Role
-            result = await _userManager.AddToRoleAsync(userCreated, "User");
+            result = await _userManager.AddToRoleAsync(userCreated, UserRolesEnum.User);
 
             if (!result.Succeeded)
             {

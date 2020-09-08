@@ -14,7 +14,7 @@ namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = UserRolesEnum.Admin)]
     public class AdminController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -84,6 +84,7 @@ namespace CarShowroom.UI.Controllers
             {
                 if (!resultRemove.Succeeded)
                     return BadRequest(resultRemove.Errors);
+
                 return Ok($"User {user.UserName} from now on belongs to none of roles.");
             }
 
@@ -93,9 +94,12 @@ namespace CarShowroom.UI.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                // Backup previous roles of the user
                 await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));
+
                 var result = await _userManager.AddToRolesAsync(user, backupUserRoles);
-                return BadRequest(ex.Message);
+                //
+                return BadRequest(new { Error = ex.Message, User = await GetUserWithRoles(_mapper.Map<UserDto>(user)) });
             }
 
             return await GetUserWithRoles(_mapper.Map<UserDto>(user));
