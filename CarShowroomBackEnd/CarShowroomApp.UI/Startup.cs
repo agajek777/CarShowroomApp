@@ -11,6 +11,7 @@ using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using CarShowroom.Infra.Data.Repositories;
+using CarShowroom.Infra.IoC;
 using CarShowroomApp.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -75,8 +76,8 @@ namespace CarShowroomApp
             services.AddSingleton(mapper);
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddScoped<ICarRepository<Car, CarDto>, CarRepository>();
-            services.AddScoped<ICarService, CarService>();
+            DependencyContainer.RegisterServices(services);
+
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );

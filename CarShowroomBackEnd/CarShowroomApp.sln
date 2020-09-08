@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarShowroomApp.UI", "CarSho
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CarShowroomApp.Tests", "CarShowroomApp.Tests", "{9E3129DA-E235-41A0-A5B0-2F81F79ED089}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShowroom.Infra.IoC", "CarShowroom.Infra.IoC\CarShowroom.Infra.IoC.csproj", "{D3291070-0790-49AD-95DF-166FB4110373}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{1CAA542E-C489-4891-9557-2B2C785FAD23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CAA542E-C489-4891-9557-2B2C785FAD23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CAA542E-C489-4891-9557-2B2C785FAD23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3291070-0790-49AD-95DF-166FB4110373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3291070-0790-49AD-95DF-166FB4110373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3291070-0790-49AD-95DF-166FB4110373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3291070-0790-49AD-95DF-166FB4110373}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{9EC3CD56-208F-4F43-BADA-83EC4C03943C} = {8B08DB25-77BC-4079-9B9A-EB8D9BAB1645}
 		{A881E652-8AB2-4908-88E8-8372B973DEFE} = {32D7AEFF-FB6E-40D4-BF8C-1A8C76F875A4}
 		{1CAA542E-C489-4891-9557-2B2C785FAD23} = {5035B536-9545-4B75-915C-3217C2ED6DDD}
+		{D3291070-0790-49AD-95DF-166FB4110373} = {0BB35C90-DE1E-462E-872E-61DDEF2A544A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BCF4C2DF-8BBD-42FB-AFD4-1CF2A965E9C4}

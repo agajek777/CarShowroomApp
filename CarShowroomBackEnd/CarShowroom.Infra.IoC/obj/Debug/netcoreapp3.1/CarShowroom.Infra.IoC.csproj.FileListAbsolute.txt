@@ -1,0 +1,16 @@
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\bin\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.deps.json
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\bin\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\obj\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.csprojAssemblyReference.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\obj\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.AssemblyInfoInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\obj\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.AssemblyInfo.cs
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\bin\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.pdb
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\bin\Debug\netcoreapp3.1\CarShowroom.Application.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\bin\Debug\netcoreapp3.1\CarShowroom.Domain.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\bin\Debug\netcoreapp3.1\CarShowroom.Infra.Data.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\bin\Debug\netcoreapp3.1\CarShowroom.Application.pdb
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\bin\Debug\netcoreapp3.1\CarShowroom.Domain.pdb
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\bin\Debug\netcoreapp3.1\CarShowroom.Infra.Data.pdb
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\obj\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.csproj.CoreCompileInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\obj\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.csproj.CopyComplete
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\obj\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.IoC\obj\Debug\netcoreapp3.1\CarShowroom.Infra.IoC.pdb

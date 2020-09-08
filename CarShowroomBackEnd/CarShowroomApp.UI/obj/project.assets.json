@@ -3229,6 +3229,22 @@
         "runtime": {
           "bin/placeholder/CarShowroom.Infra.Data.dll": {}
         }
+      },
+      "CarShowroom.Infra.IoC/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "CarShowroom.Application": "1.0.0",
+          "CarShowroom.Domain": "1.0.0",
+          "CarShowroom.Infra.Data": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.7"
+        },
+        "compile": {
+          "bin/placeholder/CarShowroom.Infra.IoC.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CarShowroom.Infra.IoC.dll": {}
+        }
       }
     }
   },
@@ -9890,6 +9906,11 @@
       "type": "project",
       "path": "../CarShowroom.Infra.Data/CarShowroom.Infra.Data.csproj",
       "msbuildProject": "../CarShowroom.Infra.Data/CarShowroom.Infra.Data.csproj"
+    },
+    "CarShowroom.Infra.IoC/1.0.0": {
+      "type": "project",
+      "path": "../CarShowroom.Infra.IoC/CarShowroom.Infra.IoC.csproj",
+      "msbuildProject": "../CarShowroom.Infra.IoC/CarShowroom.Infra.IoC.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -9897,8 +9918,7 @@
       "AutoMapper >= 9.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
       "CarShowroom.Application >= 1.0.0",
-      "CarShowroom.Domain >= 1.0.0",
-      "CarShowroom.Infra.Data >= 1.0.0",
+      "CarShowroom.Infra.IoC >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 3.1.6",
       "Microsoft.EntityFrameworkCore >= 3.1.7",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.7",
@@ -9942,11 +9962,8 @@
             "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\CarShowroom.Application.csproj": {
               "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Application\\CarShowroom.Application.csproj"
             },
-            "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj": {
-              "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Domain\\CarShowroom.Domain.csproj"
-            },
-            "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\CarShowroom.Infra.Data.csproj": {
-              "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.Data\\CarShowroom.Infra.Data.csproj"
+            "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.IoC\\CarShowroom.Infra.IoC.csproj": {
+              "projectPath": "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroom.Infra.IoC\\CarShowroom.Infra.IoC.csproj"
             }
           }
         }
