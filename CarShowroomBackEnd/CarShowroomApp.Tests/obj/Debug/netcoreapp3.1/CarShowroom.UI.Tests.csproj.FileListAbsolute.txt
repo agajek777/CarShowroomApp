@@ -453,3 +453,7 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.Tests\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
