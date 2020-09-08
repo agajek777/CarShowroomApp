@@ -22,6 +22,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace CarShowroomApp
 {
@@ -47,15 +48,29 @@ namespace CarShowroomApp
                     .AllowAnyHeader());
             });
 
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
-
             services.AddIdentity<User, Role>()
                 .AddRoles<Role>()
                 .AddEntityFrameworkStores<DatabaseContext<User, Role>>();
 
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v2", new OpenApiInfo
+                    {
+                        Title = "CarShowroom WEB API",
+                        Contact = new OpenApiContact
+                        {
+                            Email = "adam.gajek777@gmail.com",
+                            Name = "Adam Gajek",
+                            Url = new Uri("https://agajek777.github.io/Portfolio/")
+                        }
+                    }
+                );
+            });
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(typeof(Startup));
@@ -88,6 +103,9 @@ namespace CarShowroomApp
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v2/swagger.json", "Carshowroom WEB API"));
         }
     }
 }

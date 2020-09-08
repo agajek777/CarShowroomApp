@@ -433,9 +433,6 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\CarShowroom.Domain.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\CarShowroom.Infra.Data.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.csprojAssemblyReference.cache
-C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.csproj.CoreCompileInputs.cache
-C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.AssemblyInfoInputs.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.AssemblyInfo.cs
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.RazorTargetAssemblyInfo.cache
@@ -452,3 +449,10 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.csproj.CoreCompileInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.MvcApplicationPartsAssemblyInfo.cache

@@ -18,7 +18,7 @@ namespace CarShowroom.UI.Controllers
         private readonly RoleManager<Role> _roleManager;
         private readonly IMapper _mapper;
 
-        public RoleController(RoleManager<Role> roleManager, UserManager<User> userManager, IMapper mapper)
+        public RoleController(RoleManager<Role> roleManager, IMapper mapper)
         {
             _roleManager = roleManager;
             _mapper = mapper;
