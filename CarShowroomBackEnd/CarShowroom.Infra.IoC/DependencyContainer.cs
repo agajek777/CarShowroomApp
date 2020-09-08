@@ -20,6 +20,7 @@ namespace CarShowroom.Infra.IoC
 
             // CarShowroom.Application
             services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IJwtService, JwtService>();
         }
     }
 }

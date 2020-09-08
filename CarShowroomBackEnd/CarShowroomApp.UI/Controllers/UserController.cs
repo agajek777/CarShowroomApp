@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.Configuration;
+using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CarShowroom.UI.Controllers
 {
@@ -17,12 +21,15 @@ namespace CarShowroom.UI.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IJwtService _jwtService;
+        private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
+        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IJwtService jwtService, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _jwtService = jwtService;
             _mapper = mapper;
         }
         [HttpPost("Register")]
@@ -54,7 +61,7 @@ namespace CarShowroom.UI.Controllers
 
             outcome.Password = userDto.Password;
 
-            return Ok(outcome);
+            return Ok(new { Account = outcome, Token = _jwtService.GenerateJSONWebToken(outcome)});
         }
 
         [HttpPost("Login")]
@@ -72,7 +79,7 @@ namespace CarShowroom.UI.Controllers
             if (!signInResult.Succeeded)
                 return Unauthorized(signInResult);
 
-            return NoContent();
+            return Ok(new { Token = _jwtService.GenerateJSONWebToken(userDto)});
         }
     }
 }
