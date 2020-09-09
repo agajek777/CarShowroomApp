@@ -14,7 +14,7 @@ namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = UserRolesEnum.Admin)]
+    [Authorize(Policy = "AdministratorOnly")]
     public class AdminController : ControllerBase
     {
         private readonly UserManager<User> _userManager;

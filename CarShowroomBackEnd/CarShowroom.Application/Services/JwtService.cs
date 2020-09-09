@@ -3,6 +3,7 @@ using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -18,11 +19,13 @@ namespace CarShowroom.Application.Services
     {
         private readonly IConfiguration _config;
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
 
         public JwtService(IConfiguration config, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             _config = config;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         public async Task<object> GenerateJSONWebToken(User user)
         {
@@ -46,13 +49,28 @@ namespace CarShowroom.Application.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
+                new Claim(ClaimTypes.Sid, user.Id)
             };
 
-            var userRoles = await _userManager.GetRolesAsync(user);
+            if (_userManager.SupportsUserRole)
+            {
+                var userRoles = await _userManager.GetRolesAsync(user);
 
-            claims.AddRange(userRoles.Select(r => new Claim(ClaimsIdentity.DefaultRoleClaimType, r)));
+                foreach (var roleName in userRoles)
+                {
+                    claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, roleName));
+
+                    if (_roleManager.SupportsRoleClaims)
+                    {
+                        var role = await _roleManager.FindByNameAsync(roleName);
+                        if (role != null)
+                        {
+                            claims.AddRange(await _roleManager.GetClaimsAsync(role));
+                        }
+                    }
+                }
+            }
             
             return claims;
         }
