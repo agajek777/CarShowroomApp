@@ -5,28 +5,31 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CarController : Controller
     {
         private readonly ICarService _carService;
-        private readonly IMapper _mapper;
 
         public CarController(ICarService carService)
         {
             this._carService = carService;
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAll()
         {
             var outcome = _carService.GetAllCars();
             return outcome == null ? (IActionResult)BadRequest() : Ok(outcome);
         }
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
         {
             var carInDb = await _carService.GetCar(id);

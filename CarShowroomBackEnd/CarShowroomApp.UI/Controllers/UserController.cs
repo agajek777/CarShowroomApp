@@ -22,7 +22,6 @@ namespace CarShowroom.UI.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IJwtService _jwtService;
-        private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
         public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IJwtService jwtService, IMapper mapper)
