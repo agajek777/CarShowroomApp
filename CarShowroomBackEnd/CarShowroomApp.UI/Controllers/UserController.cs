@@ -60,7 +60,7 @@ namespace CarShowroom.UI.Controllers
 
             outcome.Password = userDto.Password;
 
-            return Ok(new { Account = outcome, Token = _jwtService.GenerateJSONWebToken(userCreated)});
+            return Ok(new { Account = outcome, Token = await _jwtService.GenerateJSONWebToken(userCreated)});
         }
 
         [HttpPost("Login")]
@@ -78,7 +78,7 @@ namespace CarShowroom.UI.Controllers
             if (!signInResult.Succeeded)
                 return Unauthorized(signInResult);
 
-            return Ok(new { Token = _jwtService.GenerateJSONWebToken(user)});
+            return Ok(new { Token = await _jwtService.GenerateJSONWebToken(user)});
         }
     }
 }
