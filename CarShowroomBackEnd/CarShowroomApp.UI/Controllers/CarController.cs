@@ -29,9 +29,6 @@ namespace CarShowroom.UI.Controllers
         {
             var outcome = _carService.GetAllCars(queryParameters);
 
-            if (outcome == null)
-                return BadRequest();
-
             var metadata = new
             {
                 outcome.TotalCount,
