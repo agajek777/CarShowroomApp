@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
+using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CarShowroom.UI.Controllers
 {
@@ -28,7 +30,7 @@ namespace CarShowroom.UI.Controllers
             _mapper = mapper;
         }
         [HttpGet("GetUsersWithRoles")]
-        public async Task<IActionResult> GetUsersWithRoles()
+        public async Task<IActionResult> GetUsersWithRoles([FromQuery] QueryParameters queryParameters)
         {
             var users = _userManager.Users;
             var roles = _roleManager.Roles;
@@ -47,7 +49,23 @@ namespace CarShowroom.UI.Controllers
                 });
             }
 
-            return Ok(usersWithRoles);
+            var outcome = PagedList<UserWithRolesDto>.ToPagedList(usersWithRoles.AsQueryable(),
+                                                                queryParameters.PageNumber,
+                                                                queryParameters.PageSize);
+
+            var metadata = new
+            {
+                outcome.TotalCount,
+                outcome.PageSize,
+                outcome.CurrentPage,
+                outcome.TotalPages,
+                outcome.HasNext,
+                outcome.HasPrevious,
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            return Ok(outcome);
         }
         [HttpPost("GetUserWithRoles")]
         public async Task<IActionResult> GetUserWithRoles(UserDto userDto)
