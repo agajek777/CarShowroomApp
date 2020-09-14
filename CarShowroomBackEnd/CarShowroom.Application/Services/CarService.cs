@@ -30,7 +30,7 @@ namespace CarShowroom.Application.Services
             return await _carRepository.Delete(id);
         }
 
-        public IEnumerable<CarDto> GetAllCars(QueryParameters queryParameters)
+        public PagedList<CarDto> GetAllCars(QueryParameters queryParameters)
         {
             return PagedList<CarDto>.ToPagedList(_carRepository.GetAll(),
                                                 queryParameters.PageNumber,

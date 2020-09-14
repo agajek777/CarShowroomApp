@@ -8,6 +8,7 @@ using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CarShowroom.UI.Controllers
 {
@@ -27,7 +28,23 @@ namespace CarShowroom.UI.Controllers
         public IActionResult GetAll([FromQuery] QueryParameters queryParameters)
         {
             var outcome = _carService.GetAllCars(queryParameters);
-            return outcome == null ? (IActionResult)BadRequest() : Ok(outcome);
+
+            if (outcome == null)
+                return BadRequest();
+
+            var metadata = new
+            {
+                outcome.TotalCount,
+                outcome.PageSize,
+                outcome.CurrentPage,
+                outcome.TotalPages,
+                outcome.HasNext,
+                outcome.HasPrevious,
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            return Ok(outcome);
         }
         [HttpGet("{id}")]
         [AllowAnonymous]

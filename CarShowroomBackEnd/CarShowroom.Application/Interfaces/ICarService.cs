@@ -10,7 +10,7 @@ namespace CarShowroom.Application.Interfaces
 {
     public interface ICarService
     {
-        public IEnumerable<CarDto> GetAllCars(QueryParameters queryParameters);
+        public PagedList<CarDto> GetAllCars(QueryParameters queryParameters);
         public Task<CarDto> GetCar(int id);
         public Task<CarDto> AddCar(CarDto carToAdd);
         public Task<CarDto> UpdateCar(int id, CarDto carToUpdate);

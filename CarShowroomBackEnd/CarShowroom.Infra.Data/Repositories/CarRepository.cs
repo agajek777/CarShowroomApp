@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
@@ -28,16 +29,16 @@ namespace CarShowroom.Infra.Data.Repositories
         public IQueryable<CarDto> GetAll()
         {
             IQueryable<CarDto> result;
+
             try
             {
-                result = _db.Cars.ToListAsync().Result.Select(p => _mapper.Map<CarDto>(p)) as IQueryable<CarDto>;
+                return result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return result = null;
+                return null;
             }
-            return result;
         }
 
         public async Task<CarDto> Get(int id)
