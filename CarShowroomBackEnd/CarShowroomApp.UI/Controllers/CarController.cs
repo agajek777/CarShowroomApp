@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Models.DTO;
+using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +24,9 @@ namespace CarShowroom.UI.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetAll()
+        public IActionResult GetAll([FromQuery] QueryParameters queryParameters)
         {
-            var outcome = _carService.GetAllCars();
+            var outcome = _carService.GetAllCars(queryParameters);
             return outcome == null ? (IActionResult)BadRequest() : Ok(outcome);
         }
         [HttpGet("{id}")]
