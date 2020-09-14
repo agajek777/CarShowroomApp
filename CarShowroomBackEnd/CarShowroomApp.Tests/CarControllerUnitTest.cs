@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarShowroom.Application.Services;
 using CarShowroom.Domain.Models.DTO;
+using CarShowroom.Domain.Models.Parameters;
 using CarShowroom.Infra.Data.Repositories;
 using CarShowroom.UI.Controllers;
 using CarShowroomApp.Data;
@@ -44,7 +45,7 @@ namespace CarShowroom.UI.Tests.Data
              * Act
              */
 
-            var response = controller.GetAll() as ObjectResult;
+            var response = controller.GetAll(new QueryParameters { PageNumber = 1, PageSize = 1 }) as ObjectResult;
 
             dbContext.Dispose();
 
