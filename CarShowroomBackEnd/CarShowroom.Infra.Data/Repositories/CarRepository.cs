@@ -25,12 +25,12 @@ namespace CarShowroom.Infra.Data.Repositories
             _mapper = mapper;
         }
 
-        public IEnumerable<CarDto> GetAll()
+        public IQueryable<CarDto> GetAll()
         {
-            IEnumerable<CarDto> result;
+            IQueryable<CarDto> result;
             try
             {
-                result = _db.Cars.ToListAsync().Result.Select(p => _mapper.Map<CarDto>(p));
+                result = _db.Cars.ToListAsync().Result.Select(p => _mapper.Map<CarDto>(p)) as IQueryable<CarDto>;
             }
             catch (Exception ex)
             {

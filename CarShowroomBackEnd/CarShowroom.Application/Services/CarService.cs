@@ -32,11 +32,9 @@ namespace CarShowroom.Application.Services
 
         public IEnumerable<CarDto> GetAllCars(QueryParameters queryParameters)
         {
-            return _carRepository.GetAll()
-                                .OrderBy(p => p.Id)
-                                .Skip((queryParameters.PageNumber - 1) * queryParameters.PageSize)
-                                .Take(queryParameters.PageSize)
-                                .ToList();
+            return PagedList<CarDto>.ToPagedList(_carRepository.GetAll(),
+                                                queryParameters.PageNumber,
+                                                queryParameters.PageSize);
         }
 
         public async Task<CarDto> GetCar(int id)
