@@ -8,6 +8,7 @@ using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace CarShowroom.UI.Controllers
@@ -18,16 +19,20 @@ namespace CarShowroom.UI.Controllers
     public class CarController : Controller
     {
         private readonly ICarService _carService;
+        private readonly ILogger<CarController> _logger;
 
-        public CarController(ICarService carService)
+        public CarController(ICarService carService, ILogger<CarController> logger)
         {
-            this._carService = carService;
+            _carService = carService;
+            _logger = logger;
         }
         [HttpGet]
         [AllowAnonymous]
         public IActionResult GetAll([FromQuery] QueryParameters queryParameters)
         {
             var outcome = _carService.GetAllCars(queryParameters);
+
+            _logger.LogInformation("{Time} Obtained Car Models from db", DateTime.UtcNow);
 
             var metadata = new
             {
