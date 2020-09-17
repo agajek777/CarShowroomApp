@@ -28,3 +28,4 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.genruntimeconfig.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\obj\Debug\netcoreapp3.1\CarShowroom.Infra.Data.csproj.CoreCompileInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Infra.Data\bin\Debug\netcoreapp3.1\Logging\log4net.config

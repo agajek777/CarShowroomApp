@@ -46,7 +46,7 @@ namespace CarShowroom.UI.Tests.Data
              * Act
              */
 
-            var response = controller.GetAll(new QueryParameters { PageNumber = 1, PageSize = 1 }) as ObjectResult;
+            var response = controller.GetAll(new QueryParameters() { PageNumber = 1, PageSize = 1 }) as ObjectResult;
 
             dbContext.Dispose();
 
