@@ -29,19 +29,23 @@ namespace CarShowroom.Infra.Data.Repositories
             _logger = logger;
         }
 
-        public IQueryable<CarDto> GetAll()
+        public async Task<IQueryable<CarDto>> GetAllAsync()
         {
             IQueryable<CarDto> result;
 
             try
             {
-                return result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
+                result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
             }
             catch (Exception ex)
             {
-                _logger.LogWarning("Car Repository::GetAll got exception: {Exception}", ex.Message);
+                _logger.LogWarning("GetAll() got exception: {Exception}", ex.Message);
                 return null;
             }
+
+            _logger.LogInformation("GetAll() obtained {Num} Car Models.", await result.CountAsync());
+
+            return result;
         }
 
         public async Task<CarDto> Get(int id)
@@ -54,12 +58,12 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (ArgumentNullException ex)
             {
-                _logger.LogWarning("Car Repository::Get got exception: {Exception}", ex.Message);
+                _logger.LogWarning("Get() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
                 return null;
             }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning("Car Repository::Get got exception: {Exception}", ex.Message);
+                _logger.LogWarning("Get() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
                 return null;
             }
 
@@ -76,7 +80,7 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (Exception ex)
             {
-                _logger.LogWarning("Car Repository::Add got exception: {Exception}", ex.Message);
+                _logger.LogWarning("Add() got exception: {Exception}", ex.Message);
             }
             return _mapper.Map<CarDto>(model);
         }
@@ -91,12 +95,12 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (ArgumentNullException ex)
             {
-                _logger.LogWarning("Car Repository::Update got exception: {Exception}", ex.Message);
+                _logger.LogWarning("Update() got exception: {Exception} - {Message}", typeof(ArgumentNullException).Name, ex.Message);
                 return null;
             }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning("Car Repository::Update got exception: {Exception}", ex.Message);
+                _logger.LogWarning("Update() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
                 return null;
             }
 
@@ -118,12 +122,12 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (ArgumentNullException ex)
             {
-                _logger.LogWarning("Car Repository::Delete got exception: {Exception}", ex.Message);
+                _logger.LogWarning("Delete() got exception: {Exception} - {Message}", typeof(ArgumentNullException).Name, ex.Message);
                 return new BadRequestResult();
             }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning("Car Repository::Delete got exception: {Exception}", ex.Message);
+                _logger.LogWarning("Delete() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
                 return new BadRequestResult();
             }
 

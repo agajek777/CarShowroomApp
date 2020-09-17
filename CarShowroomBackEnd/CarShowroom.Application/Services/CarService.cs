@@ -30,9 +30,9 @@ namespace CarShowroom.Application.Services
             return await _carRepository.Delete(id);
         }
 
-        public PagedList<CarDto> GetAllCars(QueryParameters queryParameters)
+        public async Task<PagedList<CarDto>> GetAllCarsAsync(QueryParameters queryParameters)
         {
-            return PagedList<CarDto>.ToPagedList(_carRepository.GetAll(),
+            return PagedList<CarDto>.ToPagedList(await _carRepository.GetAllAsync(),
                                                 queryParameters.PageNumber,
                                                 queryParameters.PageSize);
         }

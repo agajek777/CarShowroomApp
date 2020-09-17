@@ -28,11 +28,11 @@ namespace CarShowroom.UI.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetAll([FromQuery] QueryParameters queryParameters)
+        public async Task<IActionResult> GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
-            var outcome = _carService.GetAllCars(queryParameters);
+            var outcome = await _carService.GetAllCarsAsync(queryParameters);
 
-            _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, DateTime.UtcNow, outcome.Count);
+            _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, outcome.Count);
 
             var metadata = new
             {
@@ -53,9 +53,12 @@ namespace CarShowroom.UI.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var carInDb = await _carService.GetCar(id);
+
+            _logger.LogInformation("User {User} obtained Car Model from db", HttpContext.User.Identity.Name);
+
             if (carInDb == null)
             {
-                return BadRequest();
+                return BadRequest(new { Error = "Car with provided ID not found." });
             }
             return Ok(carInDb);
         }
@@ -65,6 +68,9 @@ namespace CarShowroom.UI.Controllers
             if (ModelState.IsValid)
             {
                 CarDto model = await _carService.AddCar(carDto);
+
+                _logger.LogInformation("User {User} added Car Model to db", HttpContext.User.Identity.Name);
+
                 return Ok(model);
             }
             return BadRequest();
@@ -75,6 +81,9 @@ namespace CarShowroom.UI.Controllers
             if (ModelState.IsValid)
             {
                 var outcome = await _carService.UpdateCar(id, carDto);
+
+                _logger.LogInformation("User {User} edited Car Model in db", HttpContext.User.Identity.Name);
+
                 return Ok(outcome);
             }
             return BadRequest();
