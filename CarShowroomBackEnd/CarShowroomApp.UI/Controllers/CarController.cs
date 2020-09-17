@@ -32,7 +32,7 @@ namespace CarShowroom.UI.Controllers
         {
             var outcome = _carService.GetAllCars(queryParameters);
 
-            _logger.LogInformation("{Time} Obtained {Num} Car Models from db", DateTime.UtcNow, outcome.Count);
+            _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, DateTime.UtcNow, outcome.Count);
 
             var metadata = new
             {

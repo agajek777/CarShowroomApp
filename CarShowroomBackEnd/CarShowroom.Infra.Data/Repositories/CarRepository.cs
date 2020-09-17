@@ -7,6 +7,7 @@ using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,13 @@ namespace CarShowroom.Infra.Data.Repositories
     {
         private readonly DatabaseContext<User, Role> _db;
         private readonly IMapper _mapper;
+        private readonly ILogger<CarRepository> _logger;
 
-        public CarRepository(DatabaseContext<User, Role> db, IMapper mapper)
+        public CarRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<CarRepository> logger)
         {
             _db = db;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public IQueryable<CarDto> GetAll()
@@ -36,7 +39,7 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogWarning("Car Repository::GetAll got exception: {Exception}", ex.Message);
                 return null;
             }
         }
@@ -51,12 +54,12 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (ArgumentNullException ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogWarning("Car Repository::Get got exception: {Exception}", ex.Message);
                 return null;
             }
             catch (InvalidOperationException ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogWarning("Car Repository::Get got exception: {Exception}", ex.Message);
                 return null;
             }
 
@@ -71,9 +74,9 @@ namespace CarShowroom.Infra.Data.Repositories
             {
                 await _db.SaveChangesAsync();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
+                _logger.LogWarning("Car Repository::Add got exception: {Exception}", ex.Message);
             }
             return _mapper.Map<CarDto>(model);
         }
@@ -88,12 +91,12 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (ArgumentNullException ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogWarning("Car Repository::Update got exception: {Exception}", ex.Message);
                 return null;
             }
             catch (InvalidOperationException ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogWarning("Car Repository::Update got exception: {Exception}", ex.Message);
                 return null;
             }
 
@@ -115,12 +118,12 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (ArgumentNullException ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogWarning("Car Repository::Delete got exception: {Exception}", ex.Message);
                 return new BadRequestResult();
             }
             catch (InvalidOperationException ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.LogWarning("Car Repository::Delete got exception: {Exception}", ex.Message);
                 return new BadRequestResult();
             }
 
