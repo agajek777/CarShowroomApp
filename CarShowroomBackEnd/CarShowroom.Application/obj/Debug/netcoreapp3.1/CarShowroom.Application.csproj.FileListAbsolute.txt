@@ -19,3 +19,4 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\obj\Debug\netcoreapp3.1\CarShowroom.Application.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\obj\Debug\netcoreapp3.1\CarShowroom.Application.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\obj\Debug\netcoreapp3.1\CarShowroom.Application.csproj.CoreCompileInputs.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Application\bin\Debug\netcoreapp3.1\Logging\log4net.config

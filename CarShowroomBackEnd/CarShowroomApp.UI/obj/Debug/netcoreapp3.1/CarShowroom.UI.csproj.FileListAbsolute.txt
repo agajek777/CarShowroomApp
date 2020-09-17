@@ -459,3 +459,6 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.csproj.CoreCompileInputs.cache
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\obj\Debug\netcoreapp3.1\CarShowroom.UI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\log4net.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Log4Net.AspNetCore.dll
+C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroomApp.UI\bin\Debug\netcoreapp3.1\Logging\log4net.config
