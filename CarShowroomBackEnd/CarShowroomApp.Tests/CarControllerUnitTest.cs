@@ -9,6 +9,7 @@ using CarShowroomApp.Tests.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -39,7 +40,7 @@ namespace CarShowroom.UI.Tests.Data
             var carService = new CarService(new CarRepository(dbContext, mapper));
 
             // Create API Controller
-            var controller = new CarController(carService);
+            var controller = new CarController(carService, new NullLogger<CarController>());
 
             /*
              * Act
@@ -77,7 +78,7 @@ namespace CarShowroom.UI.Tests.Data
             var carService = new CarService(new CarRepository(dbContext, mapper));
 
             // Create API Controller
-            var controller = new CarController(carService);
+            var controller = new CarController(carService, new NullLogger<CarController>());
 
             var id = 3;
 
@@ -117,7 +118,7 @@ namespace CarShowroom.UI.Tests.Data
             var carService = new CarService(new CarRepository(dbContext, mapper));
 
             // Create API Controller
-            var controller = new CarController(carService);
+            var controller = new CarController(carService, new NullLogger<CarController>());
 
             var carDto = new CarDto()
             {

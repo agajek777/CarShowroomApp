@@ -15,4 +15,3 @@ C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\Car
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\obj\Debug\netcoreapp3.1\CarShowroom.Domain.dll
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\obj\Debug\netcoreapp3.1\CarShowroom.Domain.pdb
 C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\obj\Debug\netcoreapp3.1\CarShowroom.Domain.csproj.CoreCompileInputs.cache
-C:\Users\adamg\source\repos\CarShowroomApp\CarShowroomApp\CarShowroomBackEnd\CarShowroom.Domain\obj\Debug\netcoreapp3.1\CarShowroom.Domain.csprojAssemblyReference.cache
