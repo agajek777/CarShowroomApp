@@ -58,12 +58,12 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (ArgumentNullException ex)
             {
-                _logger.LogWarning("Get() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
+                _logger.LogWarning("Get() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
                 return null;
             }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning("Get() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
+                _logger.LogWarning("Get() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
                 return null;
             }
 
@@ -95,12 +95,12 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (ArgumentNullException ex)
             {
-                _logger.LogWarning("Update() got exception: {Exception} - {Message}", typeof(ArgumentNullException).Name, ex.Message);
+                _logger.LogWarning("Update() got exception: {Exception} --- {Message}", typeof(ArgumentNullException).Name, ex.Message);
                 return null;
             }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning("Update() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
+                _logger.LogWarning("Update() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
                 return null;
             }
 
@@ -122,12 +122,12 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (ArgumentNullException ex)
             {
-                _logger.LogWarning("Delete() got exception: {Exception} - {Message}", typeof(ArgumentNullException).Name, ex.Message);
+                _logger.LogWarning("Delete() got exception: {Exception} --- {Message}", typeof(ArgumentNullException).Name, ex.Message);
                 return new BadRequestResult();
             }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning("Delete() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
+                _logger.LogWarning("Delete() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
                 return new BadRequestResult();
             }
 
