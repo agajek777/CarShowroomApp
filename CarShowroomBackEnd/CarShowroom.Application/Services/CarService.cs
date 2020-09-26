@@ -6,9 +6,11 @@ using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace CarShowroom.Application.Services
 {
@@ -32,9 +34,16 @@ namespace CarShowroom.Application.Services
 
         public async Task<PagedList<CarDto>> GetAllCarsAsync(QueryParameters queryParameters)
         {
-            return PagedList<CarDto>.ToPagedList(await _carRepository.GetAllAsync(),
+            try
+            {
+                return PagedList<CarDto>.ToPagedList(await _carRepository.GetAllAsync(),
                                                 queryParameters.PageNumber,
                                                 queryParameters.PageSize);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
         public async Task<CarDto> GetCar(int id)

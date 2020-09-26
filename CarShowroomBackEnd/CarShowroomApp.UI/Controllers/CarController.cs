@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CarShowroom.Application.Interfaces;
+using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -16,7 +19,7 @@ namespace CarShowroom.UI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class CarController : Controller
+    public class CarController : ControllerBase
     {
         private readonly ICarService _carService;
         private readonly ILogger<CarController> _logger;
@@ -30,21 +33,29 @@ namespace CarShowroom.UI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
-            var outcome = await _carService.GetAllCarsAsync(queryParameters);
-
-            _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, outcome.Count);
-
-            var metadata = new
+            PagedList<CarDto> outcome;
+            try
             {
-                outcome.TotalCount,
-                outcome.PageSize,
-                outcome.CurrentPage,
-                outcome.TotalPages,
-                outcome.HasNext,
-                outcome.HasPrevious,
-            };
+                outcome = await _carService.GetAllCarsAsync(queryParameters);
+                _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, outcome.Count);
+                var metadata = new
+                {
+                    outcome.TotalCount,
+                    outcome.PageSize,
+                    outcome.CurrentPage,
+                    outcome.TotalPages,
+                    outcome.HasNext,
+                    outcome.HasPrevious,
+                };
 
-            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+            }
+            catch (DataException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+            }
+
+
 
             return Ok(outcome);
         }
