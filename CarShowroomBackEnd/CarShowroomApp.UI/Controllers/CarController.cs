@@ -38,23 +38,23 @@ namespace CarShowroom.UI.Controllers
             {
                 outcome = await _carService.GetAllCarsAsync(queryParameters);
                 _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, outcome.Count);
-                var metadata = new
-                {
-                    outcome.TotalCount,
-                    outcome.PageSize,
-                    outcome.CurrentPage,
-                    outcome.TotalPages,
-                    outcome.HasNext,
-                    outcome.HasPrevious,
-                };
-
-                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
             }
             catch (DataException ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
             }
 
+            var metadata = new
+            {
+                outcome.TotalCount,
+                outcome.PageSize,
+                outcome.CurrentPage,
+                outcome.TotalPages,
+                outcome.HasNext,
+                outcome.HasPrevious,
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
 
             return Ok(outcome);
