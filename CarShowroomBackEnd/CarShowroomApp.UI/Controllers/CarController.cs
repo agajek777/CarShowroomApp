@@ -37,12 +37,13 @@ namespace CarShowroom.UI.Controllers
             try
             {
                 outcome = await _carService.GetAllCarsAsync(queryParameters);
-                _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, outcome.Count);
             }
             catch (DataException ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
             }
+
+            _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, outcome.Count);
 
             var metadata = new
             {
@@ -63,7 +64,16 @@ namespace CarShowroom.UI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
         {
-            var carInDb = await _carService.GetCar(id);
+            CarDto carInDb;
+
+            try
+            {
+                carInDb = await _carService.GetCar(id);
+            }
+            catch (DataException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+            }
 
             _logger.LogInformation("User {User} obtained Car Model from db", HttpContext.User.Identity.Name);
 
@@ -78,7 +88,16 @@ namespace CarShowroom.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                CarDto model = await _carService.AddCar(carDto);
+                CarDto model;
+
+                try
+                {
+                    model = await _carService.AddCar(carDto);
+                }
+                catch (DataException ex)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+                }
 
                 _logger.LogInformation("User {User} added Car Model to db", HttpContext.User.Identity.Name);
 
@@ -91,7 +110,16 @@ namespace CarShowroom.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var outcome = await _carService.UpdateCar(id, carDto);
+                CarDto outcome;
+
+                try
+                {
+                    outcome = await _carService.UpdateCar(id, carDto);
+                }
+                catch (DataException ex)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+                }
 
                 _logger.LogInformation("User {User} edited Car Model in db", HttpContext.User.Identity.Name);
 
@@ -102,7 +130,14 @@ namespace CarShowroom.UI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            return await _carService.DeleteCar(id);
+            try
+            {
+                return await _carService.DeleteCar(id);
+            }
+            catch (DataException ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+            }
         }
     }
 }

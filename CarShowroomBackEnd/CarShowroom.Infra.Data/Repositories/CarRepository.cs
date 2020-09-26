@@ -40,21 +40,14 @@ namespace CarShowroom.Infra.Data.Repositories
         {
             IQueryable<CarDto> result;
 
-            try
-            {
-                _db.GetService<IRelationalDatabaseCreator>().CanConnect();
-            }
-            catch (SqlException ex)
-            {
-                _logger.LogWarning("GetAllAsync() got exception: {Exception} --- {Message}", nameof(SqlException), ex.Message);
-
+            if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
-            }
 
             try
             {
                 result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
             }
+
             catch (Exception ex)
             {
                 _logger.LogWarning("GetAll() got exception: {Exception}", ex.Message);
@@ -70,19 +63,17 @@ namespace CarShowroom.Infra.Data.Repositories
         {
             Car outcome;
 
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             try
             {
                 outcome = await _db.Cars.SingleAsync(a => a.Id == id);
             }
-            catch (ArgumentNullException ex)
-            {
-                _logger.LogWarning("Get() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
-                return null;
-            }
             catch (InvalidOperationException ex)
             {
                 _logger.LogWarning("Get() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
-                return null;
+                throw;
             }
 
             return _mapper.Map<CarDto>(outcome);
@@ -90,8 +81,13 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<CarDto> Add(CarDto entity)
         {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             Car model = _mapper.Map<Car>(entity);
+
             await _db.Cars.AddAsync(model);
+
             try
             {
                 await _db.SaveChangesAsync();
@@ -106,6 +102,9 @@ namespace CarShowroom.Infra.Data.Repositories
         public async Task<CarDto> Update(int id, CarDto entity)
         {
             Car outcome;
+
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
 
             try
             {
@@ -134,6 +133,9 @@ namespace CarShowroom.Infra.Data.Repositories
         {
             Car carInDb;
 
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             try
             {
                 carInDb = await _db.Cars.SingleAsync(a => a.Id == id);
@@ -153,6 +155,20 @@ namespace CarShowroom.Infra.Data.Repositories
             _db.SaveChanges();
 
             return new OkResult();
+        }
+
+        private async Task<bool> CheckConnectionAsync()
+        {
+            try
+            {
+                await _db.GetService<IRelationalDatabaseCreator>().CanConnectAsync();
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogWarning("GetAllAsync() got exception: {Exception} --- {Message}", nameof(SqlException), ex.Message);
+                return false;
+            }
+            return true;
         }
     }
 }

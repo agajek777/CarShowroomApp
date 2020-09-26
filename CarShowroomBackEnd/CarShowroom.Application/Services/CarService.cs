@@ -24,12 +24,26 @@ namespace CarShowroom.Application.Services
         }
         public async Task<CarDto> AddCar(CarDto carToAdd)
         {
-            return await _carRepository.Add(carToAdd);
+            try
+            {
+                return await _carRepository.Add(carToAdd);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
         public async Task<IActionResult> DeleteCar(int id)
         {
-            return await _carRepository.Delete(id);
+            try
+            {
+                return await _carRepository.Delete(id);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
         public async Task<PagedList<CarDto>> GetAllCarsAsync(QueryParameters queryParameters)
@@ -48,12 +62,30 @@ namespace CarShowroom.Application.Services
 
         public async Task<CarDto> GetCar(int id)
         {
-            return await _carRepository.Get(id);
+            try
+            {
+                return await _carRepository.Get(id);
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
         public async Task<CarDto> UpdateCar(int id, CarDto carToUpdate)
         {
-            return await _carRepository.Update(id, carToUpdate);
+            try
+            {
+                return await _carRepository.Update(id, carToUpdate);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
     }
 }
