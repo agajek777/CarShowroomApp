@@ -15,6 +15,6 @@ namespace CarShowroom.Application.Interfaces
         public Task<CarDto> AddCarAsync(CarDto carToAdd);
         public Task<CarDto> UpdateCarAsync(int id, CarDto carToUpdate);
         public Task<bool> DeleteCarAsync(int id);
-        public Task<bool> CarExists(int id);
+        public Task<bool> CarExistsAsync(int id);
     }
 }

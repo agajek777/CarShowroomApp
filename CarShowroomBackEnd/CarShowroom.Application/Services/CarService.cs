@@ -121,7 +121,7 @@ namespace CarShowroom.Application.Services
             }
         }
 
-        public async Task<bool> CarExists(int id)
+        public async Task<bool> CarExistsAsync(int id)
         {
             return await _carRepository.CarExistsAsync(id);
         }
