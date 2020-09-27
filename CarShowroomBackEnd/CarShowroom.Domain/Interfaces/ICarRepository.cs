@@ -14,5 +14,6 @@ namespace CarShowroom.Domain.Interfaces
         Task<TEntityDto> AddAsync(TEntityDto entity);
         Task<TEntityDto> UpdateAsync(int id, TEntityDto entity);
         Task<bool> DeleteAsync(int id);
+        Task<bool> CarExistsAsync(int id)
     }
 }

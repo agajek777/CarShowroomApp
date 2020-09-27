@@ -172,6 +172,11 @@ namespace CarShowroom.Infra.Data.Repositories
             return true;
         }
 
+        public async Task<bool> CarExistsAsync(int id)
+        {
+            return await _db.Cars.AnyAsync(p => p.Id == id);
+        }
+
         #region HelperMethods
         private async Task<bool> CheckConnectionAsync()
         {
