@@ -63,7 +63,7 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning("Get() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
+                _logger.LogWarning(ex, "Get() got exception: {Message}", ex.Message);
                 throw;
             }
 
@@ -139,15 +139,10 @@ namespace CarShowroom.Infra.Data.Repositories
             {
                 await _db.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                _logger.LogWarning("Delete() got exception: {Exception} --- {Message}", typeof(DbUpdateConcurrencyException).Name, ex.Message);
-                throw;
-            }
             catch (DbUpdateException ex)
             {
-                _logger.LogWarning("Delete() got exception: {Exception} --- {Message}", typeof(DbUpdateException).Name, ex.Message);
-                throw;
+                _logger.LogWarning(ex, "Delete() got exception: {Message}", ex.Message);
+                return false;
             }
 
             return true;
@@ -167,7 +162,7 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (SqlException ex)
             {
-                _logger.LogWarning("GetAllAsync() got exception: {Exception} --- {Message}", nameof(SqlException), ex.Message);
+                _logger.LogWarning(ex, "GetAllAsync() got exception: {Message}", ex.Message);
                 return false;
             }
             return true;

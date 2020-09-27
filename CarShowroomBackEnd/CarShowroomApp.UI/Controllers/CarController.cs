@@ -103,12 +103,11 @@ namespace CarShowroom.UI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            bool result;
-
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
-            result = await _carService.DeleteCarAsync(id);
+            if (!await _carService.DeleteCarAsync(id))
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Request unsuccessfull." });
 
             return NoContent();
         }

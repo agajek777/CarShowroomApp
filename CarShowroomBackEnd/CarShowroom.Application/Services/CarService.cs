@@ -53,13 +53,9 @@ namespace CarShowroom.Application.Services
             {
                 throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
             catch (DbUpdateException)
             {
-                throw;
+                return false;
             }
         }
 
