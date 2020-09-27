@@ -11,7 +11,9 @@ using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Newtonsoft.Json;
 
 namespace CarShowroom.UI.Controllers
@@ -40,7 +42,7 @@ namespace CarShowroom.UI.Controllers
             }
             catch (DataException ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
             }
 
             _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, outcome.Count);
@@ -70,13 +72,13 @@ namespace CarShowroom.UI.Controllers
             {
                 carInDb = await _carService.GetCarAsync(id);
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException)
             {
-                return NotFound(new { Error = ex.Message });
+                return NotFound(new { Message = $"No car with ID { id } has been found." });
             }
             catch (DataException ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
             }
 
             _logger.LogInformation("User {User} obtained Car Model from db", HttpContext.User.Identity.Name);
@@ -98,12 +100,20 @@ namespace CarShowroom.UI.Controllers
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
                 }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return BadRequest(new { Error = "Concurrency conflict detected. No rows in the database were affected." });
+                }
+                catch (DbUpdateException)
+                {
+                    return BadRequest(new { Error = "Error while saving to the database." });
+                }
 
                 _logger.LogInformation("User {User} added Car Model to db", HttpContext.User.Identity.Name);
 
                 return Ok(model);
             }
-            return BadRequest();
+            return BadRequest(new { Message = "Invalid Car model." });
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] CarDto carDto)
@@ -118,26 +128,54 @@ namespace CarShowroom.UI.Controllers
                 }
                 catch (DataException ex)
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+                    return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
+                }
+                catch (InvalidOperationException)
+                {
+                    return BadRequest(new { Message = $"No car with ID { id } has been found." });
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return BadRequest(new { Error = "Concurrency conflict detected. No rows in the database were affected." });
+                }
+                catch (DbUpdateException)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Error while saving to the database." });
                 }
 
-                _logger.LogInformation("User {User} edited Car Model in db", HttpContext.User.Identity.Name);
+                _logger.LogInformation("User {User} edited Car Model (id = {Id}) in db", HttpContext.User.Identity.Name, id);
 
                 return Ok(outcome);
             }
-            return BadRequest();
+            return BadRequest(new { Message = "Invalid Car model." });
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            bool result;
+
             try
             {
-                return await _carService.DeleteCarAsync(id);
+                result = await _carService.DeleteCarAsync(id);
             }
             catch (DataException ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
             }
+            catch (InvalidOperationException)
+            {
+                return BadRequest(new { Message = $"No car with ID { id } has been found." });
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest(new { Error = "Concurrency conflict detected. No rows in the database were affected." });
+            }
+            catch (DbUpdateException)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Error while saving to the database." });
+            }
+
+            return NoContent();
         }
     }
 }
