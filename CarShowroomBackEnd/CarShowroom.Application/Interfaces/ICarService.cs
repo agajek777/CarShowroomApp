@@ -11,9 +11,9 @@ namespace CarShowroom.Application.Interfaces
     public interface ICarService
     {
         public Task<PagedList<CarDto>> GetAllCarsAsync(QueryParameters queryParameters);
-        public Task<CarDto> GetCar(int id);
-        public Task<CarDto> AddCar(CarDto carToAdd);
-        public Task<CarDto> UpdateCar(int id, CarDto carToUpdate);
-        public Task<bool> DeleteCar(int id);
+        public Task<CarDto> GetCarAsync(int id);
+        public Task<CarDto> AddCarAsync(CarDto carToAdd);
+        public Task<CarDto> UpdateCarAsync(int id, CarDto carToUpdate);
+        public Task<bool> DeleteCarAsync(int id);
     }
 }

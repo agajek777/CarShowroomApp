@@ -68,7 +68,11 @@ namespace CarShowroom.UI.Controllers
 
             try
             {
-                carInDb = await _carService.GetCar(id);
+                carInDb = await _carService.GetCarAsync(id);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(new { Error = ex.Message });
             }
             catch (DataException ex)
             {
@@ -77,10 +81,6 @@ namespace CarShowroom.UI.Controllers
 
             _logger.LogInformation("User {User} obtained Car Model from db", HttpContext.User.Identity.Name);
 
-            if (carInDb == null)
-            {
-                return BadRequest(new { Error = "Car with provided ID not found." });
-            }
             return Ok(carInDb);
         }
         [HttpPost]
@@ -92,7 +92,7 @@ namespace CarShowroom.UI.Controllers
 
                 try
                 {
-                    model = await _carService.AddCar(carDto);
+                    model = await _carService.AddCarAsync(carDto);
                 }
                 catch (DataException ex)
                 {
@@ -114,7 +114,7 @@ namespace CarShowroom.UI.Controllers
 
                 try
                 {
-                    outcome = await _carService.UpdateCar(id, carDto);
+                    outcome = await _carService.UpdateCarAsync(id, carDto);
                 }
                 catch (DataException ex)
                 {
@@ -132,7 +132,7 @@ namespace CarShowroom.UI.Controllers
         {
             try
             {
-                return await _carService.DeleteCar(id);
+                return await _carService.DeleteCarAsync(id);
             }
             catch (DataException ex)
             {

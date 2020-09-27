@@ -50,7 +50,7 @@ namespace CarShowroom.Infra.Data.Repositories
             return result;
         }
 
-        public async Task<CarDto> Get(int id)
+        public async Task<CarDto> GetAsync(int id)
         {
             Car outcome;
 
@@ -70,7 +70,7 @@ namespace CarShowroom.Infra.Data.Repositories
             return _mapper.Map<CarDto>(outcome);
         }
 
-        public async Task<CarDto> Add(CarDto entity)
+        public async Task<CarDto> AddAsync(CarDto entity)
         {
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
@@ -96,7 +96,7 @@ namespace CarShowroom.Infra.Data.Repositories
             return _mapper.Map<CarDto>(model);
         }
 
-        public async Task<CarDto> Update(int id, CarDto entity)
+        public async Task<CarDto> UpdateAsync(int id, CarDto entity)
         {
             Car outcome;
 
@@ -135,7 +135,7 @@ namespace CarShowroom.Infra.Data.Repositories
             return _mapper.Map<CarDto>(outcome);
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             Car carInDb;
 

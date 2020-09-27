@@ -10,9 +10,9 @@ namespace CarShowroom.Domain.Interfaces
     public interface ICarRepository<TEntity, TEntityDto>
     {
         Task<IQueryable<TEntityDto>> GetAllAsync();
-        Task<TEntityDto> Get(int id);
-        Task<TEntityDto> Add(TEntityDto entity);
-        Task<TEntityDto> Update(int id, TEntityDto entity);
-        Task<bool> Delete(int id);
+        Task<TEntityDto> GetAsync(int id);
+        Task<TEntityDto> AddAsync(TEntityDto entity);
+        Task<TEntityDto> UpdateAsync(int id, TEntityDto entity);
+        Task<bool> DeleteAsync(int id);
     }
 }
