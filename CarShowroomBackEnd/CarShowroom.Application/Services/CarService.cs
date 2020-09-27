@@ -53,10 +53,6 @@ namespace CarShowroom.Application.Services
             {
                 throw;
             }
-            catch (InvalidOperationException)
-            {
-                throw;
-            }
             catch (DbUpdateConcurrencyException)
             {
                 throw;
@@ -87,10 +83,6 @@ namespace CarShowroom.Application.Services
             {
                 return await _carRepository.GetAsync(id);
             }
-            catch (InvalidOperationException)
-            {
-                throw;
-            }
             catch (DataException)
             {
                 throw;
@@ -104,10 +96,6 @@ namespace CarShowroom.Application.Services
                 return await _carRepository.UpdateAsync(id, carToUpdate);
             }
             catch (DataException)
-            {
-                throw;
-            }
-            catch (InvalidOperationException)
             {
                 throw;
             }

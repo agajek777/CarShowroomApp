@@ -75,7 +75,7 @@ namespace CarShowroom.Infra.Data.Repositories
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
 
-            Car model = _mapper.Map<Car>(entity);
+            var model = _mapper.Map<Car>(entity);
 
             await _db.Cars.AddAsync(model);
 
@@ -98,20 +98,10 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<CarDto> UpdateAsync(int id, CarDto entity)
         {
-            Car outcome;
-
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
 
-            try
-            {
-                outcome = await _db.Cars.SingleAsync(a => a.Id == id);
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning("Update() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
-                throw;
-            }
+            var outcome = await _db.Cars.SingleAsync(a => a.Id == id);
 
             outcome = _mapper.Map<CarDto, Car>(entity, outcome);
 
@@ -137,20 +127,11 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> DeleteAsync(int id)
         {
-            Car carInDb;
-
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
 
-            try
-            {
-                carInDb = await _db.Cars.SingleAsync(a => a.Id == id);
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning("Delete() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
-                throw;
-            }
+            var carInDb = await _db.Cars.SingleAsync(a => a.Id == id);
+            
 
             _db.Cars.Remove(carInDb);
 

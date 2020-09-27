@@ -22,6 +22,7 @@ namespace CarShowroom.UI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
+    [ExceptionHandlingFilter]
     public class CarController : ControllerBase
     {
         private readonly ICarService _carService;
@@ -37,14 +38,8 @@ namespace CarShowroom.UI.Controllers
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
             PagedList<CarDto> outcome;
-            try
-            {
-                outcome = await _carService.GetAllCarsAsync(queryParameters);
-            }
-            catch (DataException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
-            }
+
+            outcome = await _carService.GetAllCarsAsync(queryParameters);
 
             _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, outcome.Count);
 
@@ -72,48 +67,26 @@ namespace CarShowroom.UI.Controllers
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
-            try
-            {
-                carInDb = await _carService.GetCarAsync(id);
-            }
-            catch (DataException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
-            }
+            carInDb = await _carService.GetCarAsync(id);
 
             _logger.LogInformation("User {User} obtained Car Model from db", HttpContext.User.Identity.Name);
 
             return Ok(carInDb);
         }
         [HttpPost]
-        [ModelValidation]
+        [ModelValidationFilter]
         public async Task<IActionResult> Post([FromBody] CarDto carDto)
         {
             CarDto model;
 
-            try
-            {
-                model = await _carService.AddCarAsync(carDto);
-            }
-            catch (DataException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Message = ex.Message });
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return BadRequest(new { Error = "Concurrency conflict detected. No rows in the database were affected." });
-            }
-            catch (DbUpdateException)
-            {
-                return BadRequest(new { Error = "Error while saving to the database." });
-            }
+            model = await _carService.AddCarAsync(carDto);
 
             _logger.LogInformation("User {User} added Car Model to db", HttpContext.User.Identity.Name);
 
             return Ok(model);
         }
         [HttpPut("{id}")]
-        [ModelValidation]
+        [ModelValidationFilter]
         public async Task<IActionResult> Put(int id, [FromBody] CarDto carDto)
         {
             CarDto outcome;
@@ -121,22 +94,7 @@ namespace CarShowroom.UI.Controllers
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
-            try
-            {
-                outcome = await _carService.UpdateCarAsync(id, carDto);
-            }
-            catch (DataException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return BadRequest(new { Error = "Concurrency conflict detected. No rows in the database were affected." });
-            }
-            catch (DbUpdateException)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Error while saving to the database." });
-            }
+            outcome = await _carService.UpdateCarAsync(id, carDto);
 
             _logger.LogInformation("User {User} edited Car Model (id = {Id}) in db", HttpContext.User.Identity.Name, id);
 
@@ -150,22 +108,7 @@ namespace CarShowroom.UI.Controllers
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
-            try
-            {
-                result = await _carService.DeleteCarAsync(id);
-            }
-            catch (DataException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = ex.Message });
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                return BadRequest(new { Error = "Concurrency conflict detected. No rows in the database were affected." });
-            }
-            catch (DbUpdateException)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Error while saving to the database." });
-            }
+            result = await _carService.DeleteCarAsync(id);
 
             return NoContent();
         }
