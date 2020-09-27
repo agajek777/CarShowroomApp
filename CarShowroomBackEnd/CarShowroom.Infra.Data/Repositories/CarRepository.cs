@@ -43,16 +43,7 @@ namespace CarShowroom.Infra.Data.Repositories
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
 
-            try
-            {
-                result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
-            }
-
-            catch (Exception ex)
-            {
-                _logger.LogWarning("GetAll() got exception: {Exception}", ex.Message);
-                return null;
-            }
+            result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
 
             _logger.LogInformation("GetAll() obtained {Num} Car Models.", await result.CountAsync());
 
@@ -92,9 +83,15 @@ namespace CarShowroom.Infra.Data.Repositories
             {
                 await _db.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (DbUpdateConcurrencyException ex)
             {
-                _logger.LogWarning("Add() got exception: {Exception}", ex.Message);
+                _logger.LogWarning("Add() got exception: {Exception} --- {Message}", typeof(DbUpdateConcurrencyException).Name, ex.Message);
+                throw;
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogWarning("Add() got exception: {Exception} --- {Message}", typeof(DbUpdateException).Name, ex.Message);
+                throw;
             }
             return _mapper.Map<CarDto>(model);
         }
@@ -110,26 +107,35 @@ namespace CarShowroom.Infra.Data.Repositories
             {
                 outcome = await _db.Cars.SingleAsync(a => a.Id == id);
             }
-            catch (ArgumentNullException ex)
-            {
-                _logger.LogWarning("Update() got exception: {Exception} --- {Message}", typeof(ArgumentNullException).Name, ex.Message);
-                return null;
-            }
             catch (InvalidOperationException ex)
             {
                 _logger.LogWarning("Update() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
-                return null;
+                throw;
             }
 
             outcome = _mapper.Map<CarDto, Car>(entity, outcome);
 
             _db.Update(outcome);
-            await _db.SaveChangesAsync();
+
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                _logger.LogWarning("Add() got exception: {Exception} --- {Message}", typeof(DbUpdateConcurrencyException).Name, ex.Message);
+                throw;
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogWarning("Add() got exception: {Exception} --- {Message}", typeof(DbUpdateException).Name, ex.Message);
+                throw;
+            }
 
             return _mapper.Map<CarDto>(outcome);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             Car carInDb;
 
@@ -140,23 +146,33 @@ namespace CarShowroom.Infra.Data.Repositories
             {
                 carInDb = await _db.Cars.SingleAsync(a => a.Id == id);
             }
-            catch (ArgumentNullException ex)
-            {
-                _logger.LogWarning("Delete() got exception: {Exception} --- {Message}", typeof(ArgumentNullException).Name, ex.Message);
-                return new BadRequestResult();
-            }
             catch (InvalidOperationException ex)
             {
                 _logger.LogWarning("Delete() got exception: {Exception} --- {Message}", typeof(InvalidOperationException).Name, ex.Message);
-                return new BadRequestResult();
+                throw;
             }
 
             _db.Cars.Remove(carInDb);
-            _db.SaveChanges();
 
-            return new OkResult();
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                _logger.LogWarning("Delete() got exception: {Exception} --- {Message}", typeof(DbUpdateConcurrencyException).Name, ex.Message);
+                throw;
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogWarning("Delete() got exception: {Exception} --- {Message}", typeof(DbUpdateException).Name, ex.Message);
+                throw;
+            }
+
+            return true;
         }
 
+        #region HelperMethods
         private async Task<bool> CheckConnectionAsync()
         {
             try
@@ -170,5 +186,6 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             return true;
         }
+        #endregion
     }
 }

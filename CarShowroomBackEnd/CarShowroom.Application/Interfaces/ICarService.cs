@@ -14,6 +14,6 @@ namespace CarShowroom.Application.Interfaces
         public Task<CarDto> GetCar(int id);
         public Task<CarDto> AddCar(CarDto carToAdd);
         public Task<CarDto> UpdateCar(int id, CarDto carToUpdate);
-        public Task<IActionResult> DeleteCar(int id);
+        public Task<bool> DeleteCar(int id);
     }
 }

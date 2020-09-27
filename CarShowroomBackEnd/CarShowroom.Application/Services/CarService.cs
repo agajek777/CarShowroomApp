@@ -4,6 +4,7 @@ using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,15 +33,35 @@ namespace CarShowroom.Application.Services
             {
                 throw;
             }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
         }
 
-        public async Task<IActionResult> DeleteCar(int id)
+        public async Task<bool> DeleteCar(int id)
         {
             try
             {
                 return await _carRepository.Delete(id);
             }
             catch (DataException)
+            {
+                throw;
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+            catch (DbUpdateException)
             {
                 throw;
             }
@@ -83,6 +104,18 @@ namespace CarShowroom.Application.Services
                 return await _carRepository.Update(id, carToUpdate);
             }
             catch (DataException)
+            {
+                throw;
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+            catch (DbUpdateException)
             {
                 throw;
             }

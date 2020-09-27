@@ -13,6 +13,6 @@ namespace CarShowroom.Domain.Interfaces
         Task<TEntityDto> Get(int id);
         Task<TEntityDto> Add(TEntityDto entity);
         Task<TEntityDto> Update(int id, TEntityDto entity);
-        Task<IActionResult> Delete(int id);
+        Task<bool> Delete(int id);
     }
 }
