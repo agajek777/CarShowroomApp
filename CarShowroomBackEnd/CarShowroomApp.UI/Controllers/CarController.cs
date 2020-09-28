@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using CarShowroom.Application.Interfaces;
+using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
+using CarShowroom.UI.Filters;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Newtonsoft.Json;
 
 namespace CarShowroom.UI.Controllers
@@ -16,7 +22,8 @@ namespace CarShowroom.UI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class CarController : Controller
+    [ExceptionHandlingFilter]
+    public class CarController : ControllerBase
     {
         private readonly ICarService _carService;
         private readonly ILogger<CarController> _logger;
@@ -52,46 +59,57 @@ namespace CarShowroom.UI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
         {
-            var carInDb = await _carService.GetCar(id);
+            if (!await _carService.CarExistsAsync(id))
+                return BadRequest(new { Message = $"No car with ID { id } has been found." });
+
+            var carInDb = await _carService.GetCarAsync(id);
+
+            if (carInDb == null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Conflict in the database. Try again later." });
 
             _logger.LogInformation("User {User} obtained Car Model from db", HttpContext.User.Identity.Name);
 
-            if (carInDb == null)
-            {
-                return BadRequest(new { Error = "Car with provided ID not found." });
-            }
             return Ok(carInDb);
         }
         [HttpPost]
+        [ModelValidationFilter]
         public async Task<IActionResult> Post([FromBody] CarDto carDto)
         {
-            if (ModelState.IsValid)
-            {
-                CarDto model = await _carService.AddCar(carDto);
+            var model = await _carService.AddCarAsync(carDto);
 
-                _logger.LogInformation("User {User} added Car Model to db", HttpContext.User.Identity.Name);
+            if (model == null)
+                return Conflict(new { Error = "Request unsuccessfull." });
 
-                return Ok(model);
-            }
-            return BadRequest();
+            _logger.LogInformation("User {User} added Car Model to db", HttpContext.User.Identity.Name);
+
+            return Ok(model);
         }
         [HttpPut("{id}")]
+        [ModelValidationFilter]
         public async Task<IActionResult> Put(int id, [FromBody] CarDto carDto)
         {
-            if (ModelState.IsValid)
-            {
-                var outcome = await _carService.UpdateCar(id, carDto);
+            if (!await _carService.CarExistsAsync(id))
+                return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
-                _logger.LogInformation("User {User} edited Car Model in db", HttpContext.User.Identity.Name);
+            var outcome = await _carService.UpdateCarAsync(id, carDto);
 
-                return Ok(outcome);
-            }
-            return BadRequest();
+            if (outcome == null)
+                return Conflict(new { Error = "Request unsuccessfull." });
+
+            _logger.LogInformation("User {User} edited Car Model (id = {Id}) in db", HttpContext.User.Identity.Name, id);
+
+            return Ok(outcome);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            return await _carService.DeleteCar(id);
+            if (!await _carService.CarExistsAsync(id))
+                return BadRequest(new { Message = $"No car with ID { id } has been found." });
+
+            if (!await _carService.DeleteCarAsync(id))
+                return Conflict(new { Error = "Request unsuccessfull." });
+
+            return NoContent();
         }
     }
 }

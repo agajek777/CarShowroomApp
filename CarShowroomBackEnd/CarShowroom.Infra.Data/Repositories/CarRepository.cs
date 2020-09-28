@@ -6,13 +6,20 @@ using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace CarShowroom.Infra.Data.Repositories
 {
@@ -31,110 +38,126 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<IQueryable<CarDto>> GetAllAsync()
         {
-            IQueryable<CarDto> result;
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
 
-            try
-            {
-                result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning("GetAll() got exception: {Exception}", ex.Message);
-                return null;
-            }
+            var result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
 
             _logger.LogInformation("GetAll() obtained {Num} Car Models.", await result.CountAsync());
 
             return result;
         }
 
-        public async Task<CarDto> Get(int id)
+        public async Task<CarDto> GetAsync(int id)
         {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             Car outcome;
 
             try
             {
                 outcome = await _db.Cars.SingleAsync(a => a.Id == id);
             }
-            catch (ArgumentNullException ex)
-            {
-                _logger.LogWarning("Get() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
-                return null;
-            }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning("Get() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
+                _logger.LogWarning(ex, "GetAsync() got exception: {Message}", ex.Message);
                 return null;
             }
 
             return _mapper.Map<CarDto>(outcome);
         }
 
-        public async Task<CarDto> Add(CarDto entity)
+        public async Task<CarDto> AddAsync(CarDto entity)
         {
-            Car model = _mapper.Map<Car>(entity);
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
+            var model = _mapper.Map<Car>(entity);
+
             await _db.Cars.AddAsync(model);
+
             try
             {
                 await _db.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
-                _logger.LogWarning("Add() got exception: {Exception}", ex.Message);
+                _logger.LogWarning(ex, "AddAsync() got exception: {Message}", ex.Message);
+                return null;
             }
             return _mapper.Map<CarDto>(model);
         }
 
-        public async Task<CarDto> Update(int id, CarDto entity)
+        public async Task<CarDto> UpdateAsync(int id, CarDto entity)
         {
-            Car outcome;
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
 
-            try
-            {
-                outcome = await _db.Cars.SingleAsync(a => a.Id == id);
-            }
-            catch (ArgumentNullException ex)
-            {
-                _logger.LogWarning("Update() got exception: {Exception} - {Message}", typeof(ArgumentNullException).Name, ex.Message);
-                return null;
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning("Update() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
-                return null;
-            }
+            var outcome = await _db.Cars.SingleAsync(a => a.Id == id);
 
             outcome = _mapper.Map<CarDto, Car>(entity, outcome);
 
             _db.Update(outcome);
-            await _db.SaveChangesAsync();
+
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogWarning(ex, "UpdateAsync() got exception: {Message}", ex.Message);
+                return null;
+            }
 
             return _mapper.Map<CarDto>(outcome);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            Car carInDb;
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
+            var carInDb = await _db.Cars.SingleAsync(a => a.Id == id);
+            
+
+            _db.Cars.Remove(carInDb);
 
             try
             {
-                carInDb = await _db.Cars.SingleAsync(a => a.Id == id);
+                await _db.SaveChangesAsync();
             }
-            catch (ArgumentNullException ex)
+            catch (DbUpdateException ex)
             {
-                _logger.LogWarning("Delete() got exception: {Exception} - {Message}", typeof(ArgumentNullException).Name, ex.Message);
-                return new BadRequestResult();
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning("Delete() got exception: {Exception}", typeof(InvalidOperationException).Name, ex.Message);
-                return new BadRequestResult();
+                _logger.LogWarning(ex, "DeleteAsync() got exception: {Message}", ex.Message);
+                return false;
             }
 
-            _db.Cars.Remove(carInDb);
-            _db.SaveChanges();
-
-            return new OkResult();
+            return true;
         }
+
+        public async Task<bool> CarExistsAsync(int id)
+        {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
+            return await _db.Cars.AnyAsync(p => p.Id == id);
+        }
+
+        #region HelperMethods
+        private async Task<bool> CheckConnectionAsync()
+        {
+            try
+            {
+                await _db.GetService<IRelationalDatabaseCreator>().CanConnectAsync();
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogWarning(ex, "CheckConnectionAsync() got exception: {Message}", ex.Message);
+                return false;
+            }
+            return true;
+        }
+        #endregion
     }
 }

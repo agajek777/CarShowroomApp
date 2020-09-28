@@ -4,11 +4,14 @@ using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace CarShowroom.Application.Services
 {
@@ -20,31 +23,78 @@ namespace CarShowroom.Application.Services
         {
             _carRepository = carRepository;
         }
-        public async Task<CarDto> AddCar(CarDto carToAdd)
+        public async Task<CarDto> AddCarAsync(CarDto carToAdd)
         {
-            return await _carRepository.Add(carToAdd);
+            try
+            {
+                return await _carRepository.AddAsync(carToAdd);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
-        public async Task<IActionResult> DeleteCar(int id)
+        public async Task<bool> DeleteCarAsync(int id)
         {
-            return await _carRepository.Delete(id);
+            try
+            {
+                return await _carRepository.DeleteAsync(id);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
         public async Task<PagedList<CarDto>> GetAllCarsAsync(QueryParameters queryParameters)
         {
-            return PagedList<CarDto>.ToPagedList(await _carRepository.GetAllAsync(),
+            try
+            {
+                return PagedList<CarDto>.ToPagedList(await _carRepository.GetAllAsync(),
                                                 queryParameters.PageNumber,
                                                 queryParameters.PageSize);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
-        public async Task<CarDto> GetCar(int id)
+        public async Task<CarDto> GetCarAsync(int id)
         {
-            return await _carRepository.Get(id);
+            try
+            {
+                return await _carRepository.GetAsync(id);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
-        public async Task<CarDto> UpdateCar(int id, CarDto carToUpdate)
+        public async Task<CarDto> UpdateCarAsync(int id, CarDto carToUpdate)
         {
-            return await _carRepository.Update(id, carToUpdate);
+            try
+            {
+                return await _carRepository.UpdateAsync(id, carToUpdate);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> CarExistsAsync(int id)
+        {
+            try
+            {
+                return await _carRepository.CarExistsAsync(id);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
     }
 }
