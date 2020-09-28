@@ -38,12 +38,10 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<IQueryable<CarDto>> GetAllAsync()
         {
-            IQueryable<CarDto> result;
-
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
 
-            result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
+            var result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
 
             _logger.LogInformation("GetAll() obtained {Num} Car Models.", await result.CountAsync());
 
@@ -52,10 +50,10 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<CarDto> GetAsync(int id)
         {
-            Car outcome;
-
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
+
+            Car outcome;
 
             try
             {
@@ -63,8 +61,8 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (InvalidOperationException ex)
             {
-                _logger.LogWarning(ex, "Get() got exception: {Message}", ex.Message);
-                throw;
+                _logger.LogWarning(ex, "GetAsync() got exception: {Message}", ex.Message);
+                return null;
             }
 
             return _mapper.Map<CarDto>(outcome);
@@ -83,15 +81,10 @@ namespace CarShowroom.Infra.Data.Repositories
             {
                 await _db.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                _logger.LogWarning("Add() got exception: {Exception} --- {Message}", typeof(DbUpdateConcurrencyException).Name, ex.Message);
-                throw;
-            }
             catch (DbUpdateException ex)
             {
-                _logger.LogWarning("Add() got exception: {Exception} --- {Message}", typeof(DbUpdateException).Name, ex.Message);
-                throw;
+                _logger.LogWarning(ex, "AddAsync() got exception: {Message}", ex.Message);
+                return null;
             }
             return _mapper.Map<CarDto>(model);
         }
@@ -111,15 +104,10 @@ namespace CarShowroom.Infra.Data.Repositories
             {
                 await _db.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                _logger.LogWarning("Add() got exception: {Exception} --- {Message}", typeof(DbUpdateConcurrencyException).Name, ex.Message);
-                throw;
-            }
             catch (DbUpdateException ex)
             {
-                _logger.LogWarning("Add() got exception: {Exception} --- {Message}", typeof(DbUpdateException).Name, ex.Message);
-                throw;
+                _logger.LogWarning(ex, "UpdateAsync() got exception: {Message}", ex.Message);
+                return null;
             }
 
             return _mapper.Map<CarDto>(outcome);
@@ -141,7 +129,7 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogWarning(ex, "Delete() got exception: {Message}", ex.Message);
+                _logger.LogWarning(ex, "DeleteAsync() got exception: {Message}", ex.Message);
                 return false;
             }
 
@@ -150,6 +138,9 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> CarExistsAsync(int id)
         {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             return await _db.Cars.AnyAsync(p => p.Id == id);
         }
 
@@ -162,7 +153,7 @@ namespace CarShowroom.Infra.Data.Repositories
             }
             catch (SqlException ex)
             {
-                _logger.LogWarning(ex, "GetAllAsync() got exception: {Message}", ex.Message);
+                _logger.LogWarning(ex, "CheckConnectionAsync() got exception: {Message}", ex.Message);
                 return false;
             }
             return true;

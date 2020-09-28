@@ -37,9 +37,7 @@ namespace CarShowroom.UI.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
-            PagedList<CarDto> outcome;
-
-            outcome = await _carService.GetAllCarsAsync(queryParameters);
+            var outcome = await _carService.GetAllCarsAsync(queryParameters);
 
             _logger.LogInformation("User {User} obtained {Num} Car Models from db", HttpContext.User.Identity.Name, outcome.Count);
 
@@ -55,19 +53,19 @@ namespace CarShowroom.UI.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-
             return Ok(outcome);
         }
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
         {
-            CarDto carInDb;
-
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
-            carInDb = await _carService.GetCarAsync(id);
+            var carInDb = await _carService.GetCarAsync(id);
+
+            if (carInDb == null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Conflict in the database. Try again later." });
 
             _logger.LogInformation("User {User} obtained Car Model from db", HttpContext.User.Identity.Name);
 
@@ -77,9 +75,10 @@ namespace CarShowroom.UI.Controllers
         [ModelValidationFilter]
         public async Task<IActionResult> Post([FromBody] CarDto carDto)
         {
-            CarDto model;
+            var model = await _carService.AddCarAsync(carDto);
 
-            model = await _carService.AddCarAsync(carDto);
+            if (model == null)
+                return Conflict(new { Error = "Request unsuccessfull." });
 
             _logger.LogInformation("User {User} added Car Model to db", HttpContext.User.Identity.Name);
 
@@ -89,12 +88,13 @@ namespace CarShowroom.UI.Controllers
         [ModelValidationFilter]
         public async Task<IActionResult> Put(int id, [FromBody] CarDto carDto)
         {
-            CarDto outcome;
-
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
-            outcome = await _carService.UpdateCarAsync(id, carDto);
+            var outcome = await _carService.UpdateCarAsync(id, carDto);
+
+            if (outcome == null)
+                return Conflict(new { Error = "Request unsuccessfull." });
 
             _logger.LogInformation("User {User} edited Car Model (id = {Id}) in db", HttpContext.User.Identity.Name, id);
 
@@ -107,7 +107,7 @@ namespace CarShowroom.UI.Controllers
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
             if (!await _carService.DeleteCarAsync(id))
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Request unsuccessfull." });
+                return Conflict(new { Error = "Request unsuccessfull." });
 
             return NoContent();
         }

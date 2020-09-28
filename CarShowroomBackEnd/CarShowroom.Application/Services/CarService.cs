@@ -33,14 +33,6 @@ namespace CarShowroom.Application.Services
             {
                 throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
-            catch (DbUpdateException)
-            {
-                throw;
-            }
         }
 
         public async Task<bool> DeleteCarAsync(int id)
@@ -52,10 +44,6 @@ namespace CarShowroom.Application.Services
             catch (DataException)
             {
                 throw;
-            }
-            catch (DbUpdateException)
-            {
-                return false;
             }
         }
 
@@ -95,19 +83,18 @@ namespace CarShowroom.Application.Services
             {
                 throw;
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
-            catch (DbUpdateException)
-            {
-                throw;
-            }
         }
 
         public async Task<bool> CarExistsAsync(int id)
         {
-            return await _carRepository.CarExistsAsync(id);
+            try
+            {
+                return await _carRepository.CarExistsAsync(id);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
     }
 }
