@@ -19,5 +19,7 @@ namespace CarShowroom.Domain.Models.Messaging
         [Required]
         public string ReceiverId { get; set; }
         public User Receiver { get; set; }
+        [Required]
+        public string Text { get; set; }
     }
 }
