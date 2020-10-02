@@ -1,5 +1,6 @@
 ﻿using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.Identity;
+using CarShowroom.Domain.Models.Messaging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,6 +19,7 @@ namespace CarShowroom.Infra.Data.Context
 
         }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

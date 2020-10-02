@@ -11,6 +11,7 @@ using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
+using CarShowroom.Domain.Models.Messaging;
 using CarShowroom.Infra.Data.Context;
 using CarShowroom.Infra.Data.Repositories;
 using CarShowroom.Infra.IoC;
@@ -107,6 +108,8 @@ namespace CarShowroomApp
                 options.AddPolicy("Moderator", policy => policy.RequireClaim(ClaimsIdentity.DefaultRoleClaimType, new[] { UserRolesEnum.Admin, UserRolesEnum.Mod }));
             });
 
+            services.AddSignalR();
+
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
@@ -134,6 +137,7 @@ namespace CarShowroomApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<MessageHub>("/chat");
             });
 
             app.UseSwagger();

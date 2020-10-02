@@ -21,14 +21,14 @@ namespace CarShowroom.UI.Tests.Data
     public class CarControllerUnitTest
     {
         [Fact]
-        public void GetAll_ReturnsOkResult()
+        public async Task GetAll_ReturnsOkResultAsync()
         {
             /*
              * Arrange
              */
 
             // Create DbContext
-            var dbContext = DbContextMocker.GetDatabaseContext(nameof(GetAll_ReturnsOkResult));
+            var dbContext = DbContextMocker.GetDatabaseContext(nameof(GetAll_ReturnsOkResultAsync));
 
             // Create Mapper
             var configuration = new MapperConfiguration(cfg =>
@@ -37,7 +37,7 @@ namespace CarShowroom.UI.Tests.Data
             });
             var mapper = configuration.CreateMapper();
 
-            var carService = new CarService(new CarRepository(dbContext, mapper));
+            var carService = new CarService(new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance));
 
             // Create API Controller
             var controller = new CarController(carService, new NullLogger<CarController>());
@@ -46,7 +46,7 @@ namespace CarShowroom.UI.Tests.Data
              * Act
              */
 
-            var response = controller.GetAllAsync(new QueryParameters() { PageNumber = 1, PageSize = 1 }) as ObjectResult;
+            var response = await controller.GetAllAsync(new QueryParameters() { PageNumber = 1, PageSize = 1 }) as ObjectResult;
 
             dbContext.Dispose();
 
@@ -66,7 +66,7 @@ namespace CarShowroom.UI.Tests.Data
              */
 
             // Create DbContext
-            var dbContext = DbContextMocker.GetDatabaseContext(nameof(GetAll_ReturnsOkResult));
+            var dbContext = DbContextMocker.GetDatabaseContext(nameof(GetAll_ReturnsOkResultAsync));
 
             // Create Mapper
             var configuration = new MapperConfiguration(cfg =>
@@ -75,7 +75,7 @@ namespace CarShowroom.UI.Tests.Data
             });
             var mapper = configuration.CreateMapper();
 
-            var carService = new CarService(new CarRepository(dbContext, mapper));
+            var carService = new CarService(new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance));
 
             // Create API Controller
             var controller = new CarController(carService, new NullLogger<CarController>());
@@ -106,7 +106,7 @@ namespace CarShowroom.UI.Tests.Data
              */
 
             // Create DbContext
-            var dbContext = DbContextMocker.GetDatabaseContext(nameof(GetAll_ReturnsOkResult));
+            var dbContext = DbContextMocker.GetDatabaseContext(nameof(GetAll_ReturnsOkResultAsync));
 
             // Create Mapper
             var configuration = new MapperConfiguration(cfg =>
@@ -115,7 +115,7 @@ namespace CarShowroom.UI.Tests.Data
             });
             var mapper = configuration.CreateMapper();
 
-            var carService = new CarService(new CarRepository(dbContext, mapper));
+            var carService = new CarService(new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance));
 
             // Create API Controller
             var controller = new CarController(carService, new NullLogger<CarController>());
