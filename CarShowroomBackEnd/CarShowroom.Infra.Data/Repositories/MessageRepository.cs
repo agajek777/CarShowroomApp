@@ -5,6 +5,7 @@ using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Messaging;
 using CarShowroom.Infra.Data.Context;
 using log4net.Repository.Hierarchy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -14,24 +15,25 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CarShowroom.Infra.Data.Repositories
 {
-    class MessageRepository : IMessageRepository<MessagePostDto>
+    public class MessageRepository : IMessageRepository<MessagePostDto, MessageGetDto>
     {
         private readonly DatabaseContext<User, Role> _db;
         private readonly IMapper _mapper;
-        private readonly Logger<MessageRepository> _logger;
+        private readonly ILogger<MessageRepository> _logger;
 
-        public MessageRepository(DatabaseContext<User, Role> db, IMapper mapper, Logger<MessageRepository> logger)
+        public MessageRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<MessageRepository> logger)
         {
             _db = db;
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<bool> AddAsync(MessagePostDto entity)
+        public async Task<bool> AddAsync(MessagePostDto entity, string senderId)
         {
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
@@ -39,6 +41,7 @@ namespace CarShowroom.Infra.Data.Repositories
             var message = _mapper.Map<Message>(entity);
 
             message.Sent = DateTime.Now;
+            message.SenderId = senderId;
 
             await _db.Messages.AddAsync(message);
 
@@ -72,14 +75,22 @@ namespace CarShowroom.Infra.Data.Repositories
             catch (DbUpdateException ex)
             {
                 _logger.LogWarning(ex, "DeleteAsync() got exception: {Message}", ex.Message);
+                return false;
             }
 
             return true;
         }
 
-        public Task<IQueryable<MessagePostDto>> GetAllAsync(string senderId, string receiverId)
+        public async Task<IQueryable<MessageGetDto>> GetAllAsync(string senderId, string receiverId)
         {
-            throw new NotImplementedException();
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
+            return from message in _db.Messages
+                    where (message.SenderId == senderId && message.ReceiverId == receiverId)
+                        ||
+                        (message.SenderId == receiverId && message.ReceiverId == senderId)
+                    select _mapper.Map<MessageGetDto>(message);
         }
 
         #region HelperMethods

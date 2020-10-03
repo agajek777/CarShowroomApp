@@ -21,7 +21,8 @@ namespace CarShowroomApp.Data
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserForRegisterDto>().ReverseMap();
 
-            CreateMap<MessagePostDto, Message>().ReverseMap();
+            CreateMap<Message, MessagePostDto>().ReverseMap();
+            CreateMap<Message, MessageGetDto>().ReverseMap();
         }
     }
 }

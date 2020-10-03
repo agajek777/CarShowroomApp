@@ -10,14 +10,15 @@ namespace CarShowroom.Domain.Models.Messaging
 {
     public class MessageHub : Hub
     {
+        private readonly IHubContext<MessageHub> _hubContext;
+
+        public MessageHub(IHubContext<MessageHub> hubContext)
+        {
+            _hubContext = hubContext;
+        }
         public async Task SendPrivateMessage(string senderId, MessagePostDto message)
         {
-            await Clients.User(message.ReceiverId).SendAsync("sendMessage", senderId, message.ReceiverId, message.Text);
-        }
-
-        public Task SendPrivateMessage(Claim claim)
-        {
-            throw new NotImplementedException();
+            await _hubContext.Clients.User(message.ReceiverId).SendAsync("sendMessage", senderId, message.ReceiverId, message.Text);
         }
     }
 }

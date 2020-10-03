@@ -17,9 +17,9 @@ namespace CarShowroom.Application.Services
 {
     public class CarService : ICarService
     {
-        private readonly ICarRepository<Car, CarDto> _carRepository;
+        private readonly ICarRepository<CarDto> _carRepository;
 
-        public CarService(ICarRepository<Car, CarDto> carRepository)
+        public CarService(ICarRepository<CarDto> carRepository)
         {
             _carRepository = carRepository;
         }

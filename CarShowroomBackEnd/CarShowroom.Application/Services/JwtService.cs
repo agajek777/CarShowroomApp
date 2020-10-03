@@ -50,7 +50,7 @@ namespace CarShowroom.Application.Services
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName),
-                new Claim(ClaimTypes.Sid, user.Id)
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
 
             if (_userManager.SupportsUserRole)
