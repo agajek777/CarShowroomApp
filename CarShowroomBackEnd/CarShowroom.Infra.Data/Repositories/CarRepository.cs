@@ -23,7 +23,7 @@ using System.Web.Http;
 
 namespace CarShowroom.Infra.Data.Repositories
 {
-    public class CarRepository : ICarRepository<Car, CarDto>
+    public class CarRepository : ICarRepository<CarDto>
     {
         private readonly DatabaseContext<User, Role> _db;
         private readonly IMapper _mapper;

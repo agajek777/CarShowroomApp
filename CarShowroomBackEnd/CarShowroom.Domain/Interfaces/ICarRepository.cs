@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CarShowroom.Domain.Interfaces
 {
-    public interface ICarRepository<TEntity, TEntityDto>
+    public interface ICarRepository<TEntityDto>
     {
         Task<IQueryable<TEntityDto>> GetAllAsync();
         Task<TEntityDto> GetAsync(int id);

@@ -2,6 +2,7 @@
 using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
+using CarShowroom.Domain.Models.Messaging;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -14,17 +15,13 @@ namespace CarShowroomApp.Data
     {
         public MappingProfile()
         {
-            CreateMap<Car, CarDto>();
-            CreateMap<CarDto, Car>();
+            CreateMap<Car, CarDto>().ReverseMap();
 
-            CreateMap<Role, RoleDto>();
-            CreateMap<RoleDto, Role>();
+            CreateMap<Role, RoleDto>().ReverseMap();
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserForRegisterDto>().ReverseMap();
 
-            CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
-
-            CreateMap<User, UserForRegisterDto>();
-            CreateMap<UserForRegisterDto, User>();
+            CreateMap<MessagePostDto, Message>().ReverseMap();
         }
     }
 }
