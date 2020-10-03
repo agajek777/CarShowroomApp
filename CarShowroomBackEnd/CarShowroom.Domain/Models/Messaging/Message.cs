@@ -11,6 +11,8 @@ namespace CarShowroom.Domain.Models.Messaging
     {
         [Key]
         public int Id { get; set; }
+        [Required]
+        public DateTime Sent { get; set; }
         [ForeignKey("Sender")]
         [Required]
         public string SenderId { get; set; }
