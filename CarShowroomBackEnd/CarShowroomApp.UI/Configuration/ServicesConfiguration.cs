@@ -33,7 +33,7 @@ namespace CarShowroom.UI.Configuration
 
             services.AddAuthorization();
 
-            services.AddSignalR();
+            services.AddSignalRService();
 
             services.AddControllersServices();
         }
