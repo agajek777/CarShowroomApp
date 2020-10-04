@@ -1,11 +1,8 @@
 ﻿using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models.DTO;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarShowroom.Application.Services

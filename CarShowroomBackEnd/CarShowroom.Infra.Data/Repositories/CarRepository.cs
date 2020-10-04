@@ -5,21 +5,15 @@ using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace CarShowroom.Infra.Data.Repositories
 {

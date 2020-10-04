@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarShowroom.Domain.Models.Identity
+﻿namespace CarShowroom.Domain.Models.Identity
 {
     public static class UserRolesEnum
     {

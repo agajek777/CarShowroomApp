@@ -3,16 +3,12 @@ using CarShowroom.Application.Services;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
 using CarShowroom.Infra.Data.Repositories;
+using CarShowroom.UI.Configuration;
 using CarShowroom.UI.Controllers;
-using CarShowroomApp.Data;
 using CarShowroomApp.Tests.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 

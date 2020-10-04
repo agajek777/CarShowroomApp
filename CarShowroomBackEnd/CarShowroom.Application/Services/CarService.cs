@@ -1,17 +1,9 @@
 ﻿using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Interfaces;
-using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace CarShowroom.Application.Services
 {

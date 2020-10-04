@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.Configuration;
+﻿using AutoMapper;
 using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
-using CarShowroom.Infra.Data.Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
 
 namespace CarShowroom.UI.Controllers
 {

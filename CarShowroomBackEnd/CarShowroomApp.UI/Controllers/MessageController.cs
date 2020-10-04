@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using CarShowroom.Application.Interfaces;
+﻿using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
-using CarShowroom.Domain.Models.Messaging;
 using CarShowroom.UI.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace CarShowroom.UI.Controllers
 {

@@ -4,19 +4,14 @@ using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Messaging;
 using CarShowroom.Infra.Data.Context;
-using log4net.Repository.Hierarchy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarShowroom.Infra.Data.Repositories

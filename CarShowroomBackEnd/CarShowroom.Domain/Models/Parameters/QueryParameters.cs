@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarShowroom.Domain.Models.Parameters
+﻿namespace CarShowroom.Domain.Models.Parameters
 {
     public class QueryParameters
     {

@@ -2,8 +2,6 @@
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarShowroomApp.Tests.Data
 {

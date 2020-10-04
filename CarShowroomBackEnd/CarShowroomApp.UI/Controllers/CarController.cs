@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using CarShowroom.Application.Interfaces;
-using CarShowroom.Domain.Models;
+﻿using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
 using CarShowroom.UI.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace CarShowroom.UI.Controllers
 {

@@ -3,9 +3,6 @@ using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Messaging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarShowroom.Infra.Data.Context
 {
