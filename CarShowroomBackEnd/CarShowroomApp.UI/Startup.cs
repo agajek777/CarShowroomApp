@@ -4,6 +4,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
 using CarShowroom.Application.Interfaces;
 using CarShowroom.Application.Services;
@@ -40,6 +42,8 @@ namespace CarShowroomApp
         }
 
         public IConfiguration Configuration { get; }
+
+        public ILifetimeScope AutofacContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -80,8 +84,6 @@ namespace CarShowroomApp
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(typeof(Startup));
-
-            DependencyContainer.RegisterServices(services);
 
             services.AddAuthentication(options =>
             {
@@ -131,6 +133,11 @@ namespace CarShowroomApp
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            ContainerConfig.Configure(builder);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

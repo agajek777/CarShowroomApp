@@ -1,4 +1,7 @@
 ﻿using Autofac;
+using CarShowroom.Application.Services;
+using CarShowroom.Domain.Models.Messaging;
+using CarShowroom.Infra.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,23 +12,17 @@ namespace CarShowroom.Infra.IoC
 {
     public static class ContainerConfig
     {
-        public static IContainer Configure()
+        public static void Configure(ContainerBuilder builder)
         {
-            var builder = new ContainerBuilder();
+            // CarShowroom.Domain
+            builder.RegisterType<CarRepository>().AsImplementedInterfaces();
+            builder.RegisterType<MessageRepository>().AsImplementedInterfaces();
+            builder.RegisterType<MessageHub>().AsImplementedInterfaces();
 
-            builder.RegisterAssemblyTypes(Assembly.Load(nameof(CarShowroom.Application)))
-                    .Where(t => t.Namespace.Contains(nameof(CarShowroom.Application.Services)))
-                    .As(t => t.GetInterfaces()
-                    .Where(t => t.Namespace.Contains(nameof(CarShowroom.Application.Interfaces)))
-                    .FirstOrDefault(i => t.Name == "I" + t.Name));
-
-            builder.RegisterAssemblyTypes(Assembly.Load(nameof(CarShowroom.Infra.Data)))
-                .Where(t => t.Namespace.Contains(nameof(CarShowroom.Infra.Data.Repositories)))
-                    .As(t => t.GetInterfaces()
-                    .Where(t => t.Namespace.Contains(nameof(CarShowroom.Domain.Interfaces)))
-                    .FirstOrDefault(i => t.Name == "I" + t.Name));
-
-            return builder.Build();
+            // CarShowroom.Domain
+            builder.RegisterType<CarService>().AsImplementedInterfaces();
+            builder.RegisterType<MessageService>().AsImplementedInterfaces();
+            builder.RegisterType<JwtService>().AsImplementedInterfaces();
         }
     }
 }

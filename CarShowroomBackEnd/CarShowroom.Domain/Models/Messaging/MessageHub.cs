@@ -1,4 +1,5 @@
-﻿using CarShowroom.Domain.Models.DTO;
+﻿using CarShowroom.Domain.Interfaces;
+using CarShowroom.Domain.Models.DTO;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CarShowroom.Domain.Models.Messaging
 {
-    public class MessageHub : Hub
+    public class MessageHub : Hub, IMessageHub
     {
         private readonly IHubContext<MessageHub> _hubContext;
 

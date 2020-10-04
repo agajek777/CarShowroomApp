@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CarShowroom.Application.Interfaces;
+using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Messaging;
@@ -21,11 +22,11 @@ namespace CarShowroom.UI.Controllers
     [ExceptionHandlingFilter]
     public class MessageController : ControllerBase
     {
-        private readonly MessageHub _messageHub;
+        private readonly IMessageHub _messageHub;
         private readonly UserManager<User> _userManager;
         private readonly IMessageService<MessagePostDto, MessageGetDto> _messageService;
 
-        public MessageController(MessageHub messageHub, UserManager<User> userManager, IMessageService<MessagePostDto, MessageGetDto> messageService)
+        public MessageController(IMessageHub messageHub, UserManager<User> userManager, IMessageService<MessagePostDto, MessageGetDto> messageService)
         {
             _messageHub = messageHub;
             _userManager = userManager;
