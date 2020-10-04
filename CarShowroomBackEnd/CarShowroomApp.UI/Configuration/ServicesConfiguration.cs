@@ -35,7 +35,7 @@ namespace CarShowroom.UI.Configuration
 
             services.AddSignalR();
 
-            services.AddControllers();
+            services.AddControllersServices();
         }
         public static void AddDb(this IServiceCollection services, IConfiguration configuration)
         {
@@ -84,7 +84,7 @@ namespace CarShowroom.UI.Configuration
             services.AddAutoMapper(typeof(Startup));
         }
 
-        public static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
+        public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(options =>
             {
@@ -124,7 +124,7 @@ namespace CarShowroom.UI.Configuration
             });
         }
 
-        public static void AddAuthorization(IServiceCollection services)
+        public static void AddAuthorization(this IServiceCollection services)
         {
             services.AddAuthorization(options =>
             {
@@ -133,12 +133,12 @@ namespace CarShowroom.UI.Configuration
             });
         }
 
-        public static void AddSignalR(IServiceCollection services)
+        public static void AddSignalRService(this IServiceCollection services)
         {
             services.AddSignalR();
         }
 
-        public static void AddControllers(IServiceCollection services)
+        public static void AddControllersServices(this IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
