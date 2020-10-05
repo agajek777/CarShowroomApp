@@ -27,6 +27,8 @@ namespace CarShowroom.UI.Configuration
 
             services.AddSwagger();
 
+            services.AddCaching();
+
             services.AddAutoMapper();
 
             services.AddAuthentication();
@@ -143,6 +145,11 @@ namespace CarShowroom.UI.Configuration
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+        }
+
+        public static void AddCaching(this IServiceCollection services)
+        {
+            services.AddMemoryCache();
         }
     }
 }
