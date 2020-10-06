@@ -37,9 +37,9 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<IQueryable<CarDto>> GetAllAsync()
         {
-            var cacheKey = "car-getall-cache=key";
+            var cacheKey = "car-getall-cache-key";
 
-            if (_cache.TryGetValue(cacheKey, out IEnumerable<CarDto> cachedModels))
+            if (_cache.TryGetValue(cacheKey, out List<CarDto> cachedModels))
                 return cachedModels.AsQueryable();
 
             if (!await CheckConnectionAsync())
@@ -49,7 +49,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
             _logger.LogInformation("GetAll() obtained {Num} Car Models.", await result.CountAsync());
 
-            _cache.Set(cacheKey, result.AsEnumerable(), new MemoryCacheEntryOptions
+            _cache.Set(cacheKey, await result.ToListAsync(), new MemoryCacheEntryOptions
             {
                 AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(45),
                 SlidingExpiration = TimeSpan.FromMinutes(15)
