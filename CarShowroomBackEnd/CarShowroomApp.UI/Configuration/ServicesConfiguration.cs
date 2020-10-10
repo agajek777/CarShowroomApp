@@ -155,11 +155,10 @@ namespace CarShowroom.UI.Configuration
             configuration.GetSection(nameof(RedisCacheSettings)).Bind(redisCacheSettings);
             services.AddSingleton(redisCacheSettings);
 
-            if (redisCacheSettings.Enabled)
+            if (!redisCacheSettings.Enabled)
                 return;
 
             services.AddStackExchangeRedisCache(options => options.Configuration = redisCacheSettings.ConnectionString);
-            services.AddScoped<IResponseCacheService, ResponseCacheService>();
         }
     }
 }

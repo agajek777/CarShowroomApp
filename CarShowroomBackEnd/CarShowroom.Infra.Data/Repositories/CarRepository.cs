@@ -25,23 +25,16 @@ namespace CarShowroom.Infra.Data.Repositories
         private readonly DatabaseContext<User, Role> _db;
         private readonly IMapper _mapper;
         private readonly ILogger<CarRepository> _logger;
-        private readonly IMemoryCache _cache;
 
-        public CarRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<CarRepository> logger, IMemoryCache cache)
+        public CarRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<CarRepository> logger)
         {
             _db = db;
             _mapper = mapper;
             _logger = logger;
-            _cache = cache;
         }
 
         public async Task<IQueryable<CarDto>> GetAllAsync()
         {
-            var cacheKey = "car-getall-cache-key";
-
-            if (_cache.TryGetValue(cacheKey, out List<CarDto> cachedModels))
-                return cachedModels.AsQueryable();
-
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
 
@@ -49,22 +42,11 @@ namespace CarShowroom.Infra.Data.Repositories
 
             _logger.LogInformation("GetAll() obtained {Num} Car Models.", await result.CountAsync());
 
-            _cache.Set(cacheKey, await result.ToListAsync(), new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(45),
-                SlidingExpiration = TimeSpan.FromMinutes(15)
-            });
-
             return result;
         }
 
         public async Task<CarDto> GetAsync(int id)
         {
-            var cacheKey = $"car-get-cache-key-{id}";
-
-            if (_cache.TryGetValue(cacheKey, out CarDto cachedModel))
-                return cachedModel;
-
             if (!await CheckConnectionAsync())
                 throw new DataException("Can't connect to the db.");
 
@@ -79,12 +61,6 @@ namespace CarShowroom.Infra.Data.Repositories
                 _logger.LogWarning(ex, "GetAsync() got exception: {Message}", ex.Message);
                 return null;
             }
-
-            _cache.Set(cacheKey, _mapper.Map<CarDto>(outcome), new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(45),
-                SlidingExpiration = TimeSpan.FromMinutes(15)
-            });
 
             return _mapper.Map<CarDto>(outcome);
         }

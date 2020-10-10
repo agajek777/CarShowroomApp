@@ -23,6 +23,8 @@ namespace CarShowroom.Infra.IoC
             builder.RegisterType<CarService>().AsImplementedInterfaces();
             builder.RegisterType<MessageService>().AsImplementedInterfaces();
             builder.RegisterType<JwtService>().AsImplementedInterfaces();
+
+            builder.RegisterType<ResponseCacheService>().AsImplementedInterfaces();
         }
     }
 }
