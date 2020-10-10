@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CarShowroom.Application.Interfaces;
+using CarShowroom.Application.Services;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using CarShowroomApp;
@@ -27,7 +29,7 @@ namespace CarShowroom.UI.Configuration
 
             services.AddSwagger();
 
-            services.AddCaching();
+            services.AddCaching(configuration);
 
             services.AddAutoMapper();
 
@@ -147,9 +149,17 @@ namespace CarShowroom.UI.Configuration
             );
         }
 
-        public static void AddCaching(this IServiceCollection services)
+        public static void AddCaching(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMemoryCache();
+            var redisCacheSettings = new RedisCacheSettings();
+            configuration.GetSection(nameof(RedisCacheSettings)).Bind(redisCacheSettings);
+            services.AddSingleton(redisCacheSettings);
+
+            if (redisCacheSettings.Enabled)
+                return;
+
+            services.AddStackExchangeRedisCache(options => options.Configuration = redisCacheSettings.ConnectionString);
+            services.AddScoped<IResponseCacheService, ResponseCacheService>();
         }
     }
 }
