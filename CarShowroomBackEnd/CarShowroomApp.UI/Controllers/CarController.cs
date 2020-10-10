@@ -27,6 +27,7 @@ namespace CarShowroom.UI.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
+        [Cached(600)]
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
             var outcome = await _carService.GetAllCarsAsync(queryParameters);
@@ -49,6 +50,7 @@ namespace CarShowroom.UI.Controllers
         }
         [HttpGet("{id}")]
         [AllowAnonymous]
+        [Cached(600)]
         public async Task<IActionResult> Get(int id)
         {
             if (!await _carService.CarExistsAsync(id))
