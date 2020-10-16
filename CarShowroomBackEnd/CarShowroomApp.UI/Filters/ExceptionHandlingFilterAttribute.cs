@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using log4net.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System.Data;
 
 namespace CarShowroom.UI.Filters
@@ -10,6 +13,10 @@ namespace CarShowroom.UI.Filters
     {
         public override void OnException(ExceptionContext context)
         {
+            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<ExceptionHandlingFilterAttribute>>();
+
+            logger.LogWarning(context.Exception, "On path: {Path} got exception: {Message}", context.HttpContext.Request.Path, context.Exception.Message);
+
             if (context.Exception is DataException)
             {
                 context.Result = new ContentResult
