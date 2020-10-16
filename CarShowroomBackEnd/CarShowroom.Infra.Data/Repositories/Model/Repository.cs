@@ -1,4 +1,5 @@
-﻿using CarShowroom.Domain.Models.Identity;
+﻿using AutoMapper;
+using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -10,7 +11,16 @@ namespace CarShowroom.Infra.Data.Repositories.Model
 {
     public abstract class Repository
     {
-        private async Task<bool> CheckConnectionAsync(DatabaseContext<User, Role> _db, ILogger<Repository> _logger)
+        protected readonly DatabaseContext<User, Role> _db;
+        protected readonly IMapper _mapper;
+        protected readonly ILogger<MessageRepository> _logger;
+        public Repository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<MessageRepository> logger)
+        {
+            _db = db;
+            _mapper = mapper;
+            _logger = logger;
+        }
+        protected async Task<bool> CheckConnectionAsync()
         {
             try
             {

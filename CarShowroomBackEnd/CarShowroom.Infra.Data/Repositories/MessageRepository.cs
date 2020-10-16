@@ -4,6 +4,7 @@ using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Messaging;
 using CarShowroom.Infra.Data.Context;
+using CarShowroom.Infra.Data.Repositories.Model;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -16,18 +17,13 @@ using System.Threading.Tasks;
 
 namespace CarShowroom.Infra.Data.Repositories
 {
-    public class MessageRepository : IMessageRepository<MessagePostDto, MessageGetDto>
+    public class MessageRepository : Repository, IMessageRepository<MessagePostDto, MessageGetDto>
     {
-        private readonly DatabaseContext<User, Role> _db;
-        private readonly IMapper _mapper;
-        private readonly ILogger<MessageRepository> _logger;
-
-        public MessageRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<MessageRepository> logger)
+        public MessageRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<MessageRepository> logger) : base(db, mapper, logger)
         {
-            _db = db;
-            _mapper = mapper;
-            _logger = logger;
+
         }
+
         public async Task<bool> AddAsync(MessagePostDto entity, string senderId)
         {
             if (!await CheckConnectionAsync())
@@ -87,21 +83,5 @@ namespace CarShowroom.Infra.Data.Repositories
                         (message.SenderId == receiverId && message.ReceiverId == senderId)
                     select _mapper.Map<MessageGetDto>(message);
         }
-
-        #region HelperMethods
-        private async Task<bool> CheckConnectionAsync()
-        {
-            try
-            {
-                await _db.GetService<IRelationalDatabaseCreator>().CanConnectAsync();
-            }
-            catch (SqlException ex)
-            {
-                _logger.LogWarning(ex, "CheckConnectionAsync() got exception: {Message}", ex.Message);
-                return false;
-            }
-            return true;
-        }
-        #endregion
     }
 }
