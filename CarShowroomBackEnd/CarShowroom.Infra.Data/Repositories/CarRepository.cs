@@ -5,32 +5,21 @@ using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
-using Microsoft.Data.SqlClient;
+using CarShowroom.Infra.Data.Repositories.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarShowroom.Infra.Data.Repositories
 {
-    public class CarRepository : ICarRepository<CarDto>
+    public class CarRepository : Repository, ICarRepository<CarDto>
     {
-        private readonly DatabaseContext<User, Role> _db;
-        private readonly IMapper _mapper;
-        private readonly ILogger<CarRepository> _logger;
-
-        public CarRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<CarRepository> logger)
+        public CarRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<CarRepository> logger) : base(db, mapper, logger)
         {
-            _db = db;
-            _mapper = mapper;
-            _logger = logger;
+
         }
 
         public async Task<IQueryable<CarDto>> GetAllAsync()
@@ -140,21 +129,5 @@ namespace CarShowroom.Infra.Data.Repositories
 
             return await _db.Cars.AnyAsync(p => p.Id == id);
         }
-
-        #region HelperMethods
-        private async Task<bool> CheckConnectionAsync()
-        {
-            try
-            {
-                await _db.GetService<IRelationalDatabaseCreator>().CanConnectAsync();
-            }
-            catch (SqlException ex)
-            {
-                _logger.LogWarning(ex, "CheckConnectionAsync() got exception: {Message}", ex.Message);
-                return false;
-            }
-            return true;
-        }
-        #endregion
     }
 }

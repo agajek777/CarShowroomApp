@@ -13,15 +13,17 @@ namespace CarShowroom.Infra.Data.Repositories.Model
     {
         protected readonly DatabaseContext<User, Role> _db;
         protected readonly IMapper _mapper;
-        protected readonly ILogger<MessageRepository> _logger;
-        public Repository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<MessageRepository> logger)
+        protected readonly ILogger<Repository> _logger;
+        public Repository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<Repository> logger)
         {
             _db = db;
             _mapper = mapper;
             _logger = logger;
         }
-        protected async Task<bool> CheckConnectionAsync()
+        protected virtual async Task<bool> CheckConnectionAsync()
         {
+            _logger.LogInformation("CheckConnectionAsync() checking connection to the database.");
+
             try
             {
                 await _db.GetService<IRelationalDatabaseCreator>().CanConnectAsync();
