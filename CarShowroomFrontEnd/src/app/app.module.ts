@@ -22,6 +22,7 @@ import { DialogComponent } from './components/cars/details/dialog/dialog.compone
 import { FormComponent } from './components/cars/add/form/form.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { LoginComponent } from './components/user/login/login.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     OverviewComponent,
     HomeComponent,
     DialogComponent,
-    FormComponent
+    FormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

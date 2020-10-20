@@ -2,7 +2,9 @@
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
 using CarShowroom.UI.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,7 +15,6 @@ namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     [ExceptionHandlingFilter]
     public class CarController : ControllerBase
     {

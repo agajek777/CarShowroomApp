@@ -1,0 +1,66 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.main p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-button h3 {
+  font-weight: bold;
+}
+
+.register-button :hover {
+  cursor: pointer;
+}
+
+.buttons {
+  margin-bottom: 30px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-button {
+  margin: 0 0 0 15px;
+  background-color: #17b978;
+}
+
+@media screen and (min-width: 768px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 210px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 90px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 210px;
+  }
+}

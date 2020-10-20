@@ -33,7 +33,7 @@ namespace CarShowroom.UI.Configuration
 
             services.AddAutoMapper();
 
-            services.AddAuthentication();
+            services.AddAuthentication(configuration);
 
             services.AddAuthorization();
 

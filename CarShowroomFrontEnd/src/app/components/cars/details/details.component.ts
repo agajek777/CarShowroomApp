@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { FakeData } from 'src/app/models/fake-data';
+import { JWTTokenServiceService } from 'src/app/services/jwttoken-service.service';
 
 @Component({
   selector: 'app-details',
@@ -16,7 +17,7 @@ export class DetailsComponent implements OnInit {
   private id: string;
   public isLoaded: boolean = false;
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute, private dialog: MatDialog) { }
+  constructor(private httpService: HttpService, private jwtService: JWTTokenServiceService, private route: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -36,10 +37,14 @@ export class DetailsComponent implements OnInit {
   }
 
   onClickDelete() {
-    this.httpService.deleteData(this.car.id).subscribe(
+    if (this.jwtService.isTokenExpired()) {
+      this.openDialog('You must be logged in to delete models.')
+    }
+
+    this.httpService.deleteData(this.car.id, localStorage.getItem('access_token')).subscribe(
       (result) => {
         let text = JSON.parse(JSON.stringify(result));
-        this.openDialog(text.text);
+        this.openDialog('Car deleted successfully.');
       },
       (error) =>
       {
