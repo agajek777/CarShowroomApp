@@ -18,8 +18,15 @@ export class HttpService {
     return this.httpClient.get(this.apiCarRoute + id);
   }
 
-  public addData(body: Car) {
-    return this.httpClient.post(this.apiCarRoute, body);
+  public addData(body: Car, jwtToken: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwtToken
+      })
+    };
+
+    return this.httpClient.post(this.apiCarRoute, body, httpOptions);
   }
 
   public deleteData(id: number, jwtToken: string) {

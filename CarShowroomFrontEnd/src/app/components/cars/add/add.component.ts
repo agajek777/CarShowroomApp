@@ -17,7 +17,7 @@ export class AddComponent implements OnInit {
   addCar(model: Car) {
     console.log(model);
     this.carAdapter(model);
-    this.httpService.addData(model).subscribe(
+    this.httpService.addData(model, localStorage.getItem('access_token')).subscribe(
       (result) => {
         this.openDialog('Offer added successfully!');
         console.log(result as Car);
