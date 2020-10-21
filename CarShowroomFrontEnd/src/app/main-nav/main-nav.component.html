@@ -27,6 +27,9 @@
         <a [routerLink]="['/']">Home</a>
         <a [routerLink]="['/overview']">Overview</a>
         <a [routerLink]="['/add']">New offer</a>
+      </div>
+      <span style="width: 100%;"></span>
+      <div class="menu-links">
         <a *ngIf="!isLogged" [routerLink]="['/login']">Login</a>
         <a *ngIf="isLogged">Hello {{ username }}!</a>
       </div>

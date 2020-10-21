@@ -39,9 +39,10 @@ export class DetailsComponent implements OnInit {
   onClickDelete() {
     if (!this.jwtService.isUserLogged()) {
       this.openDialog('You must be logged in to delete models.', false)
+      return;
     }
 
-    this.httpService.deleteData(this.car.id, localStorage.getItem('access_token')).subscribe(
+    this.httpService.deleteData(this.car.id, sessionStorage.getItem('access_token')).subscribe(
       (result) => {
         let text = JSON.parse(JSON.stringify(result));
         this.openDialog('Car deleted successfully.', true);

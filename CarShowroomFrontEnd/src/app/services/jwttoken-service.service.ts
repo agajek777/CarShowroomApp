@@ -18,13 +18,13 @@ export class JWTTokenServiceService {
   }
 
   decodeToken() {
-    if (this.jwtToken) {
-    this.decodedToken = jwt_decode(this.jwtToken);
+    if (sessionStorage.getItem('access_token')) {
+    this.decodedToken = jwt_decode(sessionStorage.getItem('access_token'));
     }
   }
 
   getDecodeToken() {
-    return jwt_decode(this.jwtToken);
+    return jwt_decode(sessionStorage.getItem('access_token'));
   }
 
   getUser() {
@@ -55,6 +55,9 @@ export class JWTTokenServiceService {
     if (sessionStorage.getItem('access_token') === null) {
       return false;
     }
+
+    this.decodeToken();
+
     return !this.isTokenExpired()
   }
 }

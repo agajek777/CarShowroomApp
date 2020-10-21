@@ -4,6 +4,7 @@ import { HttpService } from 'src/app/services/http.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../details/dialog/dialog.component';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add',
@@ -17,7 +18,7 @@ export class AddComponent implements OnInit {
   addCar(model: Car) {
     console.log(model);
     this.carAdapter(model);
-    this.httpService.addData(model, localStorage.getItem('access_token')).subscribe(
+    this.httpService.addData(model, sessionStorage.getItem('access_token')).subscribe(
       (result) => {
         this.openDialog('Offer added successfully!', true);
         console.log(result as Car);
@@ -25,7 +26,15 @@ export class AddComponent implements OnInit {
         car.id
       },
       (error) => {
-        this.openDialog('Error while creating an offer.', false);
+        console.log(error);
+        var response = error as HttpErrorResponse;
+        if (response.status === 401) {
+          this.openDialog('You must be logged in to add new models!', false);
+        }
+        else {
+          this.openDialog('Error while creating an offer. Try again later.', false);
+        }
+
       }
     );
   }

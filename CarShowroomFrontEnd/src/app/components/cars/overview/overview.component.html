@@ -13,8 +13,8 @@
         <p>Engine: {{ car.engine }} {{ car.power }}</p>
         <p>Production: {{ car.production.substr(0, 4) }}</p>
         <p>Price: {{ car.price }} $</p>
-        <p *ngIf="car.description.length >= 60">Description: {{ car.description.substr(0, 60) }} <strong>(read more...)</strong></p>
-        <p *ngIf="car.description.length < 60">Description: {{ car.description }}</p>
+        <p *ngIf="car.description.length >= 60 && car.description.length !== 0">Description: {{ car.description.substr(0, 60) }} <strong>(read more...)</strong></p>
+        <p *ngIf="car.description.length < 60 && car.description.length !== 0">Description: {{ car.description }}</p>
       </div>
     </div>
   </div>

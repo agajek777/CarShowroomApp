@@ -15,6 +15,7 @@ namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     [ExceptionHandlingFilter]
     public class CarController : ControllerBase
     {
