@@ -93,4 +93,10 @@ export class OverviewComponent implements OnInit {
     );
   }
 
+  scrollTop(el: HTMLElement) {
+    el.scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
 }
