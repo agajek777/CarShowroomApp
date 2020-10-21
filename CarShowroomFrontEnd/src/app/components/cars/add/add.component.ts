@@ -19,13 +19,13 @@ export class AddComponent implements OnInit {
     this.carAdapter(model);
     this.httpService.addData(model, localStorage.getItem('access_token')).subscribe(
       (result) => {
-        this.openDialog('Offer added successfully!');
+        this.openDialog('Offer added successfully!', true);
         console.log(result as Car);
         var car = result as Car;
         car.id
       },
       (error) => {
-        this.openDialog('Error while creating an offer.');
+        this.openDialog('Error while creating an offer.', false);
       }
     );
   }
@@ -43,10 +43,11 @@ export class AddComponent implements OnInit {
     }
   }
 
-  openDialog(result: string) {
+  openDialog(result: string, redirect: boolean) {
     let dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(DialogComponent);
     dialogRef.componentInstance.title = 'Result'
     dialogRef.componentInstance.message = result;
+    dialogRef.componentInstance.okRedirect = redirect;
   }
 
   ngOnInit(): void {

@@ -8,7 +8,8 @@
       <a mat-list-item [routerLink]="['/']">Home</a>
       <a mat-list-item [routerLink]="['/overview']">Overview</a>
       <a mat-list-item [routerLink]="['/add']">New offer</a>
-      <a mat-list-item [routerLink]="['/login']">Login</a>
+      <a *ngIf="!isLogged" mat-list-item [routerLink]="['/login']">Login</a>
+      <a *ngIf="isLogged" mat-list-item>Hello {{ username }}!</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -26,7 +27,8 @@
         <a [routerLink]="['/']">Home</a>
         <a [routerLink]="['/overview']">Overview</a>
         <a [routerLink]="['/add']">New offer</a>
-        <a [routerLink]="['/login']">Login</a>
+        <a *ngIf="!isLogged" [routerLink]="['/login']">Login</a>
+        <a *ngIf="isLogged">Hello {{ username }}!</a>
       </div>
     </mat-toolbar>
     <ng-content></ng-content>

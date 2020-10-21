@@ -62,11 +62,12 @@ namespace CarShowroom.UI.Controllers
         public async Task<IActionResult> Login(UserForRegisterDto userDto)
         {
             if (!ModelState.IsValid)
-                BadRequest("UserName and Password is required.");
+                return BadRequest("UserName and Password is required.");
 
             var user = await _userManager.FindByNameAsync(userDto.UserName);
 
-            // TODO: Null validation
+            if (user == null)
+                return NotFound();
 
             var signInResult = await _signInManager.PasswordSignInAsync(user, userDto.Password, false, false);
 

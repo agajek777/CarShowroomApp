@@ -37,25 +37,26 @@ export class DetailsComponent implements OnInit {
   }
 
   onClickDelete() {
-    if (this.jwtService.isTokenExpired()) {
-      this.openDialog('You must be logged in to delete models.')
+    if (!this.jwtService.isUserLogged()) {
+      this.openDialog('You must be logged in to delete models.', false)
     }
 
     this.httpService.deleteData(this.car.id, localStorage.getItem('access_token')).subscribe(
       (result) => {
         let text = JSON.parse(JSON.stringify(result));
-        this.openDialog('Car deleted successfully.');
+        this.openDialog('Car deleted successfully.', true);
       },
       (error) =>
       {
-        this.openDialog('Error while deleting.');
+        this.openDialog('Error while deleting.', false);
       }
     )
   }
 
-  openDialog(result: string) {
+  openDialog(result: string, redirect: boolean) {
     let dialogRef: MatDialogRef<DialogComponent> = this.dialog.open(DialogComponent);
     dialogRef.componentInstance.title = 'Result'
     dialogRef.componentInstance.message = result;
+    dialogRef.componentInstance.okRedirect = redirect;
   }
 }

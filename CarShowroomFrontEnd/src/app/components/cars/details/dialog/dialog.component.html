@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>{{ title }}</h1>
 <div mat-dialog-content>{{ message }}</div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close [routerLink]="['/overview']" routerLinkActive="router-link-active" >Ok</button>
+  <button *ngIf="okRedirect" mat-button mat-dialog-close [routerLink]="['/overview']" routerLinkActive="router-link-active" >Ok</button>
+  <button *ngIf="!okRedirect" mat-button mat-dialog-close>Ok</button>
 </div>

@@ -9,6 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class DialogComponent {
   public title: string;
   public message: string;
+  public okRedirect: boolean;
 
   constructor(public dialog: MatDialogRef<DialogComponent>) {}
 

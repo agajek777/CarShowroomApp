@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { JWTTokenServiceService } from '../services/jwttoken-service.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-nav',
@@ -9,6 +11,8 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent {
+  public username: string = 'xxx';
+  public isLogged: boolean = false;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -16,6 +20,22 @@ export class MainNavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private jwtService: JWTTokenServiceService, private router: Router) {
+    this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        this.isUserLogged();
+        this.getUsername();
+      }
+    });
+  }
+
+  isUserLogged() {
+    this.isLogged = this.jwtService.isUserLogged();
+  }
+  public getUsername() {
+    console.log(this.username);
+
+    this.username = sessionStorage.getItem('username');
+  }
 
 }

@@ -5,49 +5,56 @@ import jwt_decode from 'jwt-decode';
 })
 export class JWTTokenServiceService {
   jwtToken: string;
-    decodedToken: { [key: string]: string };
+  decodedToken: { [key: string]: string };
 
-    constructor() {
-    }
+  constructor() {
+  }
 
-    setToken(token: string) {
-      if (token) {
-        this.jwtToken = token;
-        localStorage.setItem('access_token', token);
-      }
+  setToken(token: string) {
+    if (token) {
+      this.jwtToken = token;
+      sessionStorage.setItem('access_token', token);
     }
+  }
 
-    decodeToken() {
-      if (this.jwtToken) {
-      this.decodedToken = jwt_decode(this.jwtToken);
-      }
+  decodeToken() {
+    if (this.jwtToken) {
+    this.decodedToken = jwt_decode(this.jwtToken);
     }
+  }
 
-    getDecodeToken() {
-      return jwt_decode(this.jwtToken);
-    }
+  getDecodeToken() {
+    return jwt_decode(this.jwtToken);
+  }
 
-    getUser() {
-      this.decodeToken();
-      return this.decodedToken ? this.decodedToken.displayname : null;
-    }
+  getUser() {
+    this.decodeToken();
+    return this.decodedToken ? this.decodedToken.displayname : null;
+  }
 
-    getEmailId() {
-      this.decodeToken();
-      return this.decodedToken ? this.decodedToken.email : null;
-    }
+  getEmailId() {
+    this.decodeToken();
+    return this.decodedToken ? this.decodedToken.email : null;
+  }
 
-    getExpiryTime() {
-      this.decodeToken();
-      return this.decodedToken ? this.decodedToken.exp : null;
-    }
+  getExpiryTime() {
+    this.decodeToken();
+    return this.decodedToken ? this.decodedToken.exp : null;
+  }
 
-    isTokenExpired(): boolean {
-      const expiryTime: number = +this.getExpiryTime();
-      if (expiryTime) {
-        return ((1000 * expiryTime) - (new Date()).getTime()) < 5000;
-      } else {
-        return false;
-      }
+  isTokenExpired(): boolean {
+    const expiryTime: number = +this.getExpiryTime();
+    if (expiryTime) {
+      return ((1000 * expiryTime) - (new Date()).getTime()) < 5000;
+    } else {
+      return false;
     }
+  }
+
+  isUserLogged(): boolean {
+    if (sessionStorage.getItem('access_token') === null) {
+      return false;
+    }
+    return !this.isTokenExpired()
+  }
 }
