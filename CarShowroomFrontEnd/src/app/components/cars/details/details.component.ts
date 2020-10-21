@@ -24,7 +24,7 @@ export class DetailsComponent implements OnInit {
     this.httpService.getData(this.id).subscribe(
       (result) => {
         console.log(result);
-        this.car = result as Car;
+        this.car = result.body as Car;
         this.isLoaded = true;
       },
       (error) => {

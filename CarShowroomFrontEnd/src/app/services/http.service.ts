@@ -11,11 +11,14 @@ export class HttpService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getData(id?: string) {
-    if (typeof(id) === 'undefined' || id === null || id === '') {
-      return this.httpClient.get(this.apiCarRoute);
+  public getData(pageNum?: string) {
+    if (typeof(pageNum) === 'undefined' || pageNum === null || pageNum === '') {
+      return this.httpClient.get(this.apiCarRoute, { observe: 'response'});
     }
-    return this.httpClient.get(this.apiCarRoute + id);
+    return this.httpClient.get(this.apiCarRoute + pageNum, { observe: 'response'});
+  }
+  public getSingleData(id: string) {
+    return this.httpClient.get(this.apiCarRoute + id, { observe: 'response'});
   }
 
   public addData(body: Car, jwtToken: string) {

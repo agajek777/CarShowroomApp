@@ -19,3 +19,14 @@
     </div>
   </div>
 </div>
+<div class="pages">
+  <h3>Page {{ currentPage }} of {{ totalPages }}</h3>
+  <div class="buttons">
+    <button (click)="previousPage()" mat-fab class="edit-button" [disabled]="!hasPrevious" [ngClass]="{'disabled': !hasPrevious}">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button (click)="nextPage()" mat-fab style="background-color: #17b978;" [disabled]="!hasNext" [ngClass]="{'disabled': !hasNext}">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+</div>

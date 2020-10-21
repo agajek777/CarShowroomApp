@@ -46,6 +46,7 @@ namespace CarShowroom.UI.Controllers
                 outcome.HasPrevious,
             };
 
+            Response.Headers.Add("Access-Control-Expose-Headers", "*, Authorization, X-Pagination");
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(outcome);
