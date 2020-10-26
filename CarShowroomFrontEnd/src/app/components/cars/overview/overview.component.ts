@@ -12,6 +12,7 @@ import { PagesInfo } from 'src/app/models/pages-info';
 })
 export class OverviewComponent implements OnInit {
   public cars: Car[];
+  public isLoading: boolean = true;
   public hasNext: boolean;
   public hasPrevious: boolean;
   public totalPages: number;
@@ -19,21 +20,27 @@ export class OverviewComponent implements OnInit {
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
-    this.httpService.getData().subscribe(
+    this.currentPage = 1;
+    console.log(this.isLoading);
+
+    console.log('waited 5s');
+
+
+    this.loadPage(0);
+  }
+
+  async loadPage(num: number) {
+    this.isLoading = true;
+
+    await this.httpService.getData("?PageNumber=" + (this.currentPage+num)).subscribe(
       (result) => {
-        console.log(result);
         this.cars = new Array<Car>();
-        console.log('cleared');
 
         this.cars = result.body as Car[];
-        console.log(this.cars);
 
-        console.log(result.headers.keys());
         var pages = result.headers.get('x-pagination');
-        console.log(pages);
 
         var pagesInfo: PagesInfo = JSON.parse(pages);
-        console.log(pagesInfo);
 
         this.hasNext = pagesInfo.HasNext;
         this.hasPrevious = pagesInfo.HasPrevious;
@@ -46,72 +53,8 @@ export class OverviewComponent implements OnInit {
         this.cars = fkData.cars;
       }
     );
-  }
-
-  nextPage() {
-    this.httpService.getData("?PageNumber=" + (this.currentPage+1)).subscribe(
-      (result) => {
-        console.log(result);
-        this.cars = new Array<Car>();
-        console.log('cleared');
-
-        this.cars = result.body as Car[];
-        console.log(this.cars);
-
-        console.log(result.headers.keys());
-        var pages = result.headers.get('x-pagination');
-        console.log(pages);
-
-        var pagesInfo: PagesInfo = JSON.parse(pages);
-        console.log(pagesInfo);
-
-        this.hasNext = pagesInfo.HasNext;
-        this.hasPrevious = pagesInfo.HasPrevious;
-        this.totalPages = pagesInfo.TotalPages;
-        this.currentPage = pagesInfo.CurrentPage;
-        console.log('edited');
-
-      },
-      (error) =>
-      {
-        var fkData = new FakeData();
-        this.cars = fkData.cars;
-      }
-    );
-  }
-
-  previousPage() {
-    this.httpService.getData("?PageNumber=" + (this.currentPage-1)).subscribe(
-      (result) => {
-        console.log(result);
-        this.cars = new Array<Car>();
-        console.log('cleared');
-
-        this.cars = result.body as Car[];
-        console.log(this.cars);
-
-        console.log(result.headers.keys());
-        var pages = result.headers.get('x-pagination');
-        console.log(pages);
-
-        var pagesInfo: PagesInfo = JSON.parse(pages);
-        console.log(pagesInfo);
-
-        this.hasNext = pagesInfo.HasNext;
-        this.hasPrevious = pagesInfo.HasPrevious;
-        this.totalPages = pagesInfo.TotalPages;
-        this.currentPage = pagesInfo.CurrentPage;
-      },
-      (error) =>
-      {
-        var fkData = new FakeData();
-        this.cars = fkData.cars;
-      }
-    );
-  }
-
-  customTB(index, car: Car) {
-    return `${index}-${car.id}`;
+    this.isLoading = false;
+    console.log(this.isLoading);
   }
 
   scrollTop(el: HTMLElement) {

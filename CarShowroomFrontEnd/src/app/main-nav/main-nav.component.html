@@ -29,7 +29,7 @@
         <a [routerLink]="['/add']">New offer</a>
       </div>
       <span style="width: 100%;"></span>
-      <div class="menu-links" *ngIf="!(isHandset$ | async)">
+      <div class="menu-links login-button" *ngIf="!(isHandset$ | async)">
         <a *ngIf="!isLogged" [routerLink]="['/login']">Login</a>
         <a *ngIf="isLogged">Hello {{ username }}!</a>
       </div>

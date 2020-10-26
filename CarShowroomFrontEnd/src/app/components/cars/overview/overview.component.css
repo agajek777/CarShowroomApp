@@ -38,6 +38,7 @@
 
 .avatar img {
   width: 270px;
+  max-height: 205px;
 }
 
 .details {

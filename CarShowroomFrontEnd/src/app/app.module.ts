@@ -12,17 +12,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { AddComponent } from "./components/cars/add/add.component";
 import { DetailsComponent } from './components/cars/details/details.component';
 import { OverviewComponent } from './components/cars/overview/overview.component';
 import { HomeComponent } from './components/cars/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DialogComponent } from './components/cars/details/dialog/dialog.component';
 import { FormComponent } from './components/cars/add/form/form.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './components/user/login/login.component';
+import { LoaderComponent } from './components/shared/loader/loader.component';
+import { LoaderService } from './services/loader.service';
+import { LoaderInterceptor } from './models/loader-interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { LoginComponent } from './components/user/login/login.component';
     HomeComponent,
     DialogComponent,
     FormComponent,
-    LoginComponent
+    LoginComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -50,9 +55,13 @@ import { LoginComponent } from './components/user/login/login.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [
+    LoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
