@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
 using System;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace CarShowroom.UI.Filters
@@ -46,6 +48,12 @@ namespace CarShowroom.UI.Filters
 
                 context.Result = contentResult;
 
+                context.HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "*, Authorization, X-Pagination");
+
+                var paginationHeader = await cacheService.GetCachedResponseAsync(cacheKey + "|pagination");
+
+                context.HttpContext.Response.Headers.Add("X-Pagination", paginationHeader);
+
                 return;
             }
 
@@ -53,7 +61,9 @@ namespace CarShowroom.UI.Filters
 
             if (executedContext.Result is OkObjectResult okObjectResult)
             {
-                await cacheService.CacheResponseAsync(cacheKey, okObjectResult.Value, TimeSpan.FromSeconds(_timeToLiveSeconds));
+                await cacheService.CacheResponseAsync(cacheKey, JsonSerializer.Serialize(okObjectResult.Value, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }), TimeSpan.FromSeconds(_timeToLiveSeconds));
+                executedContext.HttpContext.Response.Headers.TryGetValue("X-Pagination", out var pagination);
+                await cacheService.CacheResponseAsync(cacheKey + "|pagination", pagination, TimeSpan.FromSeconds(_timeToLiveSeconds));
             }
         }
 

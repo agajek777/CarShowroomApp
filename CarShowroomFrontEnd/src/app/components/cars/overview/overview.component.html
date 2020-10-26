@@ -3,18 +3,18 @@
 </div>
 <div class="lower-section">
   <div class="cars-list">
-    <div *ngFor="let car of cars" class="car-item" [routerLink]="['/details/' + car.id]">
+    <div *ngFor="let car of cars; let i = index; trackBy: customTB" class="car-item" [routerLink]="['/details/' + car.id]">
       <div class="avatar">
-        <img *ngIf="car.imagePath !== ''" [src]="car.imagePath">
-        <img *ngIf="car.imagePath === ''" src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png" >
+        <img *ngIf="car?.imagePath !== ''" [src]="car.imagePath">
+        <img *ngIf="car?.imagePath === ''" src="https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png" >
       </div>
       <div class="details">
-        <p>Model: {{ car.brand }} {{ car.model }}</p>
-        <p>Engine: {{ car.engine }} {{ car.power }}</p>
-        <p>Production: {{ car.production.substr(0, 4) }}</p>
-        <p>Price: {{ car.price }} $</p>
-        <p *ngIf="car.description.length >= 60 && car.description.length !== 0">Description: {{ car.description.substr(0, 60) }} <strong>(read more...)</strong></p>
-        <p *ngIf="car.description.length < 60 && car.description.length !== 0">Description: {{ car.description }}</p>
+        <p>Model: {{ car?.brand }} {{ car.model }}</p>
+        <p>Engine: {{ car?.engine }} {{ car.power }}</p>
+        <p>Production: {{ car.production?.substr(0, 4) }}</p>
+        <p>Price: {{ car?.price }} $</p>
+        <p *ngIf="car.description?.length >= 60 && car.description?.length !== 0">Description: {{ car.description?.substr(0, 60) }} <strong>(read more...)</strong></p>
+        <p *ngIf="car.description?.length < 60 && car.description?.length !== 0">Description: {{ car.description }}</p>
       </div>
     </div>
   </div>
@@ -22,10 +22,10 @@
 <div class="pages">
   <h3>Page {{ currentPage }} of {{ totalPages }}</h3>
   <div class="buttons">
-    <button (click)="scrollTop(top); previousPage()" mat-fab class="edit-button" [disabled]="!hasPrevious" [ngClass]="{'disabled': !hasPrevious}">
+    <button (click)="previousPage(); scrollTop(top)" mat-fab class="edit-button" [disabled]="!hasPrevious" [ngClass]="{'disabled': !hasPrevious}">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <button (click)="scrollTop(top); nextPage()" mat-fab style="background-color: #17b978;" [disabled]="!hasNext" [ngClass]="{'disabled': !hasNext}">
+    <button (click)="nextPage(); scrollTop(top)" mat-fab style="background-color: #17b978;" [disabled]="!hasNext" [ngClass]="{'disabled': !hasNext}">
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </div>

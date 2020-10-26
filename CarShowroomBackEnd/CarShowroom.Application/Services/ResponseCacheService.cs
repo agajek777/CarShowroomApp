@@ -14,14 +14,12 @@ namespace CarShowroom.Application.Services
         {
             _cache = cache;
         }
-        public async Task CacheResponseAsync(string cacheKey, object response, TimeSpan timeToLive)
+        public async Task CacheResponseAsync(string cacheKey, string response, TimeSpan timeToLive)
         {
             if (response == null)
                 return;
 
-            var serializedResponse = JsonConvert.SerializeObject(response);
-
-            await _cache.SetStringAsync(cacheKey, serializedResponse, new DistributedCacheEntryOptions
+            await _cache.SetStringAsync(cacheKey, response, new DistributedCacheEntryOptions
             {
                 AbsoluteExpirationRelativeToNow = timeToLive
             });
