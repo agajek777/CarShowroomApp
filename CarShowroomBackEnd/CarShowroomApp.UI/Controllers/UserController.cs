@@ -69,6 +69,9 @@ namespace CarShowroom.UI.Controllers
             if (user == null)
                 return NotFound();
 
+            if (user.UserName != userDto.UserName)
+                return Unauthorized();
+
             var signInResult = await _signInManager.PasswordSignInAsync(user, userDto.Password, false, false);
 
             if (!signInResult.Succeeded)
