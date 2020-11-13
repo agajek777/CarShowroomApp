@@ -84,7 +84,7 @@ export class EditComponent implements OnInit {
 
   carAdapter(model: Car) {
     model.production += '-06-22T00:00:00';
-    if (model.mileage.toString() === "") {
+    if (model.mileage === null) {
       model.mileage = 0;
     }
     if (model.power.toString() === "") {
