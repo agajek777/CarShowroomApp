@@ -11,6 +11,7 @@
         <p><span>Model</span>: {{ car.brand }} {{ car.model }}</p>
         <p><span>Engine</span>: {{ car.engine }} {{ car.power }} HP</p>
         <p><span>Production</span>: {{ car.production.substr(0, 4) }}</p>
+        <p><span>Mileage</span>: {{ car.mileage }} km</p>
         <p><span>Price</span>: {{ car.price }} $</p>
         <p *ngIf="car.description.length !== 0" class="mobile"><span>Description</span>: {{ car.description }}</p>
       </div>

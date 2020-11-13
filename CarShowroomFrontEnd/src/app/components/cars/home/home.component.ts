@@ -1,4 +1,4 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, OnDestroy } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,15 +7,21 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('canvas', {static: true})
   canvas: ElementRef<HTMLCanvasElement>;
 
+  interval;
+
   constructor() { }
+
+  ngOnDestroy(): void {
+    clearInterval(this.interval);
+  }
 
   ngOnInit(): void {
     this.clock();
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.clock();
     }, 1000);
   }
