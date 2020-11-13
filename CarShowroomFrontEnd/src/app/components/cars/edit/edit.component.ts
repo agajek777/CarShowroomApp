@@ -61,7 +61,9 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit(editedCar: Car) {
-    this.httpService.editData(editedCar, sessionStorage.getItem('access_token')).subscribe(
+    editedCar.id = +this.id;
+    this.carAdapter(editedCar);
+    this.httpService.editData(editedCar, this.id, sessionStorage.getItem('access_token')).subscribe(
       (result) => {
         this.openDialog('Offer edited successfully!', true);
         console.log(result as Car);
@@ -78,6 +80,19 @@ export class EditComponent implements OnInit {
 
       }
     );
+  }
+
+  carAdapter(model: Car) {
+    model.production += '-06-22T00:00:00';
+    if (model.mileage.toString() === "") {
+      model.mileage = 0;
+    }
+    if (model.power.toString() === "") {
+      model.power = 0;
+    }
+    if (model.imagePath.toString() === "") {
+      model.imagePath = 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png';
+    }
   }
 
   openDialog(result: string, redirect: boolean) {

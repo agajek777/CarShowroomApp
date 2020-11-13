@@ -21,7 +21,7 @@ export class HttpService {
     return this.httpClient.get(this.apiCarRoute + id, { observe: 'response'});
   }
 
-  public editData(body: Car, jwtToken: string) {
+  public editData(body: Car, id: string, jwtToken: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export class HttpService {
       })
     };
 
-    return this.httpClient.put(this.apiCarRoute + body.id, body, httpOptions);
+    return this.httpClient.put(this.apiCarRoute + id, body, httpOptions);
   }
 
   public addData(body: Car, jwtToken: string) {
