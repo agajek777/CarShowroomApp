@@ -24,7 +24,7 @@
     <button [routerLink]="['/overview']" mat-fab style="background-color: #17b978;">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <button mat-fab class="edit-button">
+    <button [routerLink]="['/edit/' + car.id]" mat-fab class="edit-button">
       <mat-icon>edit</mat-icon>
     </button>
     <button (click)="onClickDelete()" mat-fab color="warn">

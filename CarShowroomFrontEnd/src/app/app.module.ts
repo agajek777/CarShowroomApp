@@ -27,6 +27,7 @@ import { LoginComponent } from './components/user/login/login.component';
 import { LoaderComponent } from './components/shared/loader/loader.component';
 import { LoaderService } from './services/loader.service';
 import { LoaderInterceptor } from './models/loader-interceptor';
+import { EditComponent } from './components/cars/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { LoaderInterceptor } from './models/loader-interceptor';
     DialogComponent,
     FormComponent,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,

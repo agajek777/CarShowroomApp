@@ -1,0 +1,4 @@
+<div *ngIf="isLoaded" class="main">
+  <h1>Edit offer</h1>
+  <app-form [carForm]="carFormEdit" (submitCar)="onSubmit($event)" #form class="form"></app-form>
+</div>

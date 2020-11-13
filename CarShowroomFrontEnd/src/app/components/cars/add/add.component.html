@@ -1,4 +1,4 @@
 <div class="main">
   <h1>New offer</h1>
-  <app-form (submitCar)="addCar($event)" #form class="form"></app-form>
+  <app-form [carForm]="carFormAdd" (submitCar)="addCar($event)" #form class="form"></app-form>
 </div>

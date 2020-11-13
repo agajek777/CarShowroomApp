@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Car } from 'src/app/models/car';
 
@@ -8,24 +8,8 @@ import { Car } from 'src/app/models/car';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
-  public carForm = new FormGroup({
-    brand: new FormControl('', [Validators.required]),
-    model: new FormControl('', [Validators.required]),
-    engine: new FormControl(''),
-    power: new FormControl('', [Validators.min(0)]),
-    production: new FormControl('', [
-      Validators.required,
-      Validators.min(1970),
-      Validators.max(2020)
-    ]),
-    price: new FormControl('', [
-      Validators.required,
-      Validators.min(0),
-    ]),
-    imagePath: new FormControl(''),
-    description: new FormControl(''),
-    mileage: new FormControl('', [Validators.min(0)])
-  });
+  @Input()
+  public carForm: FormGroup;
 
   @Output() submitCar: EventEmitter<Car> = new EventEmitter();
 

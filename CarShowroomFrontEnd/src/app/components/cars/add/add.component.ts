@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../details/dialog/dialog.component';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add',
@@ -14,6 +15,25 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AddComponent implements OnInit {
 
   constructor(private httpService: HttpService, private dialog: MatDialog) { }
+
+  carFormAdd: FormGroup = new FormGroup({
+    brand: new FormControl('', [Validators.required]),
+    model: new FormControl('', [Validators.required]),
+    engine: new FormControl(''),
+    power: new FormControl('', [Validators.min(0)]),
+    production: new FormControl('', [
+      Validators.required,
+      Validators.min(1970),
+      Validators.max(2020)
+    ]),
+    price: new FormControl('', [
+      Validators.required,
+      Validators.min(0),
+    ]),
+    imagePath: new FormControl(''),
+    description: new FormControl(''),
+    mileage: new FormControl('', [Validators.min(0)])
+  });
 
   addCar(model: Car) {
     console.log(model);
