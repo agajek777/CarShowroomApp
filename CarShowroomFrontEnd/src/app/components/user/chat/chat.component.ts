@@ -13,6 +13,7 @@ import { JWTTokenServiceService } from 'src/app/services/jwttoken-service.servic
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, AfterViewChecked {
+  userId: string;
   isLogged: boolean = false;
   clicked: boolean = true;
   myControl = new FormControl('', Validators.required);
@@ -30,6 +31,8 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.isUserLogged();
+
+    this.userId = sessionStorage.getItem('id');
 
     this.httpService.getUsers().subscribe(
       (result) => {

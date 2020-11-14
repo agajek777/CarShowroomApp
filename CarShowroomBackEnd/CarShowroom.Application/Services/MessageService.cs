@@ -57,8 +57,7 @@ namespace CarShowroom.Application.Services
 
                 foreach (var msg in messages)
                 {
-                    msg.SenderName = sender.UserName;
-                    msg.ReceiverName = receiver.UserName;
+                    msg.SenderName = msg.SenderId == senderId ? sender.UserName : receiver.UserName;
                 }
 
                 return messages;

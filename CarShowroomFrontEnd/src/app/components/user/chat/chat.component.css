@@ -67,6 +67,7 @@
   display: flex;
   flex-direction: row;
   margin: 0 0 15px 0;
+  padding: 3px 3px 3px 5px;
 }
 
 .message p {
@@ -79,6 +80,36 @@
 }
 
 .send-button {
-  width: 16vw;
+  width: 17vw;
   height: 6vh;
+}
+
+@media screen and (min-width: 1000px) {
+  .chat-window {
+    overflow: scroll;
+    height: 63vh;
+    max-height: 63vh;
+    width: 60vw;
+    max-width: 60vw;
+    display: flex;
+    flex-direction: column;
+    border: 4px inset #17b978;
+  }
+
+  .mainChat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .textbox {
+    width: 50vw;
+    height: 5vh;
+  }
+
+  .send-button {
+    width: 10vw;
+    height: 6vh;
+  }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { LoginDto } from 'src/app/models/login-dto';
 import { Token } from 'src/app/models/token';
 import { User } from 'src/app/models/user';
 import { HttpService } from 'src/app/services/http.service';
@@ -35,10 +36,11 @@ export class LoginComponent implements OnInit {
     this.httpService.login(user.userName, user.password).subscribe(
       (result) => {
         console.log(JSON.stringify(result));
-        var token: Token = JSON.parse(JSON.stringify(result))
+        var response = result as LoginDto;
 
-        this.jwtService.setToken(token.token);
+        this.jwtService.setToken(response.token);
         sessionStorage.setItem('username', user.userName);
+        sessionStorage.setItem('id', response.id);
 
         this.router.navigate(['/overview']);
       },

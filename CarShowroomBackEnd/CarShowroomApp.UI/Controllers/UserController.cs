@@ -78,7 +78,7 @@ namespace CarShowroom.UI.Controllers
             if (!signInResult.Succeeded)
                 return Unauthorized(signInResult);
 
-            return Ok(new { Token = await _jwtService.GenerateJSONWebToken(user)});
+            return Ok(new { Token = await _jwtService.GenerateJSONWebToken(user), Id = user.Id });
         }
 
         [HttpGet("GetUsers")]
