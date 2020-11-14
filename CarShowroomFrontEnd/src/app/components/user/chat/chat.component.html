@@ -29,15 +29,20 @@
   </div>
 </ng-container>
 <ng-container *ngIf="clicked">
-  <div class="chat-window">
-    <div class="messages">
-      <div *ngFor="let i of [].constructor(100)" class="message">
-        Hello
+  <div id="chat-window" class="chat-window">
+    <div id="messages" class="messages">
+      <div *ngFor="let message of messages" class="message">
+        <div>
+
+        </div>
+        <div>
+
+        </div>
       </div>
     </div>
   </div>
   <div class="input">
-    <input type="text">
-    <button>Send</button>
+    <input type="text" class="textbox">
+    <button class="send-button">Send</button>
   </div>
 </ng-container>

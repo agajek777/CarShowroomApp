@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Car } from '../models/car';
+import { send } from 'process';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { Car } from '../models/car';
 export class HttpService {
   private apiCarRoute: string = "https://localhost:44332/api/car/";
   private apiUserRoute: string = "https://localhost:44332/api/user/";
+  private apiMessageRoute: string = "https://localhost:44332/api/message/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -23,6 +25,10 @@ export class HttpService {
 
   public getUsers() {
     return this.httpClient.get(this.apiUserRoute + "getusers", { observe: 'response'});
+  }
+
+  public getMessages(sender: string, receiver: string) {
+    return this.httpClient.get(this.apiMessageRoute + "?userId1=" + sender + "&userId2=" + receiver, { observe: 'response'});
   }
 
   public editData(body: Car, id: string, jwtToken: string) {

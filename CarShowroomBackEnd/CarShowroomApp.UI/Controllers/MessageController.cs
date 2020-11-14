@@ -43,7 +43,6 @@ namespace CarShowroom.UI.Controllers
             return NoContent();
         }
 
-        [Authorize(Policy = "Moderator")]
         [HttpGet]
         public async Task<IActionResult> GetPrivateMessages([FromQuery] string userId1, [FromQuery] string userId2)
         {

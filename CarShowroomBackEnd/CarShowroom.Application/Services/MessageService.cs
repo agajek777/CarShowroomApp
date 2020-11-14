@@ -1,6 +1,10 @@
 ﻿using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models.DTO;
+using CarShowroom.Domain.Models.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,10 +14,12 @@ namespace CarShowroom.Application.Services
     public class MessageService : IMessageService<MessagePostDto, MessageGetDto>
     {
         private readonly IMessageRepository<MessagePostDto, MessageGetDto> _messageRepository;
+        private readonly UserManager<User> _userManager;
 
-        public MessageService(IMessageRepository<MessagePostDto, MessageGetDto> messageRepository)
+        public MessageService(IMessageRepository<MessagePostDto, MessageGetDto> messageRepository, UserManager<User> userManager)
         {
             _messageRepository = messageRepository;
+            _userManager = userManager;
         }
         public async Task<bool> AddAsync(MessagePostDto entity, string senderId)
         {
@@ -39,11 +45,23 @@ namespace CarShowroom.Application.Services
             }
         }
 
-        public async Task<IQueryable<MessageGetDto>> GetAllAsync(string senderId, string receiverId)
+        public async Task<ICollection<MessageGetDto>> GetAllAsync(string senderId, string receiverId)
         {
             try
             {
-                return await _messageRepository.GetAllAsync(senderId, receiverId);
+                var sender = await _userManager.FindByIdAsync(senderId);
+                var receiver = await _userManager.FindByIdAsync(receiverId);
+
+                var msgs =  await _messageRepository.GetAllAsync(senderId, receiverId);
+                var messages = await msgs.ToListAsync();
+
+                foreach (var msg in messages)
+                {
+                    msg.SenderName = sender.UserName;
+                    msg.ReceiverName = receiver.UserName;
+                }
+
+                return messages;
             }
             catch (DataException)
             {

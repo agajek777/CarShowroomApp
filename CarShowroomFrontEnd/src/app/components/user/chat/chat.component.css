@@ -50,20 +50,28 @@
 }
 
 .chat-window {
-  background-color: green;
   overflow: scroll;
   height: 63vh;
   max-height: 63vh;
   display: flex;
   flex-direction: column;
+  border: 4px inset #17b978;
 }
 
 .messages {
-  background-color: aqua;
-  margin: 15px 15px 15px 15px;
+  margin: 15px 15px 0 15px;
 }
 
 .message {
-  background-color: cornflowerblue;
   margin: 0 0 15px 0;
+}
+
+.textbox {
+  width: 80vw;
+  height: 5vh;
+}
+
+.send-button {
+  width: 16vw;
+  height: 6vh;
 }

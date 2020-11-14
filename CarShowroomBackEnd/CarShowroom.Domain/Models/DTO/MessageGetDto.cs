@@ -7,8 +7,10 @@ namespace CarShowroom.Domain.Models.DTO
     {
         [Required]
         public string SenderId { get; set; }
+        public string SenderName { get; set; }
         [Required]
         public string ReceiverId { get; set; }
+        public string ReceiverName { get; set; }
         [Required]
         public DateTime Sent { get; set; }
         [Required]
