@@ -1,8 +1,8 @@
 export interface Message {
-  SenderId: string;
-  senderName: string;
-  ReceiverId: string;
-  receiverName: string;
-  Sent: Date;
-  Text: string;
+  receiverId: string,
+  receiverName: string,
+  senderId: string,
+  senderName: string,
+  sent: string,
+  text: string
 }

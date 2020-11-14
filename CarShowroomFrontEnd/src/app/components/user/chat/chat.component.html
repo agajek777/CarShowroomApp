@@ -31,12 +31,22 @@
 <ng-container *ngIf="clicked">
   <div id="chat-window" class="chat-window">
     <div id="messages" class="messages">
-      <div *ngFor="let message of messages" class="message">
-        <div>
-
+      <div *ngFor="let message of messages; index as i" [ngStyle]="{'background-color': i % 2 === 1 ? '#99ff66' : '#adebad' }" class="message">
+        <div class="usernametext">
+          <p>
+            <b>
+              {{ message.senderName }}
+            </b>
+          </p>
+          <p>
+            {{ message.text }}
+          </p>
         </div>
-        <div>
-
+        <span style="width: 100%;"></span>
+        <div class="time">
+          <p>
+            {{ message.sent.substr(0, 10) }} {{ message.sent.substr(11, 5) }}
+          </p>
         </div>
       </div>
     </div>

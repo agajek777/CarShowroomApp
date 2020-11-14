@@ -29,6 +29,7 @@
   align-items: center;
   margin-top: 10px;
   margin-right: 25px;
+  margin-left: 15px;
 }
 
 .userChoice button {
@@ -63,7 +64,13 @@
 }
 
 .message {
+  display: flex;
+  flex-direction: row;
   margin: 0 0 15px 0;
+}
+
+.message p {
+  margin: 0 0 0 0;
 }
 
 .textbox {

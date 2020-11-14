@@ -1,8 +1,8 @@
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Message } from 'src/app/models/message';
 import { UserDto } from 'src/app/models/user-dto';
 import { HttpService } from 'src/app/services/http.service';
 import { JWTTokenServiceService } from 'src/app/services/jwttoken-service.service';
@@ -12,16 +12,18 @@ import { JWTTokenServiceService } from 'src/app/services/jwttoken-service.servic
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, AfterViewInit {
+export class ChatComponent implements OnInit, AfterViewChecked {
   isLogged: boolean = false;
   clicked: boolean = true;
   myControl = new FormControl('', Validators.required);
   users: UserDto[];
-  messages: Message[];
+  messages: Message[] = undefined;
   options: string[] = [];
   filteredOptions: Observable<string[]>;
+
   constructor(private jwtService: JWTTokenServiceService, private httpService: HttpService) { }
-  ngAfterViewInit(): void {
+
+  ngAfterViewChecked(): void {
     var objDiv = document.getElementById("messages");
     objDiv.scrollIntoView(false);
   }
@@ -62,7 +64,15 @@ export class ChatComponent implements OnInit, AfterViewInit {
       (result) => {
         console.log(result);
 
-        this.messages = result.body as Message[];
+        this.messages = new Array<Message>();
+        console.log(this.messages);
+
+
+        var msg = result.body as Message[];
+        console.log(msg);
+
+
+        this.messages = msg;
         console.log(this.messages);
       }
     );
