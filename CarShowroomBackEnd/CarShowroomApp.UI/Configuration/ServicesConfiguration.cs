@@ -23,7 +23,7 @@ namespace CarShowroom.UI.Configuration
         {
             services.AddDb(configuration);
 
-            services.AddCors();
+            services.AddCorsService();
 
             services.AddIdentity();
 
@@ -47,14 +47,16 @@ namespace CarShowroom.UI.Configuration
                         options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         }
 
-        public static void AddCors(this IServiceCollection services)
+        public static void AddCorsService(this IServiceCollection services)
         {
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder.WithOrigins("http://localhost:4200")
                     .AllowAnyMethod()
-                    .AllowAnyHeader());
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+                    );
             });
         }
 

@@ -78,6 +78,8 @@ namespace CarShowroom.UI.Controllers
             if (!signInResult.Succeeded)
                 return Unauthorized(signInResult);
 
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
             return Ok(new { Token = await _jwtService.GenerateJSONWebToken(user), Id = user.Id });
         }
 

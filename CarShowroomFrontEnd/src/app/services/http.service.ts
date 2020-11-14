@@ -31,6 +31,22 @@ export class HttpService {
     return this.httpClient.get(this.apiMessageRoute + "?userId1=" + sender + "&userId2=" + receiver, { observe: 'response'});
   }
 
+  public sendMessage(receiver: string, text: string, jwtToken: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwtToken
+      })
+    };
+
+    var body = {
+      receiverId: receiver,
+      text: text
+    }
+
+    return this.httpClient.post(this.apiMessageRoute, body, httpOptions);
+  }
+
   public editData(body: Car, id: string, jwtToken: string) {
     const httpOptions = {
       headers: new HttpHeaders({
