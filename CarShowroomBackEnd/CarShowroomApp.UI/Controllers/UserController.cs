@@ -86,11 +86,11 @@ namespace CarShowroom.UI.Controllers
         {
             var users = await _userManager.GetUsersInRoleAsync(UserRolesEnum.User);
 
-            var outcome = new List<UserDto>();
+            var outcome = new List<UserWithIdDto>();
 
             foreach (var user in users)
             {
-                outcome.Add(_mapper.Map<UserDto>(user));
+                outcome.Add(_mapper.Map<UserWithIdDto>(user));
             }
 
             return Ok(outcome);

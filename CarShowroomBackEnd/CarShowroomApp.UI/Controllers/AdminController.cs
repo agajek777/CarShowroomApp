@@ -40,7 +40,7 @@ namespace CarShowroom.UI.Controllers
             {
                 usersWithRoles.Add(new UserWithRolesDto()
                 {
-                    User = _mapper.Map<UserDto>(user),
+                    User = _mapper.Map<UsernameDto>(user),
                     Roles = (await _userManager.GetRolesAsync(user)).Select(r => new RoleDto()
                     { 
                         Name = r
@@ -67,7 +67,7 @@ namespace CarShowroom.UI.Controllers
             return Ok(outcome);
         }
         [HttpPost("GetUserWithRoles")]
-        public async Task<IActionResult> GetUserWithRoles(UserDto userDto)
+        public async Task<IActionResult> GetUserWithRoles(UsernameDto userDto)
         {
             var user = await _userManager.FindByNameAsync(userDto.UserName);
 
@@ -78,7 +78,7 @@ namespace CarShowroom.UI.Controllers
 
             return Ok(new UserWithRolesDto
             {
-                User = _mapper.Map<UserDto>(user),
+                User = _mapper.Map<UsernameDto>(user),
                 Roles = userRoles.Select(r => new RoleDto { Name = r })
             });
         }
@@ -116,10 +116,10 @@ namespace CarShowroom.UI.Controllers
 
                 var result = await _userManager.AddToRolesAsync(user, backupUserRoles);
                 //
-                return BadRequest(new { Error = ex.Message, User = await GetUserWithRoles(_mapper.Map<UserDto>(user)) });
+                return BadRequest(new { Error = ex.Message, User = await GetUserWithRoles(_mapper.Map<UsernameDto>(user)) });
             }
 
-            return await GetUserWithRoles(_mapper.Map<UserDto>(user));
+            return await GetUserWithRoles(_mapper.Map<UsernameDto>(user));
         }
     }
 }

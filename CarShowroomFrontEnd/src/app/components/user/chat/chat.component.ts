@@ -63,7 +63,10 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
   startChat() {
     this.clicked = true;
-    this.httpService.getMessages('db3db68c-16c0-4e66-84a2-05366383e197', '73efe592-c097-43fa-91ad-36b2ca37e1c9').subscribe(
+    var recipient = this.myControl.value;
+    console.log(recipient);
+
+    this.httpService.getMessages(sessionStorage.getItem('id'), this.users.find(u => u.userName === recipient).id).subscribe(
       (result) => {
         console.log(result);
 

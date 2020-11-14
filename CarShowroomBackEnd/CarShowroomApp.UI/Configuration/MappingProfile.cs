@@ -13,8 +13,9 @@ namespace CarShowroom.UI.Configuration
             CreateMap<Car, CarDto>().ReverseMap();
 
             CreateMap<Role, RoleDto>().ReverseMap();
-            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UsernameDto>().ReverseMap();
             CreateMap<User, UserForRegisterDto>().ReverseMap();
+            CreateMap<User, UserWithIdDto>().ReverseMap();
 
             CreateMap<Message, MessagePostDto>().ReverseMap();
             CreateMap<Message, MessageGetDto>().ReverseMap();
