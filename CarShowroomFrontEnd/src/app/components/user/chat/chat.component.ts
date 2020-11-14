@@ -104,11 +104,20 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     {
       this.httpService.sendMessage(recipientId, text, sessionStorage.getItem('access_token')).subscribe(
         (result) => {
-          console.log('x');
+          console.log('Message sent.');
+          var dt = new Date();
+          var message: Message = {
+            receiverId: recipientId,
+            receiverName: recipient,
+            senderId: sessionStorage.getItem('id'),
+            senderName: sessionStorage.getItem('username'),
+            sent: dt.toISOString(),
+            text: text
+          }
+
+          this.messages.push(message);
         }
       );
-
-
     }
     else
     {
