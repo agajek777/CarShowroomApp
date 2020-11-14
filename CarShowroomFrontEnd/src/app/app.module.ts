@@ -28,6 +28,7 @@ import { LoaderComponent } from './components/shared/loader/loader.component';
 import { LoaderService } from './services/loader.service';
 import { LoaderInterceptor } from './models/loader-interceptor';
 import { EditComponent } from './components/cars/edit/edit.component';
+import { ChatComponent } from './components/user/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { EditComponent } from './components/cars/edit/edit.component';
     FormComponent,
     LoginComponent,
     LoaderComponent,
-    EditComponent
+    EditComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarShowroom.UI.Controllers
@@ -78,6 +79,21 @@ namespace CarShowroom.UI.Controllers
                 return Unauthorized(signInResult);
 
             return Ok(new { Token = await _jwtService.GenerateJSONWebToken(user)});
+        }
+
+        [HttpGet("GetUsers")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _userManager.GetUsersInRoleAsync(UserRolesEnum.User);
+
+            var outcome = new List<UserDto>();
+
+            foreach (var user in users)
+            {
+                outcome.Add(_mapper.Map<UserDto>(user));
+            }
+
+            return Ok(outcome);
         }
     }
 }

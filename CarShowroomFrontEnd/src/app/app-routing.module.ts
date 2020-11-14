@@ -6,12 +6,14 @@ import { HomeComponent } from './components/cars/home/home.component';
 import { DetailsComponent } from './components/cars/details/details.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { EditComponent } from './components/cars/edit/edit.component';
+import { ChatComponent } from './components/user/chat/chat.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'add', component: AddComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'chat', component: ChatComponent },
   { path: 'overview', component: OverviewComponent },
   { path: 'details/:id', component: DetailsComponent },
   { path: 'edit/:id', component: EditComponent }

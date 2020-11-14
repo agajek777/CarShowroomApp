@@ -8,6 +8,7 @@
       <a mat-list-item [routerLink]="['/']">Home</a>
       <a mat-list-item [routerLink]="['/overview']">Overview</a>
       <a mat-list-item [routerLink]="['/add']">New offer</a>
+      <a mat-list-item [routerLink]="['/chat']">Chat</a>
       <a *ngIf="!isLogged" mat-list-item [routerLink]="['/login']">Login</a>
       <a *ngIf="isLogged" mat-list-item>Hello {{ username }}!</a>
     </mat-nav-list>
@@ -27,6 +28,7 @@
         <a [routerLink]="['/']">Home</a>
         <a [routerLink]="['/overview']">Overview</a>
         <a [routerLink]="['/add']">New offer</a>
+        <a [routerLink]="['/chat']">Chat</a>
       </div>
       <span style="width: 100%;"></span>
       <div class="menu-links login-button" *ngIf="!(isHandset$ | async)">
