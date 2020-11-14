@@ -1,0 +1,69 @@
+.mainNot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.mainNot h2 {
+  cursor: pointer;
+  font-weight: bolder;
+  color: springgreen;
+}
+
+.userChoice {
+  display: flex;
+  flex-direction: row;
+}
+
+.userChoice p {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-right: 25px;
+}
+
+.userChoice button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-button {
+  margin: 0 0 0 15px;
+  background-color: #17b978;
+  height: 40px;
+  width: 40px;
+}
+
+.disabled {
+  background-color: grey;
+  cursor: default;
+}
+
+.chat-window {
+  background-color: green;
+  overflow: scroll;
+  height: 63vh;
+  max-height: 63vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages {
+  background-color: aqua;
+  margin: 15px 15px 15px 15px;
+}
+
+.message {
+  background-color: cornflowerblue;
+  margin: 0 0 15px 0;
+}

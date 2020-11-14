@@ -1,1 +1,43 @@
-<p>chat works!</p>
+<ng-container *ngIf="!isLogged">
+  <div class="mainNot">
+    <img style="height: 120px; margin-bottom: 30px;" src="https://cdn2.iconfinder.com/data/icons/web-application-3/100/app_application_web_software_settings_notifications_-06-512.png">
+    <h1>You must be logged in to chat!</h1>
+    <h2 [routerLink]="['/login']">Log in to continue...</h2>
+  </div>
+</ng-container>
+<ng-container *ngIf="isLogged">
+  <div class="main">
+    <div class="userChoice">
+      <p style="font-size: large; font-weight: bolder;">Chat with: </p>
+      <mat-form-field>
+        <input type="text"
+           placeholder="Pick one"
+           aria-label="Number"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button (click)="startChat()" [disabled]="myControl.invalid" [ngClass]="{'disabled': myControl.invalid}" mat-fab class="edit-button">
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="clicked">
+  <div class="chat-window">
+    <div class="messages">
+      <div *ngFor="let i of [].constructor(100)" class="message">
+        Hello
+      </div>
+    </div>
+  </div>
+  <div class="input">
+    <input type="text">
+    <button>Send</button>
+  </div>
+</ng-container>

@@ -21,6 +21,10 @@ export class HttpService {
     return this.httpClient.get(this.apiCarRoute + id, { observe: 'response'});
   }
 
+  public getUsers() {
+    return this.httpClient.get(this.apiUserRoute + "getusers", { observe: 'response'});
+  }
+
   public editData(body: Car, id: string, jwtToken: string) {
     const httpOptions = {
       headers: new HttpHeaders({
