@@ -23,7 +23,16 @@ namespace CarShowroom.Domain.Models.Messaging
             var sender = await _userManager.FindByIdAsync(senderId);
             var receiver = await _userManager.FindByIdAsync(message.ReceiverId);
 
-            await _hubContext.Clients.User(message.ReceiverId).SendAsync("sendMessage", new { receiverId = message.ReceiverId, receiverName = receiver.UserName, senderId = senderId, senderName = sender.UserName, sent = DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"), text = message.Text });
+            await _hubContext.Clients.User(message.ReceiverId).SendAsync("sendMessage", 
+                new
+                { 
+                    receiverId = message.ReceiverId,
+                    receiverName = receiver.UserName,
+                    senderId = senderId,
+                    senderName = sender.UserName,
+                    sent = DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"),
+                    text = message.Text 
+                });
         }
     }
 }

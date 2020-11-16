@@ -57,7 +57,9 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     this.signalRService.signalReceived.subscribe((signal: Message) => {
       console.log(signal);
 
-      this.messages.push(signal);
+      if (this.recipientControl.value == signal.senderName) {
+        this.messages.push(signal);
+      }
     })
   }
 

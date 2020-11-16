@@ -12,7 +12,6 @@ import { PagesInfo } from 'src/app/models/pages-info';
 })
 export class OverviewComponent implements OnInit {
   public cars: Car[];
-  public isLoading: boolean = true;
   public hasNext: boolean;
   public hasPrevious: boolean;
   public totalPages: number;
@@ -21,7 +20,6 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentPage = 1;
-    console.log(this.isLoading);
 
     console.log('waited 5s');
 
@@ -30,7 +28,6 @@ export class OverviewComponent implements OnInit {
   }
 
   async loadPage(num: number) {
-    this.isLoading = true;
 
     await this.httpService.getData("?PageNumber=" + (this.currentPage+num)).subscribe(
       (result) => {
@@ -53,8 +50,6 @@ export class OverviewComponent implements OnInit {
         this.cars = fkData.cars;
       }
     );
-    this.isLoading = false;
-    console.log(this.isLoading);
   }
 
   scrollTop(el: HTMLElement) {
