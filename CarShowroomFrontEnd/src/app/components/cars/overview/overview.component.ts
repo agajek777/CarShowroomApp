@@ -1,27 +1,56 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Car } from 'src/app/models/car';
 import { HttpService } from 'src/app/services/http.service';
 import { FakeData } from 'src/app/models/fake-data';
 import { HttpResponse } from '@angular/common/http';
 import { PagesInfo } from 'src/app/models/pages-info';
+import { SignalRService } from 'src/app/services/signal-r.service';
+import { Message } from 'src/app/models/message';
+import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnDestroy {
   public cars: Car[];
   public hasNext: boolean;
   public hasPrevious: boolean;
   public totalPages: number;
   public currentPage: number;
-  constructor(private httpService: HttpService) { }
+  public signalRSub: Subscription;
+  constructor(private httpService: HttpService, private signalRService: SignalRService) { }
+
+  ngOnDestroy(): void {
+    this.signalRSub.unsubscribe();
+    console.log('signalR unsubscribed.');
+
+  }
 
   ngOnInit(): void {
     this.currentPage = 1;
 
     console.log('waited 5s');
+
+    this.signalRSub = this.signalRService.signalReceived.subscribe((signal: Message) => {
+      console.log(signal);
+
+      Swal.fire({
+        position: 'top-end',
+        icon: 'info',
+        toast: true,
+        title: 'New message from ' + signal.senderName,
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+    })
 
 
     this.loadPage(0);

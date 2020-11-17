@@ -36,8 +36,6 @@ export class SignalRService {
 
   public registerSignalEvents() {
     this.hubConnection.on("sendMessage", (data: Message) => {
-      console.log(data);
-
       this.signalReceived.emit(data);
     })
   }

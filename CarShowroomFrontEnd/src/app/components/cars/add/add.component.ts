@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Car } from 'src/app/models/car';
 import { HttpService } from 'src/app/services/http.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -6,15 +6,25 @@ import { DialogComponent } from '../details/dialog/dialog.component';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SignalRService } from 'src/app/services/signal-r.service';
+import { Message } from 'src/app/models/message';
+import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css']
 })
-export class AddComponent implements OnInit {
+export class AddComponent implements OnInit, OnDestroy {
+  public signalRSub: Subscription;
 
-  constructor(private httpService: HttpService, private dialog: MatDialog) { }
+  constructor(private httpService: HttpService, private dialog: MatDialog, private signalRService: SignalRService) { }
+
+  ngOnDestroy(): void {
+    this.signalRSub.unsubscribe();
+    console.log('signalR unsubscribed.');
+  }
 
   carFormAdd: FormGroup = new FormGroup({
     brand: new FormControl('', [Validators.required]),
@@ -80,6 +90,23 @@ export class AddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.signalRSub = this.signalRService.signalReceived.subscribe((signal: Message) => {
+      console.log(signal);
+
+      Swal.fire({
+        position: 'top-end',
+        icon: 'info',
+        toast: true,
+        title: 'New message from ' + signal.senderName,
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+    })
   }
 
 }

@@ -30,6 +30,7 @@ import { LoaderService } from './services/loader.service';
 import { LoaderInterceptor } from './models/loader-interceptor';
 import { EditComponent } from './components/cars/edit/edit.component';
 import { ChatComponent } from './components/user/chat/chat.component';
+import { SignalRService } from './services/signal-r.service';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ChatComponent } from './components/user/chat/chat.component';
   ],
   providers: [
     LoaderService,
+    SignalRService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

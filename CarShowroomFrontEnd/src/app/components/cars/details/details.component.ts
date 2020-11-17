@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Car } from 'src/app/models/car';
 import { HttpService } from 'src/app/services/http.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,21 +6,50 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { FakeData } from 'src/app/models/fake-data';
 import { JWTTokenServiceService } from 'src/app/services/jwttoken-service.service';
+import { SignalRService } from 'src/app/services/signal-r.service';
+import { Subscription } from 'rxjs';
+import { Message } from 'src/app/models/message';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
   public car: Car;
   private id: string;
   public isLoaded: boolean = false;
+  public signalRSub: Subscription;
 
-  constructor(private httpService: HttpService, private jwtService: JWTTokenServiceService, private route: ActivatedRoute, private dialog: MatDialog) { }
+  constructor(private httpService: HttpService, private jwtService: JWTTokenServiceService, private route: ActivatedRoute, private dialog: MatDialog, private signalRService: SignalRService) { }
+
+  ngOnDestroy(): void {
+    this.signalRSub.unsubscribe();
+    console.log('signalR unsubscribed.');
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
+
+    this.signalRSub = this.signalRService.signalReceived.subscribe((signal: Message) => {
+      console.log(signal);
+
+      Swal.fire({
+        position: 'top-end',
+        icon: 'info',
+        toast: true,
+        title: 'New message from ' + signal.senderName,
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+    })
+
     this.httpService.getData(this.id).subscribe(
       (result) => {
         console.log(result);

@@ -1,6 +1,10 @@
 import { ElementRef, OnDestroy } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Message } from 'src/app/models/message';
+import { SignalRService } from 'src/app/services/signal-r.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -10,16 +14,37 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('canvas', {static: true})
   canvas: ElementRef<HTMLCanvasElement>;
+  public signalRSub: Subscription;
 
   interval;
 
-  constructor() { }
+  constructor(private signalRService: SignalRService) { }
 
   ngOnDestroy(): void {
     clearInterval(this.interval);
+    this.signalRSub.unsubscribe();
+    console.log('signalR unsubscribed.');
   }
 
   ngOnInit(): void {
+    this.signalRSub = this.signalRService.signalReceived.subscribe((signal: Message) => {
+      console.log(signal);
+
+      Swal.fire({
+        position: 'top-end',
+        icon: 'info',
+        toast: true,
+        title: 'New message from ' + signal.senderName,
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+    })
+
     this.clock();
     this.interval = setInterval(() => {
       this.clock();

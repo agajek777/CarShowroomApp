@@ -8,6 +8,7 @@ import { UserDto } from 'src/app/models/user-dto';
 import { HttpService } from 'src/app/services/http.service';
 import { JWTTokenServiceService } from 'src/app/services/jwttoken-service.service';
 import { SignalRService } from 'src/app/services/signal-r.service';
+import Swal from 'sweetalert2';
 import { DialogComponent } from '../../cars/details/dialog/dialog.component';
 
 @Component({
@@ -59,7 +60,22 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
       if (this.recipientControl.value == signal.senderName) {
         this.messages.push(signal);
+        return;
       }
+
+      Swal.fire({
+        position: 'top-end',
+        icon: 'info',
+        toast: true,
+        title: 'New message from ' + signal.senderName,
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
     })
   }
 
