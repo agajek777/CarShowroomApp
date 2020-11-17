@@ -28,14 +28,15 @@ export class HttpService {
   }
 
   public getMessages(sender: string, receiver: string) {
-    return this.httpClient.get(this.apiMessageRoute + "?userId1=" + sender + "&userId2=" + receiver, { observe: 'response'});
+    return this.httpClient.get(this.apiMessageRoute + "?userId1=" + sender + "&userId2=" + receiver, { observe: 'response' });
   }
 
   public sendMessage(receiver: string, text: string, jwtToken: string) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + jwtToken
+        'Authorization': 'Bearer ' + jwtToken,
+        'skip': 'true'
       })
     };
 

@@ -57,10 +57,10 @@
         </div>
       </div>
       <div class="input">
-        <input id="text" type="text" class="textbox"
+        <input #text id="text" type="text" class="textbox"
           [formControl]="textControl"
         >
-        <button (click)="sendMessage()" class="send-button">Send</button>
+        <button (click)="sendMessage(); text.value = ''" class="send-button">Send</button>
       </div>
     </div>
   </ng-container>

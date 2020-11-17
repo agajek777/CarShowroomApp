@@ -7,6 +7,10 @@ import { LoaderService } from '../services/loader.service';
 export class LoaderInterceptor implements HttpInterceptor {
     constructor(public loaderService: LoaderService) { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (req.headers.get("skip")) {
+          return next.handle(req);
+        }
+
         this.loaderService.show();
         return next.handle(req).pipe(
             finalize(() => this.loaderService.hide())
