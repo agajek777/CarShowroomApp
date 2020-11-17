@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { Token } from 'src/app/models/token';
 import { User } from 'src/app/models/user';
 import { HttpService } from 'src/app/services/http.service';
 import { JWTTokenServiceService } from 'src/app/services/jwttoken-service.service';
+import { SignalRService } from 'src/app/services/signal-r.service';
 import { DialogComponent } from '../../cars/details/dialog/dialog.component';
 
 
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private httpService: HttpService, private jwtService: JWTTokenServiceService, private dialog: MatDialog, private router: Router) { }
+  constructor(private httpService: HttpService, private jwtService: JWTTokenServiceService, private dialog: MatDialog, private router: Router, private injector: Injector) { }
 
   ngOnInit(): void {
   }
@@ -41,6 +42,10 @@ export class LoginComponent implements OnInit {
         this.jwtService.setToken(response.token);
         sessionStorage.setItem('username', user.userName);
         sessionStorage.setItem('id', response.id);
+
+        var chatService = this.injector.get(SignalRService);
+        chatService.buildConnection();
+        chatService.startConnection();
 
         this.router.navigate(['/overview']);
       },
