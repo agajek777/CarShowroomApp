@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable, isDevMode } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
 import { Message } from '../models/message';
 
@@ -7,18 +7,22 @@ import { Message } from '../models/message';
 })
 export class SignalRService {
   private hubConnection: signalR.HubConnection;
-  private apiChatRoute: string = "https://localhost:44332/chat";
+  private apiDomain: string = "https://localhost:44332"
+  private apiChatRoute: string = "/chat";
   signalReceived = new EventEmitter<Message>();
 
   constructor()
   {
+    if(!isDevMode())
+      this.apiDomain = "https://carshowroom-app.herokuapp.com";
+
     this.buildConnection();
     this.startConnection();
   }
 
   public buildConnection = () => {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(this.apiChatRoute, { accessTokenFactory: () => sessionStorage.getItem('access_token') })
+      .withUrl(this.apiDomain + this.apiChatRoute, { accessTokenFactory: () => sessionStorage.getItem('access_token') })
       .build();
   }
 
