@@ -14,13 +14,31 @@ namespace CarShowroom.Infra.IoC
     {
         public static void Configure(ContainerBuilder builder)
         {
-            var assemblyDomain = Assembly.LoadFrom($"..\\{nameof(CarShowroom)}.{nameof(Domain)}\\bin\\Debug\\netcoreapp3.1\\{nameof(CarShowroom)}.{nameof(Domain)}.dll");
+            var isDevelopment = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "development", StringComparison.InvariantCultureIgnoreCase);
+
+            Assembly assemblyDomain, assemblyInfraData, assemblyApplication;
+
+            if (isDevelopment)
+            {
+                assemblyDomain = Assembly.LoadFrom($"..\\{nameof(CarShowroom)}.{nameof(Domain)}\\bin\\Debug\\netcoreapp3.1\\{nameof(CarShowroom)}.{nameof(Domain)}.dll");
+                builder.RegisterAssemblyTypes(assemblyDomain).Where(t => t.Namespace.EndsWith(nameof(Domain.Models.Messaging))).AsImplementedInterfaces();
+
+                assemblyInfraData = Assembly.LoadFrom($"..\\{nameof(CarShowroom)}.{nameof(Infra)}.{nameof(Data)}\\bin\\Debug\\netcoreapp3.1\\{nameof(CarShowroom)}.{nameof(Infra)}.{nameof(Data)}.dll");
+                builder.RegisterAssemblyTypes(assemblyInfraData).Where(t => t.Namespace.EndsWith(nameof(Data.Repositories))).AsImplementedInterfaces();
+
+                assemblyApplication = Assembly.LoadFrom($"..\\{nameof(CarShowroom)}.{nameof(Application)}\\bin\\Debug\\netcoreapp3.1\\{nameof(CarShowroom)}.{nameof(Application)}.dll");
+                builder.RegisterAssemblyTypes(assemblyApplication).Where(t => t.Namespace.EndsWith(nameof(Application.Services))).AsImplementedInterfaces();
+
+                return;
+            }
+
+            assemblyDomain = Assembly.LoadFrom($"/app/{nameof(CarShowroom)}.{nameof(Domain)}.dll");
             builder.RegisterAssemblyTypes(assemblyDomain).Where(t => t.Namespace.EndsWith(nameof(Domain.Models.Messaging))).AsImplementedInterfaces();
 
-            var assemblyInfraData = Assembly.LoadFrom($"..\\{nameof(CarShowroom)}.{nameof(Infra)}.{nameof(Data)}\\bin\\Debug\\netcoreapp3.1\\{nameof(CarShowroom)}.{nameof(Infra)}.{nameof(Data)}.dll");
+            assemblyInfraData = Assembly.LoadFrom($"/app/{nameof(CarShowroom)}.{nameof(Infra)}.{nameof(Data)}.dll");
             builder.RegisterAssemblyTypes(assemblyInfraData).Where(t => t.Namespace.EndsWith(nameof(Data.Repositories))).AsImplementedInterfaces();
 
-            var assemblyApplication = Assembly.LoadFrom($"..\\{nameof(CarShowroom)}.{nameof(Application)}\\bin\\Debug\\netcoreapp3.1\\{nameof(CarShowroom)}.{nameof(Application)}.dll");
+            assemblyApplication = Assembly.LoadFrom($"/app/{nameof(CarShowroom)}.{nameof(Application)}.dll");
             builder.RegisterAssemblyTypes(assemblyApplication).Where(t => t.Namespace.EndsWith(nameof(Application.Services))).AsImplementedInterfaces();
         }
     }

@@ -36,12 +36,13 @@ namespace CarShowroomApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddLog4Net();
-
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
+                loggerFactory.AddLog4Net();
             }
+            else
+                loggerFactory.AddLog4Net("/app/Logging/log4net.config");
 
             app.UseHttpsRedirection();
 

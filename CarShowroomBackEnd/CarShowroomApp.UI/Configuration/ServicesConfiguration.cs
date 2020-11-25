@@ -49,10 +49,12 @@ namespace CarShowroom.UI.Configuration
 
         public static void AddCorsService(this IServiceCollection services)
         {
+            var isDevelopment = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "development", StringComparison.InvariantCultureIgnoreCase);
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.WithOrigins("http://localhost:4200")
+                    builder => builder.WithOrigins(isDevelopment ? "http://localhost:4200" : "https://agajek777.github.io")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials()

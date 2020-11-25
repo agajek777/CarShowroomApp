@@ -18,8 +18,9 @@ namespace CarShowroomApp
             host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var hostBuilder = Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureLogging((context, logging) =>
                 {
@@ -27,10 +28,25 @@ namespace CarShowroomApp
                     logging.AddConfiguration(context.Configuration.GetSection("Logging"));
                     logging.AddDebug();
                     logging.AddConsole();
-                })
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
                 });
+
+            var isDevelopment = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "development", StringComparison.InvariantCultureIgnoreCase);
+
+            if (isDevelopment)
+            {
+                return hostBuilder.ConfigureWebHostDefaults(webBuilder =>
+                 {
+                     webBuilder.UseStartup<Startup>();
+                 });
+            }
+
+            return hostBuilder.ConfigureWebHostDefaults(webBuilder =>
+            {
+                var port = Environment.GetEnvironmentVariable("PORT");
+
+                webBuilder.UseStartup<Startup>()
+                          .UseUrls("http://*:" + port);
+            });
+        }
     }
 }
