@@ -31,6 +31,8 @@ import { LoaderInterceptor } from './models/loader-interceptor';
 import { EditComponent } from './components/cars/edit/edit.component';
 import { ChatComponent } from './components/user/chat/chat.component';
 import { SignalRService } from './services/signal-r.service';
+import { RegisterComponent } from './components/user/register/register.component';
+import { UserformComponent } from './components/user/register/userform/userform.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { SignalRService } from './services/signal-r.service';
     LoginComponent,
     LoaderComponent,
     EditComponent,
-    ChatComponent
+    ChatComponent,
+    RegisterComponent,
+    UserformComponent
   ],
   imports: [
     BrowserModule,

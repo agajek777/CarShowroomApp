@@ -7,12 +7,14 @@ import { DetailsComponent } from './components/cars/details/details.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { EditComponent } from './components/cars/edit/edit.component';
 import { ChatComponent } from './components/user/chat/chat.component';
+import { RegisterComponent } from './components/user/register/register.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'add', component: AddComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'overview', component: OverviewComponent },
   { path: 'details/:id', component: DetailsComponent },
