@@ -51,11 +51,14 @@ export class RegisterComponent implements OnInit {
       (error) => {
         console.log(error);
         var response = error as HttpErrorResponse;
-        if (response.status === 400 || response.status === 500) {
+        if (response.status === 400) {
           var errors = response.error as ErrorDto[];
           console.log(errors);
 
           this.openDialog(errors[0].description, false);
+        }
+        else {
+          this.openDialog("Error while registering new user. Try again later...", false);
         }
       }
     );
