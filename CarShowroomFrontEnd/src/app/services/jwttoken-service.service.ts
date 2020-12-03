@@ -17,6 +17,11 @@ export class JWTTokenServiceService {
     }
   }
 
+  removeToken() {
+    this.jwtToken = '';
+    sessionStorage.removeItem('access_token');
+  }
+
   decodeToken() {
     if (sessionStorage.getItem('access_token')) {
     this.decodedToken = jwt_decode(sessionStorage.getItem('access_token'));

@@ -38,4 +38,11 @@ export class MainNavComponent {
     this.username = sessionStorage.getItem('username');
   }
 
+  public logOut() {
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('id');
+    this.jwtService.removeToken();
+
+    window.location.reload();
+  }
 }

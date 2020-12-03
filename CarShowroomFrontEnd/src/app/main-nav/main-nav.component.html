@@ -33,7 +33,7 @@
       <span style="width: 100%;"></span>
       <div class="menu-links login-button" *ngIf="!(isHandset$ | async)">
         <a *ngIf="!isLogged" [routerLink]="['/login']">Login</a>
-        <a *ngIf="isLogged">Hello {{ username }}!</a>
+        <a *ngIf="isLogged" (click)="logOut()" style="cursor: pointer;">Hello {{ username }}!</a>
       </div>
     </mat-toolbar>
     <ng-content></ng-content>
