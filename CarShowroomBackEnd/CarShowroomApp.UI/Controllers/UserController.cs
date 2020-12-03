@@ -31,7 +31,7 @@ namespace CarShowroom.UI.Controllers
         public async Task<IActionResult> Register(UserForRegisterDto userDto)
         {
             if (!ModelState.IsValid)
-                BadRequest("UserName and Password is required.");
+                BadRequest("Username and Password are required.");
 
             var user = new User { UserName = userDto.UserName };
 
@@ -56,7 +56,7 @@ namespace CarShowroom.UI.Controllers
 
             outcome.Password = userDto.Password;
 
-            return Ok(new { Account = outcome, Token = await _jwtService.GenerateJSONWebToken(userCreated)});
+            return Ok(new { Token = await _jwtService.GenerateJSONWebToken(userCreated), Id = userCreated.Id });
         }
 
         [HttpPost("Login")]
