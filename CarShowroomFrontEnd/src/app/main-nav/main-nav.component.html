@@ -10,7 +10,7 @@
       <a mat-list-item [routerLink]="['/add']">New offer</a>
       <a mat-list-item [routerLink]="['/chat']">Chat</a>
       <a *ngIf="!isLogged" mat-list-item [routerLink]="['/login']">Login</a>
-      <a *ngIf="isLogged" mat-list-item>Hello {{ username }}!</a>
+      <a *ngIf="isLogged" (click)="logOut()" mat-list-item>Hello {{ username }}!</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
