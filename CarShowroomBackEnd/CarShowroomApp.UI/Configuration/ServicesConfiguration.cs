@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using System;
 using System.Security.Claims;
 using System.Text;
@@ -45,6 +46,10 @@ namespace CarShowroom.UI.Configuration
         {
             services.AddDbContext<DatabaseContext<User, Role>>(options =>
                         options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            var mongoClient = new MongoClient("mongodb+srv://admin:eHXiUL2N9ZwVQE0y@cluster-carshowroom.849ac.mongodb.net/CarShowroom?retryWrites=true&w=majority");
+
+            services.AddSingleton(mongoClient.GetDatabase("CarShowroom"));
         }
 
         public static void AddCorsService(this IServiceCollection services)
