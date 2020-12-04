@@ -13,14 +13,14 @@ namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IJwtService _jwtService;
         private readonly IMapper _mapper;
 
-        public UserController(UserManager<User> userManager, SignInManager<User> signInManager, IJwtService jwtService, IMapper mapper)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, IJwtService jwtService, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;

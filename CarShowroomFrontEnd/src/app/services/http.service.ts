@@ -9,7 +9,7 @@ import { send } from 'process';
 export class HttpService {
   private apiDomain: string = "https://localhost:44332"
   private apiCarRoute: string = "/api/car/";
-  private apiUserRoute: string = "/api/user/";
+  private apiUserRoute: string = "/api/auth/";
   private apiMessageRoute: string = "/api/message/";
 
   constructor(private httpClient: HttpClient) {
