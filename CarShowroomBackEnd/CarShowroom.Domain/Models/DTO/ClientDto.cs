@@ -1,17 +1,12 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarShowroom.Domain.Models.Identity
+namespace CarShowroom.Domain.Models.DTO
 {
-    public class Client
+    public class ClientDto
     {
-        [BsonId]
-        [BsonElement("id")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
         [BsonElement("userName")]
         [BsonRequired]
         public string UserName { get; set; }
