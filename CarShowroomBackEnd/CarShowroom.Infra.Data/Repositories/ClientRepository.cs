@@ -36,14 +36,18 @@ namespace CarShowroom.Infra.Data.Repositories
             return _mapper.Map<ClientDto>(await clientInDb.SingleOrDefaultAsync());
         }
 
-        public Task<bool> ClientExistsAsync(string id)
+        public async Task<bool> ClientExistsAsync(string id)
         {
-            throw new NotImplementedException();
+            var clientInDb = await (await _clients.FindAsync(c => c.IdentityId == id)).SingleOrDefaultAsync();
+
+            return clientInDb == null ? false : true;
         }
 
-        public Task<bool> DeleteAsync(string id)
+        public async Task<bool> DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            var deletedClient = await _clients.FindOneAndDeleteAsync(c => c.IdentityId == id);
+
+            return deletedClient == null ? false : true;
         }
 
         public Task<IQueryable<ClientDto>> GetAllAsync()
@@ -51,14 +55,20 @@ namespace CarShowroom.Infra.Data.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<ClientDto> GetAsync(string id)
+        public async Task<ClientDto> GetAsync(string id)
         {
-            throw new NotImplementedException();
+            var clientInDb = await (await _clients.FindAsync(c => c.IdentityId == id)).FirstOrDefaultAsync();
+
+            return clientInDb == null ? null : _mapper.Map<ClientDto>(clientInDb);
         }
 
-        public Task<ClientDto> UpdateAsync(string id, ClientDto entity)
+        public async Task<ClientDto> UpdateAsync(string id, ClientDto client)
         {
-            throw new NotImplementedException();
+            var clientToAdd = _mapper.Map<Client>(client);
+
+            var clientInDb = await _clients.FindOneAndReplaceAsync(c => c.IdentityId == id, clientToAdd);
+
+            return clientInDb == null ? null : _mapper.Map<ClientDto>(clientInDb);
         }
     }
 }
