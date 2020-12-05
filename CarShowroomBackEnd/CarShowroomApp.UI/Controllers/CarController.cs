@@ -62,7 +62,8 @@ namespace CarShowroom.UI.Controllers
             var carInDb = await _carService.GetCarAsync(id);
 
             if (carInDb == null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new { Error = "Conflict in the database. Try again later." });
+                return Conflict(new { Error = "Request unsuccessfull." });
+
 
             _logger.LogInformation("User {User} obtained Car Model from db", HttpContext.User.Identity.Name);
 
