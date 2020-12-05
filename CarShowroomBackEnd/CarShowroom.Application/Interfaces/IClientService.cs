@@ -11,8 +11,8 @@ namespace CarShowroom.Application.Interfaces
     {
         public Task<PagedList<ClientDto>> GetAllClientsAsync(QueryParameters queryParameters);
         public Task<ClientDto> GetClientAsync(string id);
-        public Task<ClientDto> AddClientAsync(ClientDto carToAdd);
-        public Task<ClientDto> UpdateClientAsync(string id, ClientDto carToUpdate);
+        public Task<ClientDto> AddClientAsync(ClientDto clientToAdd);
+        public Task<ClientDto> UpdateClientAsync(string id, ClientDto clientToUpdate);
         public Task<bool> DeleteClientAsync(string id);
         public Task<bool> ClientExistsAsync(string id);
     }

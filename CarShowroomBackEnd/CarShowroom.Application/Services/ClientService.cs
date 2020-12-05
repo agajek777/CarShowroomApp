@@ -1,4 +1,5 @@
 ﻿using CarShowroom.Application.Interfaces;
+using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Parameters;
 using System;
@@ -10,9 +11,15 @@ namespace CarShowroom.Application.Services
 {
     public class ClientService : IClientService
     {
-        public Task<ClientDto> AddClientAsync(ClientDto carToAdd)
+        private readonly Domain.Interfaces.IClientRepository<ClientDto> _clientRepository;
+
+        public ClientService(IClientRepository<ClientDto> clientRepository)
         {
-            throw new NotImplementedException();
+            _clientRepository = clientRepository;
+        }
+        public async Task<ClientDto> AddClientAsync(ClientDto clientToAdd)
+        {
+            return await _clientRepository.AddAsync(clientToAdd);
         }
 
         public Task<bool> ClientExistsAsync(string id)
@@ -35,7 +42,7 @@ namespace CarShowroom.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<ClientDto> UpdateClientAsync(string id, ClientDto carToUpdate)
+        public Task<ClientDto> UpdateClientAsync(string id, ClientDto clientToUpdate)
         {
             throw new NotImplementedException();
         }
