@@ -1,4 +1,5 @@
-﻿using CarShowroom.Application.Interfaces;
+﻿using AutoMapper;
+using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Parameters;
@@ -18,20 +19,22 @@ namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
         private readonly ICarService _carService;
         private readonly UserManager<User> _userManager;
         private readonly ILogger<ClientController> _logger;
+        private readonly IMapper _mapper;
 
-        public ClientController(IClientService clientService, ICarService carService, UserManager<User> userManager, ILogger<ClientController> logger)
+        public ClientController(IClientService clientService, ICarService carService, UserManager<User> userManager, ILogger<ClientController> logger, IMapper mapper)
         {
             _clientService = clientService;
             _carService = carService;
             _userManager = userManager;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -39,7 +42,7 @@ namespace CarShowroom.UI.Controllers
         [Cached(600)]
         public IActionResult GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
-            var outcome = _clientService.GetAllClientsAsync(queryParameters);
+            var outcome = _clientService.GetAllClients(queryParameters);
 
             _logger.LogInformation("User {User} obtained {Num} Clients Models from db", HttpContext.User.Identity.Name, outcome.Count);
 

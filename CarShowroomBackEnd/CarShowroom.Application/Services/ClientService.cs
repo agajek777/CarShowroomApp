@@ -40,7 +40,7 @@ namespace CarShowroom.Application.Services
             throw new NotImplementedException();
         }
 
-        public PagedList<ClientDto> GetAllClientsAsync(QueryParameters queryParameters)
+        public PagedList<ClientDto> GetAllClients(QueryParameters queryParameters)
         {
             return PagedList<ClientDto>.ToPagedList(_clientRepository.GetAll(),
                                                 queryParameters.PageNumber,

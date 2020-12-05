@@ -1,4 +1,5 @@
 ﻿using CarShowroom.Domain.Models.DTO;
+using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Parameters;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace CarShowroom.Application.Interfaces
 {
     public interface IClientService
     {
-        public PagedList<ClientDto> GetAllClientsAsync(QueryParameters queryParameters);
+        public PagedList<ClientDto> GetAllClients(QueryParameters queryParameters);
         public Task<ClientDto> GetClientAsync(string id);
         public Task<ClientDto> AddClientAsync(ClientDto clientToAdd);
         public Task<ClientDto> UpdateClientAsync(string id, ClientDto clientToUpdate);

@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +52,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public IQueryable<ClientDto> GetAll()
         {
-            return _clients.AsQueryable().Select(c => _mapper.Map<ClientDto>(c));
+            return _clients.AsQueryable().ProjectTo<ClientDto>(_mapper.ConfigurationProvider, c => _mapper.Map<ClientDto>(c));
         }
 
         public async Task<ClientDto> GetAsync(string id)
