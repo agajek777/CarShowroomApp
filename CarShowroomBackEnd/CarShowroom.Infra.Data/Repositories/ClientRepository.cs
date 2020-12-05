@@ -14,7 +14,6 @@ namespace CarShowroom.Infra.Data.Repositories
     public class ClientRepository : IClientRepository<ClientDto>
     {
         private readonly IMongoCollection<Client> _clients;
-        private readonly ICarShowroomMongoSettings _mongoSettings;
         private readonly IMapper _mapper;
 
         public ClientRepository(ICarShowroomMongoSettings mongoSettings, IMapper mapper)
@@ -23,7 +22,6 @@ namespace CarShowroom.Infra.Data.Repositories
             var database = client.GetDatabase(mongoSettings.DatabaseName);
 
             _clients = database.GetCollection<Client>(mongoSettings.ClientsCollectionName);
-            _mongoSettings = mongoSettings;
             _mapper = mapper;
         }
 
@@ -50,9 +48,9 @@ namespace CarShowroom.Infra.Data.Repositories
             return deletedClient == null ? false : true;
         }
 
-        public Task<IQueryable<ClientDto>> GetAllAsync()
+        public IQueryable<ClientDto> GetAll()
         {
-            throw new NotImplementedException();
+            return _clients.AsQueryable().Select(c => _mapper.Map<ClientDto>(c));
         }
 
         public async Task<ClientDto> GetAsync(string id)

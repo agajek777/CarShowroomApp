@@ -13,7 +13,7 @@ namespace CarShowroom.Application.Services
 {
     public class ClientService : IClientService
     {
-        private readonly Domain.Interfaces.IClientRepository<ClientDto> _clientRepository;
+        private readonly IClientRepository<ClientDto> _clientRepository;
         private readonly UserManager<User> _userManager;
 
         public ClientService(IClientRepository<ClientDto> clientRepository, UserManager<User> userManager)
@@ -30,9 +30,9 @@ namespace CarShowroom.Application.Services
             return await _clientRepository.AddAsync(clientToAdd);
         }
 
-        public Task<bool> ClientExistsAsync(string id)
+        public async Task<bool> ClientExistsAsync(string id)
         {
-            throw new NotImplementedException();
+            return await _clientRepository.ClientExistsAsync(id);
         }
 
         public Task<bool> DeleteClientAsync(string id)
@@ -40,19 +40,21 @@ namespace CarShowroom.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<PagedList<ClientDto>> GetAllClientsAsync(QueryParameters queryParameters)
+        public PagedList<ClientDto> GetAllClientsAsync(QueryParameters queryParameters)
         {
-            throw new NotImplementedException();
+            return PagedList<ClientDto>.ToPagedList(_clientRepository.GetAll(),
+                                                queryParameters.PageNumber,
+                                                queryParameters.PageSize);
         }
 
-        public Task<ClientDto> GetClientAsync(string id)
+        public async Task<ClientDto> GetClientAsync(string id)
         {
-            throw new NotImplementedException();
+            return await _clientRepository.GetAsync(id);
         }
 
         public Task<ClientDto> UpdateClientAsync(string id, ClientDto clientToUpdate)
         {
-            throw new NotImplementedException();
+            return _clientRepository.UpdateAsync(id, clientToUpdate);
         }
     }
 }
