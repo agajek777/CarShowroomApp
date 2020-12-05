@@ -13,7 +13,6 @@ namespace CarShowroom.Domain.Models.Identity
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         [BsonElement("userName")]
-        [BsonRequired]
         public string UserName { get; set; }
         [BsonElement("email")]
         public string Email { get; set; }
@@ -24,5 +23,7 @@ namespace CarShowroom.Domain.Models.Identity
         public string Description { get; set; }
         [BsonElement("avatar")]
         public string Avatar { get; set; }
+        [BsonElement("offers")]
+        public ICollection<Offer> Offers { get; set; }
     }
 }
