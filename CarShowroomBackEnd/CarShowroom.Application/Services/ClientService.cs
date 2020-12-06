@@ -33,7 +33,7 @@ namespace CarShowroom.Application.Services
 
         public Task<bool> DeleteClientAsync(string id)
         {
-            throw new NotImplementedException();
+            return _clientRepository.DeleteAsync(id);
         }
 
         public PagedList<ClientDto> GetAllClients(QueryParameters queryParameters)

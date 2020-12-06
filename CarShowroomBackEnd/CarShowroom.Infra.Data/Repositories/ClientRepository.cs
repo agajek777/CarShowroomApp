@@ -45,9 +45,11 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> DeleteAsync(string id)
         {
-            var deletedClient = await _clients.FindOneAndDeleteAsync(c => c.IdentityId == id);
+            var clientToDelete = await _clients.DeleteOneAsync(c => c.IdentityId == id);
 
-            return deletedClient == null ? false : true;
+            var outcome = await (await _clients.FindAsync(c => c.IdentityId == id)).SingleOrDefaultAsync();
+
+            return outcome == null ? true : false;
         }
 
         public IQueryable<ClientDto> GetAll()
