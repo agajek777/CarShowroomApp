@@ -60,9 +60,15 @@ export class AddComponent implements OnInit, OnDestroy {
         var response = error as HttpErrorResponse;
         if (response.status === 401) {
           this.openDialog('You must be logged in to add new models!', false);
+          return;
+        }
+        if (response.status === 403) {
+          this.openDialog('You must create an client account to add new models!', false);
+          return;
         }
         else {
           this.openDialog('Error while creating an offer. Try again later.', false);
+          return;
         }
 
       }

@@ -73,9 +73,19 @@ export class EditComponent implements OnInit {
         var response = error as HttpErrorResponse;
         if (response.status === 401) {
           this.openDialog('You must be logged in to edit this offer!', false);
+          return;
+        }
+        if (response.status === 403) {
+          this.openDialog('You must create an client account to edit models!', false);
+          return;
+        }
+        if (response.status === 404) {
+          this.openDialog('You must must be an owner of an offer to edit models!', false);
+          return;
         }
         else {
           this.openDialog('Error while editing an offer. Try again later.', false);
+          return;
         }
 
       }

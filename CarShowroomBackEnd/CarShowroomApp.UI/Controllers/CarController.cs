@@ -32,7 +32,7 @@ namespace CarShowroom.UI.Controllers
         }
         [HttpGet]
         [AllowAnonymous]
-        [Cached(600)]
+        [Cached(60)]
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
             var outcome = await _carService.GetAllCarsAsync(queryParameters);
@@ -56,7 +56,7 @@ namespace CarShowroom.UI.Controllers
         }
         [HttpGet("{id}")]
         [AllowAnonymous]
-        [Cached(600)]
+        [Cached(60)]
         public async Task<IActionResult> Get(int id)
         {
             if (!await _carService.CarExistsAsync(id))
@@ -100,7 +100,7 @@ namespace CarShowroom.UI.Controllers
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!await _clientService.CheckIfOwnerAsync(userId, id))
-                return StatusCode(StatusCodes.Status403Forbidden, "Operation available only for the owner.");
+                return StatusCode(StatusCodes.Status404NotFound, "Operation available only for the owner.");
 
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
@@ -123,7 +123,7 @@ namespace CarShowroom.UI.Controllers
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!await _clientService.CheckIfOwnerAsync(userId, id))
-                return StatusCode(StatusCodes.Status403Forbidden, "Operation available only for the owner.");
+                return StatusCode(StatusCodes.Status404NotFound, "Operation available only for the owner.");
 
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });

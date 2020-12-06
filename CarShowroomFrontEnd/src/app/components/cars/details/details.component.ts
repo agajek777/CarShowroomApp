@@ -10,6 +10,7 @@ import { SignalRService } from 'src/app/services/signal-r.service';
 import { Subscription } from 'rxjs';
 import { Message } from 'src/app/models/message';
 import Swal from 'sweetalert2';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-details',
@@ -78,7 +79,24 @@ export class DetailsComponent implements OnInit, OnDestroy {
       },
       (error) =>
       {
-        this.openDialog('Error while deleting.', false);
+        var response = error as HttpErrorResponse;
+        if (response.status === 401) {
+          this.openDialog('You must be logged in to delete models!', false);
+          return;
+        }
+        if (response.status === 403) {
+          this.openDialog('You must create an client account to delete models!', false);
+          return;
+        }
+        if (response.status === 404) {
+          this.openDialog('You must must be an owner of an offer to delete models!', false);
+          return;
+        }
+        else
+        {
+          this.openDialog('Error while deleting.', false);
+          return;
+        }
       }
     )
   }
