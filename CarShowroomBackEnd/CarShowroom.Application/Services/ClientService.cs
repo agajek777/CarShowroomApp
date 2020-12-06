@@ -25,9 +25,6 @@ namespace CarShowroom.Application.Services
 
         public async Task<bool> AddCarOffer(string userId, int? carId)
         {
-            if (!await _clientRepository.ClientExistsAsync(userId))
-                return false;
-
             var clientInDb = await _clientRepository.GetAsync(userId);
 
             clientInDb.Offers.Add(new Offer { Id = (int)carId });

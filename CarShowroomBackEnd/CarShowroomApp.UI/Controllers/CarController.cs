@@ -21,11 +21,13 @@ namespace CarShowroom.UI.Controllers
     public class CarController : ControllerBase
     {
         private readonly ICarService _carService;
+        private readonly IClientService _clientService;
         private readonly ILogger<CarController> _logger;
 
-        public CarController(ICarService carService, ILogger<CarController> logger)
+        public CarController(ICarService carService, IClientService clientService, ILogger<CarController> logger)
         {
             _carService = carService;
+            _clientService = clientService;
             _logger = logger;
         }
         [HttpGet]
@@ -74,7 +76,8 @@ namespace CarShowroom.UI.Controllers
         [ModelValidationFilter]
         public async Task<IActionResult> Post([FromBody] CarDto carDto)
         {
-            var id = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!await CheckIfClientAsync())
+                return Forbid("No client account has been found.");
 
             var model = await _carService.AddCarAsync(id, carDto);
 
@@ -89,6 +92,9 @@ namespace CarShowroom.UI.Controllers
         [ModelValidationFilter]
         public async Task<IActionResult> Put(int id, [FromBody] CarDto carDto)
         {
+            if (!await CheckIfClientAsync())
+                return Forbid("No client account has been found.");
+
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
@@ -104,6 +110,9 @@ namespace CarShowroom.UI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!await CheckIfClientAsync())
+                return Forbid("No client account has been found.");
+
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
@@ -111,6 +120,17 @@ namespace CarShowroom.UI.Controllers
                 return Conflict(new { Error = "Request unsuccessfull." });
 
             return NoContent();
+        }
+
+        [NonAction]
+        private async Task<bool> CheckIfClientAsync()
+        {
+            var id = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await _clientService.ClientExistsAsync(id))
+                return false;
+
+            return true;
         }
     }
 }
