@@ -7,6 +7,7 @@ using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,21 @@ namespace CarShowroom.Application.Services
             var clientInDb = await _clientRepository.GetAsync(userId);
 
             clientInDb.Offers.Add(new Offer { Id = (int)carId });
+
+            var outcome = await _clientRepository.UpdateAsync(userId, clientInDb);
+
+            return outcome == null ? false : true;
+        }
+
+        public async Task<bool> DeleteCarOffer(string userId, int? carId)
+        {
+            var clientInDb = await _clientRepository.GetAsync(userId);
+
+            clientInDb.Offers.Remove(
+                clientInDb.Offers.First(
+                    o => o.Id == (int)carId
+                    )
+                );
 
             var outcome = await _clientRepository.UpdateAsync(userId, clientInDb);
 

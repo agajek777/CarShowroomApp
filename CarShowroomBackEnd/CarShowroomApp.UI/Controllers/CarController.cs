@@ -128,7 +128,7 @@ namespace CarShowroom.UI.Controllers
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
 
-            if (!await _carService.DeleteCarAsync(id))
+            if (!await _carService.DeleteCarAsync(userId, id))
                 return Conflict(new { Error = "Request unsuccessfull." });
 
             return NoContent();

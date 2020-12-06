@@ -43,16 +43,25 @@ namespace CarShowroom.Application.Services
             return addedCar;
         }
 
-        public async Task<bool> DeleteCarAsync(int id)
+        public async Task<bool> DeleteCarAsync(string userId, int id)
         {
+            bool result = false;
+
+            result = await _clientService.DeleteCarOffer(userId, id);
+
+            if (!result)
+                return result;
+
             try
             {
-                return await _carRepository.DeleteAsync(id);
+                 result = await _carRepository.DeleteAsync(id);
             }
             catch (DataException)
             {
                 throw;
             }
+
+            return result;
         }
 
         public async Task<PagedList<CarDto>> GetAllCarsAsync(QueryParameters queryParameters)
