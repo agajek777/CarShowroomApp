@@ -23,10 +23,6 @@ namespace CarShowroom.Application.Services
         }
         public async Task<ClientDto> AddClientAsync(ClientDto clientToAdd)
         {
-            var user = await _userManager.FindByIdAsync(clientToAdd.IdentityId);
-
-            clientToAdd.UserName = user.UserName;
-
             return await _clientRepository.AddAsync(clientToAdd);
         }
 

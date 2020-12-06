@@ -11,9 +11,8 @@ namespace CarShowroom.Domain.Models.Identity
         [BsonId]
         [BsonElement("id")]
         [BsonRepresentation(BsonType.ObjectId)]
+        [BsonIgnoreIfNull]
         public string Id { get; set; }
-        [BsonElement("userName")]
-        public string UserName { get; set; }
         [BsonElement("email")]
         public string Email { get; set; }
         [BsonElement("identityId")]

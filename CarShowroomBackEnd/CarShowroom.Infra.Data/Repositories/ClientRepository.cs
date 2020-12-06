@@ -66,9 +66,11 @@ namespace CarShowroom.Infra.Data.Repositories
         {
             var clientToAdd = _mapper.Map<Client>(client);
 
-            var clientInDb = await _clients.FindOneAndReplaceAsync(c => c.IdentityId == id, clientToAdd);
+            var result = await _clients.ReplaceOneAsync(c => c.IdentityId == id, clientToAdd);
 
-            return clientInDb == null ? null : _mapper.Map<ClientDto>(clientInDb);
+            var clientInDb = await (await _clients.FindAsync(c => c.IdentityId == id)).SingleOrDefaultAsync();
+
+            return !result.IsAcknowledged ? null : _mapper.Map<ClientDto>(clientInDb);
         }
     }
 }

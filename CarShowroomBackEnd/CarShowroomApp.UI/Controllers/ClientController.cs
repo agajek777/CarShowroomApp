@@ -63,7 +63,6 @@ namespace CarShowroom.UI.Controllers
         }
         [HttpGet("{id}")]
         [AllowAnonymous]
-        [Cached(30)]
         public async Task<IActionResult> Get(string id)
         {
             if (!await _clientService.ClientExistsAsync(id))
@@ -89,10 +88,16 @@ namespace CarShowroom.UI.Controllers
             if ((await _userManager.FindByIdAsync(clientToAdd.IdentityId)) == null)
                 return BadRequest($"No user with prvided user Id {clientToAdd.IdentityId} has been found.");
 
-            foreach (var offer in clientToAdd.Offers)
+            if (clientToAdd.Offers != null)
             {
-                if (!await _carService.CarExistsAsync(offer.Id))
-                    return BadRequest($"No car with provided Id {offer.Id} has been found.");
+                if (clientToAdd.Offers?.Count != 0)
+                {
+                    foreach (var offer in clientToAdd.Offers)
+                    {
+                        if (!await _carService.CarExistsAsync(offer.Id))
+                            return BadRequest($"No car with provided Id {offer.Id} has been found.");
+                    }
+                }
             }
 
             var clientInDb = await _clientService.AddClientAsync(clientToAdd);

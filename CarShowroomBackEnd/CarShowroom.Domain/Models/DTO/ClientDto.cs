@@ -7,8 +7,6 @@ namespace CarShowroom.Domain.Models.DTO
 {
     public class ClientDto
     {
-        [BsonElement("userName")]
-        public string UserName { get; set; }
         [BsonElement("email")]
         public string Email { get; set; }
         [BsonElement("identityId")]
