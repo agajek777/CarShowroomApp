@@ -17,5 +17,6 @@ namespace CarShowroom.Application.Interfaces
         public Task<bool> DeleteClientAsync(string id);
         public Task<bool> ClientExistsAsync(string id);
         public Task<bool> AddCarOffer(string userId, int? carId);
+        public Task<bool> CheckIfOwnerAsync(string userId, int carId);
     }
 }

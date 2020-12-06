@@ -77,7 +77,9 @@ namespace CarShowroom.UI.Controllers
         public async Task<IActionResult> Post([FromBody] CarDto carDto)
         {
             if (!await CheckIfClientAsync())
-                return Forbid("No client account has been found.");
+                return StatusCode(StatusCodes.Status403Forbidden, "No client account has been found.");
+
+            var id = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var model = await _carService.AddCarAsync(id, carDto);
 
@@ -93,7 +95,12 @@ namespace CarShowroom.UI.Controllers
         public async Task<IActionResult> Put(int id, [FromBody] CarDto carDto)
         {
             if (!await CheckIfClientAsync())
-                return Forbid("No client account has been found.");
+                return StatusCode(StatusCodes.Status403Forbidden, "No client account has been found.");
+
+            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await _clientService.CheckIfOwnerAsync(userId, id))
+                return StatusCode(StatusCodes.Status403Forbidden, "Operation available only for the owner.");
 
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });
@@ -111,7 +118,12 @@ namespace CarShowroom.UI.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             if (!await CheckIfClientAsync())
-                return Forbid("No client account has been found.");
+                return StatusCode(StatusCodes.Status403Forbidden, "No client account has been found.");
+
+            var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!await _clientService.CheckIfOwnerAsync(userId, id))
+                return StatusCode(StatusCodes.Status403Forbidden, "Operation available only for the owner.");
 
             if (!await _carService.CarExistsAsync(id))
                 return BadRequest(new { Message = $"No car with ID { id } has been found." });

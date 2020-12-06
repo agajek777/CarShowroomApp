@@ -34,6 +34,19 @@ namespace CarShowroom.Application.Services
             return outcome == null ? false : true;
         }
 
+        public async Task<bool> CheckIfOwnerAsync(string userId, int carId)
+        {
+            var clientInDb = await _clientRepository.GetAsync(userId);
+
+            foreach (var offer in clientInDb.Offers)
+            {
+                if (offer.Id == carId)
+                    return true;
+            }
+
+            return false;
+        }
+
         public async Task<ClientDto> AddClientAsync(ClientDto clientToAdd)
         {
             return await _clientRepository.AddAsync(clientToAdd);
