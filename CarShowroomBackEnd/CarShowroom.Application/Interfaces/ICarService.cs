@@ -8,7 +8,7 @@ namespace CarShowroom.Application.Interfaces
     {
         public Task<PagedList<CarDto>> GetAllCarsAsync(QueryParameters queryParameters);
         public Task<CarDto> GetCarAsync(int id);
-        public Task<CarDto> AddCarAsync(CarDto carToAdd);
+        public Task<CarDto> AddCarAsync(string id, CarDto carToAdd);
         public Task<CarDto> UpdateCarAsync(int id, CarDto carToUpdate);
         public Task<bool> DeleteCarAsync(int id);
         public Task<bool> CarExistsAsync(int id);

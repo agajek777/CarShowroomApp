@@ -71,7 +71,7 @@ export class AddComponent implements OnInit, OnDestroy {
 
   carAdapter(model: Car) {
     model.production += '-06-22T00:00:00';
-    if (model.mileage === null) {
+    if (model.mileage.toString() === "") {
       model.mileage = 0;
     }
     if (model.power.toString() === "") {

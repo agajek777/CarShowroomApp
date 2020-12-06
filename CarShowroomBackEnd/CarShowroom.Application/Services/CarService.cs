@@ -10,21 +10,37 @@ namespace CarShowroom.Application.Services
     public class CarService : ICarService
     {
         private readonly ICarRepository<CarDto> _carRepository;
+        private readonly IClientService _clientService;
 
-        public CarService(ICarRepository<CarDto> carRepository)
+        public CarService(ICarRepository<CarDto> carRepository, IClientService clientService)
         {
             _carRepository = carRepository;
+            _clientService = clientService;
         }
-        public async Task<CarDto> AddCarAsync(CarDto carToAdd)
+        public async Task<CarDto> AddCarAsync(string id, CarDto carToAdd)
         {
+            CarDto addedCar;
+
             try
             {
-                return await _carRepository.AddAsync(carToAdd);
+                addedCar = await _carRepository.AddAsync(carToAdd);
             }
             catch (DataException)
             {
                 throw;
             }
+
+            if (addedCar != null)
+            {
+                var result = await _clientService.AddCarOffer(id, addedCar.Id);
+
+                if (!result)
+                {
+                    await _carRepository.DeleteAsync((int)addedCar.Id);
+                }
+            }
+
+            return addedCar;
         }
 
         public async Task<bool> DeleteCarAsync(int id)

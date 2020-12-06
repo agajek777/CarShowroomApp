@@ -16,5 +16,6 @@ namespace CarShowroom.Application.Interfaces
         public Task<ClientDto> UpdateClientAsync(string id, ClientDto clientToUpdate);
         public Task<bool> DeleteClientAsync(string id);
         public Task<bool> ClientExistsAsync(string id);
+        public Task<bool> AddCarOffer(string userId, int? carId);
     }
 }

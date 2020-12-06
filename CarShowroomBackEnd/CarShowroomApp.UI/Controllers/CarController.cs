@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CarShowroom.UI.Controllers
@@ -73,7 +74,9 @@ namespace CarShowroom.UI.Controllers
         [ModelValidationFilter]
         public async Task<IActionResult> Post([FromBody] CarDto carDto)
         {
-            var model = await _carService.AddCarAsync(carDto);
+            var id = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var model = await _carService.AddCarAsync(id, carDto);
 
             if (model == null)
                 return Conflict(new { Error = "Request unsuccessfull." });

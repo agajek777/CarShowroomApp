@@ -1,5 +1,6 @@
 ﻿using CarShowroom.Application.Interfaces;
 using CarShowroom.Domain.Interfaces;
+using CarShowroom.Domain.Models;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Parameters;
@@ -21,6 +22,21 @@ namespace CarShowroom.Application.Services
             _clientRepository = clientRepository;
             _userManager = userManager;
         }
+
+        public async Task<bool> AddCarOffer(string userId, int? carId)
+        {
+            if (!await _clientRepository.ClientExistsAsync(userId))
+                return false;
+
+            var clientInDb = await _clientRepository.GetAsync(userId);
+
+            clientInDb.Offers.Add(new Offer { Id = (int)carId });
+
+            var outcome = await _clientRepository.UpdateAsync(userId, clientInDb);
+
+            return outcome == null ? false : true;
+        }
+
         public async Task<ClientDto> AddClientAsync(ClientDto clientToAdd)
         {
             return await _clientRepository.AddAsync(clientToAdd);
