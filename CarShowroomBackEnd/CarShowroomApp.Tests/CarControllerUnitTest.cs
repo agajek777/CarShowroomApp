@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using CarShowroom.Application.Services;
 using CarShowroom.Domain.Models.DTO;
+using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Parameters;
 using CarShowroom.Infra.Data.Repositories;
 using CarShowroom.UI.Configuration;
 using CarShowroom.UI.Controllers;
+using CarShowroom.UI.Tests.Users;
 using CarShowroomApp.Tests.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -33,10 +37,24 @@ namespace CarShowroom.UI.Tests.Data
             });
             var mapper = configuration.CreateMapper();
 
-            var carService = new CarService(new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance));
+            var carRepository = new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance);
+
+            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper);
+
+            List<User> _users = new List<User>
+                 {
+                      new User { Id = "1", UserName = "test1" },
+                      new User { Id = "2", UserName = "test2" }
+                 };
+
+            var userManager = UserManagerMocker.MockUserManager(_users);
+
+            var carService = new CarService(carRepository, new ClientService(clientRepository, userManager.Object));
+
+            var clientService = new ClientService(clientRepository, userManager.Object);
 
             // Create API Controller
-            var controller = new CarController(carService, new NullLogger<CarController>());
+            var controller = new CarController(carService, clientService, new NullLogger<CarController>());
 
             /*
              * Act
@@ -71,10 +89,24 @@ namespace CarShowroom.UI.Tests.Data
             });
             var mapper = configuration.CreateMapper();
 
-            var carService = new CarService(new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance));
+            var carRepository = new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance);
+
+            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper);
+
+            List<User> _users = new List<User>
+                 {
+                      new User { Id = "1", UserName = "test1" },
+                      new User { Id = "2", UserName = "test2" }
+                 };
+
+            var userManager = UserManagerMocker.MockUserManager(_users);
+
+            var carService = new CarService(carRepository, new ClientService(clientRepository, userManager.Object));
+
+            var clientService = new ClientService(clientRepository, userManager.Object);
 
             // Create API Controller
-            var controller = new CarController(carService, new NullLogger<CarController>());
+            var controller = new CarController(carService, clientService, new NullLogger<CarController>());
 
             var id = 3;
 
@@ -111,10 +143,24 @@ namespace CarShowroom.UI.Tests.Data
             });
             var mapper = configuration.CreateMapper();
 
-            var carService = new CarService(new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance));
+            var carRepository = new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance);
+
+            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper);
+
+            List<User> _users = new List<User>
+                 {
+                      new User { Id = "1", UserName = "test1" },
+                      new User { Id = "2", UserName = "test2" }
+                 };
+
+            var userManager = UserManagerMocker.MockUserManager(_users);
+
+            var carService = new CarService(carRepository, new ClientService(clientRepository, userManager.Object));
+
+            var clientService = new ClientService(clientRepository, userManager.Object);
 
             // Create API Controller
-            var controller = new CarController(carService, new NullLogger<CarController>());
+            var controller = new CarController(carService, clientService, new NullLogger<CarController>());
 
             var carDto = new CarDto()
             {
