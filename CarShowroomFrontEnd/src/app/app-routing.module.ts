@@ -9,6 +9,7 @@ import { EditComponent } from './components/cars/edit/edit.component';
 import { ChatComponent } from './components/user/chat/chat.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { ProfileComponent } from './components/user/profile/profile.component';
+import { CreateComponent } from './components/user/profile/create/create.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'add', component: AddComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'create', component: CreateComponent },
   { path: 'profile/:id', component: ProfileComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'overview', component: OverviewComponent },

@@ -1,0 +1,36 @@
+<form [formGroup]="clientForm">
+  <div class="upper-section">
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>E-mail</mat-label>
+        <input formControlName="email" matInput placeholder="Ex. Mercedes - Benz">
+        <mat-icon matSuffix>attach_email</mat-icon>
+        <mat-hint>Enter your e-mail</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Avatar</mat-label>
+        <input formControlName="avatar" matInput placeholder="Ex. C 63 AMG">
+        <mat-icon matSuffix>mood</mat-icon>
+        <mat-hint>Enter a link to Your avatar</mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" matInput placeholder="Ex. 6.3"></textarea>
+        <mat-icon matSuffix>description</mat-icon>
+        <mat-hint>Enter your car's engine</mat-hint>
+      </mat-form-field>
+    </p>
+  </div>
+</form>
+<div class="buttons">
+  <button [routerLink]="['/overview']" mat-fab color="warn">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button (click)="onSubmit()" [disabled]="clientForm.invalid" [ngClass]="{'disabled': clientForm.invalid}" mat-fab class="edit-button">
+    <mat-icon>check</mat-icon>
+  </button>
+</div>

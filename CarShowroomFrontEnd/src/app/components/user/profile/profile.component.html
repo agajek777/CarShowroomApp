@@ -27,6 +27,12 @@
     </div>
   </ng-container>
   <ng-container *ngIf="!hasAccount">
-    <h2>Create</h2>
+    <div class="center">
+      <h2>You do not own 'Client's account'</h2>
+      <h3 (click)="onClickCreate()">Let's create it now!</h3>
+      <button (click)="onClickLogOut()" color="warn" mat-raised-button>
+        Log Out!
+      </button>
+    </div>
   </ng-container>
 </div>

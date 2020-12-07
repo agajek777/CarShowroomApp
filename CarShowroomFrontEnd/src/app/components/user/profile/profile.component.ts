@@ -64,4 +64,8 @@ export class ProfileComponent implements OnInit {
 
     this.router.navigate(['']);
   }
+
+  onClickCreate() {
+    this.router.navigate(['create']);
+  }
 }

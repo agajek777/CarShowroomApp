@@ -1,0 +1,59 @@
+.price {
+  width: 204px;
+}
+
+.description {
+  height: 98px;
+}
+
+.edit-button {
+  margin: 0 0 0 15px;
+  background-color: #17b978;
+}
+
+.buttons {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.disabled {
+  background-color: grey;
+  cursor: default;
+}
+
+@media screen and (min-width: 768px) {
+  form {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .lower-section {
+    margin: 45px 15px 80px;
+  }
+
+  .upper-section {
+    margin: 45px 15px 80px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .lower-section {
+    margin: 0px 15px 20px;
+  }
+
+  .upper-section {
+    margin: 0px 15px 20px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .lower-section {
+    margin: 0px 15px 20px;
+  }
+
+  .upper-section {
+    margin: 0px 15px 20px;
+  }
+}

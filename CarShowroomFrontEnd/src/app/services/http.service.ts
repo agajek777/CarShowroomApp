@@ -2,6 +2,7 @@ import { Injectable, isDevMode } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Car } from '../models/car';
 import { send } from 'process';
+import { Client } from '../models/client';
 
 @Injectable({
   providedIn: 'root'
@@ -78,6 +79,17 @@ export class HttpService {
     };
 
     return this.httpClient.post(this.apiDomain + this.apiCarRoute, body, httpOptions);
+  }
+
+  public addClient(body: Client, jwtToken: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwtToken
+      })
+    };
+
+    return this.httpClient.post(this.apiDomain + this.apiClientRoute, body, httpOptions);
   }
 
   public deleteData(id: number, jwtToken: string) {
