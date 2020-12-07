@@ -38,11 +38,13 @@ export class MainNavComponent {
     this.username = sessionStorage.getItem('username');
   }
 
-  public logOut() {
-    sessionStorage.removeItem('username');
-    sessionStorage.removeItem('id');
-    this.jwtService.removeToken();
+  public usernameClick() {
+    this.router.navigate(['profile/' + sessionStorage.getItem('id')]);
 
-    window.location.reload();
+    //sessionStorage.removeItem('username');
+    //sessionStorage.removeItem('id');
+    //this.jwtService.removeToken();
+
+    //window.location.reload();
   }
 }

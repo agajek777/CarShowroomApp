@@ -32,6 +32,7 @@ import { EditComponent } from './components/cars/edit/edit.component';
 import { ChatComponent } from './components/user/chat/chat.component';
 import { SignalRService } from './services/signal-r.service';
 import { RegisterComponent } from './components/user/register/register.component';
+import { ProfileComponent } from './components/user/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { RegisterComponent } from './components/user/register/register.component
     LoaderComponent,
     EditComponent,
     ChatComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
