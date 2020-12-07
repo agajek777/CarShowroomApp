@@ -11,6 +11,7 @@ export class HttpService {
   private apiCarRoute: string = "/api/car/";
   private apiUserRoute: string = "/api/auth/";
   private apiMessageRoute: string = "/api/message/";
+  private apiClientRoute: string = "/api/client/";
 
   constructor(private httpClient: HttpClient) {
     if (!isDevMode()) {
@@ -30,6 +31,10 @@ export class HttpService {
 
   public getUsers() {
     return this.httpClient.get(this.apiDomain + this.apiUserRoute + "getusers", { observe: 'response'});
+  }
+
+  public getClient(id: string) {
+    return this.httpClient.get(this.apiDomain + this.apiClientRoute + id, { observe: 'response'});
   }
 
   public getMessages(sender: string, receiver: string) {

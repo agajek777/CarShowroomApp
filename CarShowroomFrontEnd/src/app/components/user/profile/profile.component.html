@@ -1,1 +1,33 @@
-<p>profile works!</p>
+<div class="main">
+  <ng-container *ngIf="hasAccount">
+    <div class="username">
+      <h1>{{ userName }}</h1>
+      <p>online now!</p>
+    </div>
+    <div class="info">
+      <img [src]="client.avatar" class="avatar">
+      <div class="row">
+        <mat-icon class="prop">attach_email</mat-icon>
+        <span class="value">{{ client.email }}</span>
+      </div>
+      <div class="row">
+        <mat-icon class="prop">description</mat-icon>
+        <span class="value">{{ client.description }}</span>
+      </div>
+      <div class="buttons">
+        <button style="margin-right: 15px;" color="primary" mat-raised-button>
+          Edit
+        </button>
+        <button style="margin-right: 15px;" color="accent" mat-raised-button>
+          Delete
+        </button>
+        <button color="warn" mat-raised-button>
+          Log Out!
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!hasAccount">
+    <h2>Create</h2>
+  </ng-container>
+</div>

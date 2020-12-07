@@ -1,0 +1,45 @@
+.main {
+  margin: 35px;
+}
+
+.username {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.username h1 {
+  font-weight: bolder;
+  margin-bottom: 5px;
+  color: green;
+}
+
+.username p {
+  font-size: 16px;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.avatar {
+  width: 50vw;
+  border-style: inset;
+  margin-bottom: 60px;
+}
+
+.row {
+  font-size: 22px;
+  display: flex;
+  justify-content: left;
+  margin-bottom: 30px;
+  width: 70vw;
+}
+
+.prop {
+  margin-right: 20px;
+}
