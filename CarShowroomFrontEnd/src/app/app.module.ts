@@ -35,6 +35,7 @@ import { RegisterComponent } from './components/user/register/register.component
 import { ProfileComponent } from './components/user/profile/profile.component';
 import { CreateComponent } from './components/user/profile/create/create.component';
 import { ClientformComponent } from './components/user/profile/clientform/clientform.component';
+import { EditclientComponent } from './components/user/profile/editclient/editclient.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ClientformComponent } from './components/user/profile/clientform/client
     RegisterComponent,
     ProfileComponent,
     CreateComponent,
-    ClientformComponent
+    ClientformComponent,
+    EditclientComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,4 @@
+<div *ngIf="isLoaded" class="main">
+  <h1>Edit client</h1>
+  <app-clientform [clientForm]="clientFormCreate" (submitClient)="updateClient($event)" #form class="form"></app-clientform>
+</div>

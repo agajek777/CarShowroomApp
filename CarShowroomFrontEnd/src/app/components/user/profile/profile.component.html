@@ -14,7 +14,7 @@
         <span class="value">{{ client.description }}</span>
       </div>
       <div class="buttons">
-        <button style="margin-right: 10px;" color="primary" mat-raised-button>
+        <button (click)="onClickEdit()" style="margin-right: 10px;" color="primary" mat-raised-button>
           Edit
         </button>
         <button (click)="onClickDelete()" style="margin-right: 10px;" color="accent" mat-raised-button>

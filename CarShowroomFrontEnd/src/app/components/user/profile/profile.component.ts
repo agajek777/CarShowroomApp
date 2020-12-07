@@ -68,4 +68,8 @@ export class ProfileComponent implements OnInit {
   onClickCreate() {
     this.router.navigate(['create']);
   }
+
+  onClickEdit() {
+    this.router.navigate(['editclient/' + this.id]);
+  }
 }
