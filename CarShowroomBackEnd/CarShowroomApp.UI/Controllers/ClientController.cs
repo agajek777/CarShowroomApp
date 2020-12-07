@@ -19,7 +19,7 @@ namespace CarShowroom.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;

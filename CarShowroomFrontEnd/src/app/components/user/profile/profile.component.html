@@ -2,7 +2,6 @@
   <ng-container *ngIf="hasAccount">
     <div class="username">
       <h1>{{ userName }}</h1>
-      <p>online now!</p>
     </div>
     <div class="info">
       <img [src]="client.avatar" class="avatar">
@@ -15,13 +14,13 @@
         <span class="value">{{ client.description }}</span>
       </div>
       <div class="buttons">
-        <button style="margin-right: 15px;" color="primary" mat-raised-button>
+        <button style="margin-right: 10px;" color="primary" mat-raised-button>
           Edit
         </button>
-        <button style="margin-right: 15px;" color="accent" mat-raised-button>
+        <button (click)="onClickDelete()" style="margin-right: 10px;" color="accent" mat-raised-button>
           Delete
         </button>
-        <button color="warn" mat-raised-button>
+        <button (click)="onClickLogOut()" color="warn" mat-raised-button>
           Log Out!
         </button>
       </div>

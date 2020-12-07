@@ -40,11 +40,5 @@ export class MainNavComponent {
 
   public usernameClick() {
     this.router.navigate(['profile/' + sessionStorage.getItem('id')]);
-
-    //sessionStorage.removeItem('username');
-    //sessionStorage.removeItem('id');
-    //this.jwtService.removeToken();
-
-    //window.location.reload();
   }
 }

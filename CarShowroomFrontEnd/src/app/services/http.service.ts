@@ -93,6 +93,19 @@ export class HttpService {
     return this.httpClient.delete(this.apiDomain + this.apiCarRoute + id, httpOptions);
   }
 
+  public deleteClient(id: string, jwtToken: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwtToken
+      })
+    };
+
+    console.log(httpOptions);
+
+    return this.httpClient.delete(this.apiDomain + this.apiClientRoute + id, httpOptions);
+  }
+
   public register(username: string, password: string) {
     return this.httpClient.post(this.apiDomain + this.apiUserRoute + 'register',
       {

@@ -11,12 +11,8 @@
 
 .username h1 {
   font-weight: bolder;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   color: green;
-}
-
-.username p {
-  font-size: 16px;
 }
 
 .info {
@@ -42,4 +38,60 @@
 
 .prop {
   margin-right: 20px;
+}
+
+.buttons {
+  margin-top: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .main {
+    margin: 50px;
+  }
+
+  .username h1 {
+    font-weight: bolder;
+    margin-bottom: 45px;
+    color: green;
+  }
+
+  .avatar {
+    width: 20vw;
+    border-style: inset;
+    margin-bottom: 60px;
+  }
+
+  .buttons {
+    margin-top: 105px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .main {
+    margin: 20px;
+  }
+
+  .username h1 {
+    font-weight: bolder;
+    margin-bottom: 15px;
+    color: green;
+  }
+
+  .avatar {
+    width: 8vw;
+    border-style: inset;
+    margin-bottom: 60px;
+  }
+
+  .buttons {
+    margin-top: 25px;
+  }
+
+  .row {
+    font-size: 22px;
+    display: flex;
+    justify-content: left;
+    margin-bottom: 30px;
+    width: 40vw;
+  }
 }
