@@ -24,21 +24,6 @@ namespace CarShowroom.UI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("GetUsers")]
-        public async Task<IActionResult> GetUsers()
-        {
-            var users = await _userManager.GetUsersInRoleAsync(UserRolesEnum.User);
-
-            var outcome = new List<UserWithIdDto>();
-
-            foreach (var user in users)
-            {
-                outcome.Add(_mapper.Map<UserWithIdDto>(user));
-            }
-
-            return Ok(outcome);
-        }
-
         [HttpGet("GetUsers/{query}")]
         public async Task<IActionResult> SearchUsersByName(string query)
         {
