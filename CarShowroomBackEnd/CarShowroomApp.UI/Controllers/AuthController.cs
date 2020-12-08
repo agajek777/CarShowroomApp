@@ -82,20 +82,5 @@ namespace CarShowroom.UI.Controllers
 
             return Ok(new { Token = await _jwtService.GenerateJSONWebToken(user), Id = user.Id });
         }
-
-        [HttpGet("GetUsers")]
-        public async Task<IActionResult> GetUsers()
-        {
-            var users = await _userManager.GetUsersInRoleAsync(UserRolesEnum.User);
-
-            var outcome = new List<UserWithIdDto>();
-
-            foreach (var user in users)
-            {
-                outcome.Add(_mapper.Map<UserWithIdDto>(user));
-            }
-
-            return Ok(outcome);
-        }
     }
 }
