@@ -10,7 +10,8 @@ import { Client } from '../models/client';
 export class HttpService {
   private apiDomain: string = "https://localhost:44332"
   private apiCarRoute: string = "/api/car/";
-  private apiUserRoute: string = "/api/auth/";
+  private apiAuthRoute: string = "/api/auth/";
+  private apiUserRoute: string = "/api/user/";
   private apiMessageRoute: string = "/api/message/";
   private apiClientRoute: string = "/api/client/";
 
@@ -30,8 +31,16 @@ export class HttpService {
     return this.httpClient.get(this.apiDomain + this.apiCarRoute + id, { observe: 'response'});
   }
 
-  public getUsers() {
-    return this.httpClient.get(this.apiDomain + this.apiUserRoute + "getusers", { observe: 'response'});
+  public getUsers(query: string, jwtToken: string) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + jwtToken,
+        'skip': 'true'
+      })
+    };
+
+    return this.httpClient.get(this.apiDomain + this.apiUserRoute + "getusers/" + query, { headers: httpOptions.headers, observe: 'response'});
   }
 
   public getClient(id: string) {
@@ -130,7 +139,7 @@ export class HttpService {
   }
 
   public register(username: string, password: string) {
-    return this.httpClient.post(this.apiDomain + this.apiUserRoute + 'register',
+    return this.httpClient.post(this.apiDomain + this.apiAuthRoute + 'register',
       {
         userName: username,
         password: password
@@ -139,7 +148,7 @@ export class HttpService {
   }
 
   public login(username: string, password: string) {
-    return this.httpClient.post(this.apiDomain + this.apiUserRoute + 'login',
+    return this.httpClient.post(this.apiDomain + this.apiAuthRoute + 'login',
       {
         userName: username,
         password: password
