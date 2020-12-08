@@ -39,17 +39,6 @@ export class ChatComponent implements OnInit, AfterViewChecked {
 
     this.userId = sessionStorage.getItem('id');
 
-    this.httpService.getUsers().subscribe(
-      (result) => {
-        this.users = result.body as UserDto[];
-        console.log(this.users);
-
-        this.users.forEach(user => {
-          this.options.push(user.userName);
-        });
-      }
-    );
-
     this.filteredOptions = this.recipientControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -82,7 +71,27 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    if (filterValue === "") {
+      return;
+    }
+
+    this.httpService.getUsers(value, sessionStorage
+      .getItem('access_token'))
+      .subscribe(
+        (result) =>
+        {
+          this.users = result.body as UserDto[];
+          console.log(this.users);
+
+          this.options.splice(0, this.options.length);
+
+          this.users.forEach(user => {
+            this.options.push(user.userName);
+          });
+        }
+      );
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   isUserLogged() {

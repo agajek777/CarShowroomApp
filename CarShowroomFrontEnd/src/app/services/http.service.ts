@@ -40,7 +40,7 @@ export class HttpService {
       })
     };
 
-    return this.httpClient.get(this.apiDomain + this.apiUserRoute + "getusers/" + query, { observe: 'response'});
+    return this.httpClient.get(this.apiDomain + this.apiUserRoute + "getusers/" + query, { headers: httpOptions.headers, observe: 'response'});
   }
 
   public getClient(id: string) {
