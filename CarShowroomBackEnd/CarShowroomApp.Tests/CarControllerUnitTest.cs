@@ -39,7 +39,7 @@ namespace CarShowroom.UI.Tests.Data
 
             var carRepository = new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance);
 
-            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper);
+            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper, NullLogger<ClientRepository>.Instance);
 
             List<User> _users = new List<User>
                  {
@@ -91,7 +91,7 @@ namespace CarShowroom.UI.Tests.Data
 
             var carRepository = new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance);
 
-            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper);
+            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper, NullLogger<ClientRepository>.Instance);
 
             List<User> _users = new List<User>
                  {
@@ -145,7 +145,7 @@ namespace CarShowroom.UI.Tests.Data
 
             var carRepository = new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance);
 
-            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper);
+            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper, NullLogger<ClientRepository>.Instance);
 
             List<User> _users = new List<User>
                  {
