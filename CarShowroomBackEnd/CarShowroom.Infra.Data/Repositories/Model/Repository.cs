@@ -20,6 +20,13 @@ namespace CarShowroom.Infra.Data.Repositories.Model
             _mapper = mapper;
             _logger = logger;
         }
+
+        public Repository(IMapper mapper, ILogger<Repository> logger)
+        {
+            _mapper = mapper;
+            _logger = logger;
+        }
+
         protected virtual async Task<bool> CheckConnectionAsync()
         {
             _logger.LogInformation("CheckConnectionAsync() checking connection to the database.");

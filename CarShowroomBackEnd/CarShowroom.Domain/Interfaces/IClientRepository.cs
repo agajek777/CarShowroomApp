@@ -11,7 +11,7 @@ namespace CarShowroom.Domain.Interfaces
 {
     public interface IClientRepository<TEntityDto>
     {
-        IQueryable<ClientDto> GetAll();
+        Task<IQueryable<ClientDto>> GetAllAsync();
         Task<TEntityDto> GetAsync(string id);
         Task<TEntityDto> AddAsync(TEntityDto entity);
         Task<TEntityDto> UpdateAsync(string id, TEntityDto entity);

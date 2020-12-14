@@ -20,6 +20,7 @@ namespace CarShowroom.UI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
+    [ExceptionHandlingFilter]
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;
@@ -40,9 +41,9 @@ namespace CarShowroom.UI.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Cached(600)]
-        public IActionResult GetAllAsync([FromQuery] QueryParameters queryParameters)
+        public async Task<IActionResult> GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
-            var outcome = _clientService.GetAllClients(queryParameters);
+            var outcome = await _clientService.GetAllClientsAsync(queryParameters);
 
             _logger.LogInformation("User {User} obtained {Num} Clients Models from db", HttpContext.User.Identity.Name, outcome.Count);
 

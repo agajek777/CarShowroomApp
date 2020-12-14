@@ -3,32 +3,39 @@ using AutoMapper.QueryableExtensions;
 using CarShowroom.Domain.Interfaces;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
+using CarShowroom.Infra.Data.Repositories.Model;
+using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CarShowroom.Infra.Data.Repositories
 {
-    public class ClientRepository : IClientRepository<ClientDto>
+    public class ClientRepository : Repository, IClientRepository<ClientDto>
     {
         private readonly IMongoCollection<Client> _clients;
-        private readonly IMapper _mapper;
+        private readonly IMongoClient _mongoClient;
+        private readonly IMongoDatabase _mongoDb;
 
-        public ClientRepository(ICarShowroomMongoSettings mongoSettings, IMapper mapper)
+        public ClientRepository(ICarShowroomMongoSettings mongoSettings, IMapper mapper, ILogger<ClientRepository> logger) : base(mapper, logger)
         {
-            var client = new MongoClient(mongoSettings.ConnectionString);
-            var database = client.GetDatabase(mongoSettings.DatabaseName);
+            _mongoClient = new MongoClient(mongoSettings.ConnectionString);
+            _mongoDb = _mongoClient.GetDatabase(mongoSettings.DatabaseName);
 
-            _clients = database.GetCollection<Client>(mongoSettings.ClientsCollectionName);
-            _mapper = mapper;
+            _clients = _mongoDb.GetCollection<Client>(mongoSettings.ClientsCollectionName);
         }
 
         public async Task<ClientDto> AddAsync(ClientDto client)
         {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             await _clients.InsertOneAsync(_mapper.Map<Client>(client));
 
             var clientInDb = await _clients.FindAsync(c => c.IdentityId == client.IdentityId);
@@ -38,6 +45,9 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> ClientExistsAsync(string id)
         {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             var clientInDb = await (await _clients.FindAsync(c => c.IdentityId == id)).SingleOrDefaultAsync();
 
             return clientInDb == null ? false : true;
@@ -45,6 +55,9 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> DeleteAsync(string id)
         {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             var clientToDelete = await _clients.DeleteOneAsync(c => c.IdentityId == id);
 
             var outcome = await (await _clients.FindAsync(c => c.IdentityId == id)).SingleOrDefaultAsync();
@@ -52,13 +65,19 @@ namespace CarShowroom.Infra.Data.Repositories
             return outcome == null ? true : false;
         }
 
-        public IQueryable<ClientDto> GetAll()
+        public async Task<IQueryable<ClientDto>> GetAllAsync()
         {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             return _clients.AsQueryable().ProjectTo<ClientDto>(_mapper.ConfigurationProvider, c => _mapper.Map<ClientDto>(c));
         }
 
         public async Task<ClientDto> GetAsync(string id)
         {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             var clientInDb = await (await _clients.FindAsync(c => c.IdentityId == id)).FirstOrDefaultAsync();
 
             return clientInDb == null ? null : _mapper.Map<ClientDto>(clientInDb);
@@ -66,6 +85,9 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<ClientDto> UpdateAsync(string id, ClientDto client)
         {
+            if (!await CheckConnectionAsync())
+                throw new DataException("Can't connect to the db.");
+
             var clientToAdd = _mapper.Map<Client>(client);
 
             var result = await _clients.ReplaceOneAsync(c => c.IdentityId == id, clientToAdd);
@@ -73,6 +95,26 @@ namespace CarShowroom.Infra.Data.Repositories
             var clientInDb = await (await _clients.FindAsync(c => c.IdentityId == id)).SingleOrDefaultAsync();
 
             return !result.IsAcknowledged ? null : _mapper.Map<ClientDto>(clientInDb);
+        }
+
+        protected override async Task<bool> CheckConnectionAsync()
+        {
+            _logger.LogInformation("CheckConnectionAsync() checking connection to the database.");
+
+            if (_mongoClient == null)
+                return false;
+
+            try
+            {
+                await _mongoClient.ListDatabasesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "CheckConnectionAsync() got exception: {Message}", ex.Message);
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -7,6 +7,7 @@ using CarShowroom.Domain.Models.Parameters;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,16 @@ namespace CarShowroom.Application.Services
 
         public async Task<bool> AddCarOffer(string userId, int? carId)
         {
-            var clientInDb = await _clientRepository.GetAsync(userId);
+            ClientDto clientInDb;
+
+            try
+            {
+                clientInDb = await _clientRepository.GetAsync(userId);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
 
             clientInDb.Offers.Add(new Offer { Id = (int)carId });
 
@@ -37,7 +47,16 @@ namespace CarShowroom.Application.Services
 
         public async Task<bool> DeleteCarOffer(string userId, int? carId)
         {
-            var clientInDb = await _clientRepository.GetAsync(userId);
+            ClientDto clientInDb;
+
+            try
+            {
+                clientInDb = await _clientRepository.GetAsync(userId);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
 
             clientInDb.Offers.Remove(
                 clientInDb.Offers.First(
@@ -52,7 +71,16 @@ namespace CarShowroom.Application.Services
 
         public async Task<bool> CheckIfOwnerAsync(string userId, int carId)
         {
-            var clientInDb = await _clientRepository.GetAsync(userId);
+            ClientDto clientInDb;
+
+            try
+            {
+                clientInDb = await _clientRepository.GetAsync(userId);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
 
             foreach (var offer in clientInDb.Offers)
             {
@@ -65,34 +93,76 @@ namespace CarShowroom.Application.Services
 
         public async Task<ClientDto> AddClientAsync(ClientDto clientToAdd)
         {
-            return await _clientRepository.AddAsync(clientToAdd);
+            try
+            {
+                return await _clientRepository.AddAsync(clientToAdd);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
         public async Task<bool> ClientExistsAsync(string id)
         {
-            return await _clientRepository.ClientExistsAsync(id);
+            try
+            {
+                return await _clientRepository.ClientExistsAsync(id);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
         public Task<bool> DeleteClientAsync(string id)
         {
-            return _clientRepository.DeleteAsync(id);
+            try
+            {
+                return _clientRepository.DeleteAsync(id);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
-        public PagedList<ClientDto> GetAllClients(QueryParameters queryParameters)
+        public async Task<PagedList<ClientDto>> GetAllClientsAsync(QueryParameters queryParameters)
         {
-            return PagedList<ClientDto>.ToPagedList(_clientRepository.GetAll(),
-                                                queryParameters.PageNumber,
-                                                queryParameters.PageSize);
+            try
+            {
+                return PagedList<ClientDto>.ToPagedList(await _clientRepository.GetAllAsync(),
+                                                    queryParameters.PageNumber,
+                                                    queryParameters.PageSize);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
         public async Task<ClientDto> GetClientAsync(string id)
         {
-            return await _clientRepository.GetAsync(id);
+            try
+            {
+                return await _clientRepository.GetAsync(id);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
 
         public Task<ClientDto> UpdateClientAsync(string id, ClientDto clientToUpdate)
         {
-            return _clientRepository.UpdateAsync(id, clientToUpdate);
+            try
+            {
+                return _clientRepository.UpdateAsync(id, clientToUpdate);
+            }
+            catch (DataException)
+            {
+                throw;
+            }
         }
     }
 }
