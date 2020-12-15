@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 
 namespace CarShowroom.Application.Services
 {
+    public delegate Task<bool> CarCDHandler(string userId, int? carId);
     public class CarService : ICarService
     {
         private readonly ICarRepository<CarDto> _carRepository;
-        private readonly IClientService _clientService;
+        public event CarCDHandler OnCarAdded;
+        public event CarCDHandler OnCarDeleted;
 
         public CarService(ICarRepository<CarDto> carRepository, IClientService clientService)
         {
             _carRepository = carRepository;
-            _clientService = clientService;
+
+            OnCarAdded += clientService.AddCarOffer;
+            OnCarDeleted += clientService.DeleteCarOffer;
         }
         public async Task<CarDto> AddCarAsync(string id, CarDto carToAdd)
         {
@@ -32,7 +36,7 @@ namespace CarShowroom.Application.Services
 
             if (addedCar != null)
             {
-                var result = await _clientService.AddCarOffer(id, addedCar.Id);
+                var result = await OnCarAdded?.Invoke(id, addedCar.Id);
 
                 if (!result)
                 {
@@ -45,13 +49,7 @@ namespace CarShowroom.Application.Services
 
         public async Task<bool> DeleteCarAsync(string userId, int id)
         {
-            bool result = false;
-
-            result = await _clientService.DeleteCarOffer(userId, id);
-
-            if (!result)
-                return result;
-
+            bool result;
             try
             {
                  result = await _carRepository.DeleteAsync(id);
@@ -60,6 +58,11 @@ namespace CarShowroom.Application.Services
             {
                 throw;
             }
+
+            if (!result)
+                return result;
+
+            result = await OnCarDeleted?.Invoke(userId, id);
 
             return result;
         }

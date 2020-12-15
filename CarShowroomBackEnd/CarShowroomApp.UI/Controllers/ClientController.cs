@@ -40,7 +40,7 @@ namespace CarShowroom.UI.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        [Cached(600)]
+        [Cached(60)]
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
             var outcome = await _clientService.GetAllClientsAsync(queryParameters);
