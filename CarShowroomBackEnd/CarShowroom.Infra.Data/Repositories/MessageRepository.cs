@@ -23,7 +23,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> AddAsync(MessagePostDto entity, string senderId)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var message = _mapper.Map<Message>(entity);
@@ -48,7 +48,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> DeleteAsync(int id)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var message = await _db.Messages.FindAsync(id);
@@ -71,7 +71,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<IQueryable<MessageGetDto>> GetAllAsync(string senderId, string receiverId)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             return from message in _db.Messages

@@ -24,7 +24,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<IQueryable<CarDto>> GetAllAsync()
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var result = _db.Cars.ProjectTo<CarDto>(_mapper.ConfigurationProvider, p => _mapper.Map<CarDto>(p));
@@ -36,7 +36,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<CarDto> GetAsync(int id)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             Car outcome;
@@ -56,7 +56,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<CarDto> AddAsync(CarDto entity)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var model = _mapper.Map<Car>(entity);
@@ -77,7 +77,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<CarDto> UpdateAsync(int id, CarDto entity)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var outcome = await _db.Cars.SingleAsync(a => a.Id == id);
@@ -101,7 +101,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> DeleteAsync(int id)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var carInDb = await _db.Cars.SingleAsync(a => a.Id == id);
@@ -124,7 +124,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> CarExistsAsync(int id)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             return await _db.Cars.AnyAsync(p => p.Id == id);

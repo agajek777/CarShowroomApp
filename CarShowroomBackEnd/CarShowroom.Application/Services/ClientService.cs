@@ -25,7 +25,7 @@ namespace CarShowroom.Application.Services
             _userManager = userManager;
         }
 
-        public async Task<bool> AddCarOffer(string userId, int? carId)
+        public async Task<bool> AddCarOfferAsync(string userId, int? carId)
         {
             ClientDto clientInDb;
 
@@ -45,7 +45,7 @@ namespace CarShowroom.Application.Services
             return outcome == null ? false : true;
         }
 
-        public async Task<bool> DeleteCarOffer(string userId, int? carId)
+        public async Task<bool> DeleteCarOfferAsync(string userId, int? carId)
         {
             ClientDto clientInDb;
 
@@ -127,11 +127,11 @@ namespace CarShowroom.Application.Services
             }
         }
 
-        public async Task<PagedList<ClientDto>> GetAllClientsAsync(QueryParameters queryParameters)
+        public PagedList<ClientDto> GetAllClients(QueryParameters queryParameters)
         {
             try
             {
-                return PagedList<ClientDto>.ToPagedList(await _clientRepository.GetAllAsync(),
+                return PagedList<ClientDto>.ToPagedList(_clientRepository.GetAll(),
                                                     queryParameters.PageNumber,
                                                     queryParameters.PageSize);
             }

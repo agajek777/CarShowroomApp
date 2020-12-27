@@ -40,7 +40,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<ClientDto> AddAsync(ClientDto client)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             await _clients.InsertOneAsync(_mapper.Map<Client>(client));
@@ -52,7 +52,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> ClientExistsAsync(string id)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var clientInDb = await (await _clients.FindAsync(c => c.IdentityId == id)).SingleOrDefaultAsync();
@@ -62,7 +62,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<bool> DeleteAsync(string id)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var clientToDelete = await _clients.DeleteOneAsync(c => c.IdentityId == id);
@@ -72,9 +72,9 @@ namespace CarShowroom.Infra.Data.Repositories
             return outcome == null ? true : false;
         }
 
-        public async Task<IQueryable<ClientDto>> GetAllAsync()
+        public IQueryable<ClientDto> GetAll()
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             return _clients.AsQueryable().ProjectTo<ClientDto>(_mapper.ConfigurationProvider, c => _mapper.Map<ClientDto>(c));
@@ -82,7 +82,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<ClientDto> GetAsync(string id)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var clientInDb = await (await _clients.FindAsync(c => c.IdentityId == id)).FirstOrDefaultAsync();
@@ -92,7 +92,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
         public async Task<ClientDto> UpdateAsync(string id, ClientDto client)
         {
-            if (!await CheckConnectionAsync())
+            if (!CheckConnection())
                 throw new DataException("Can't connect to the db.");
 
             var clientToAdd = _mapper.Map<Client>(client);
@@ -104,7 +104,7 @@ namespace CarShowroom.Infra.Data.Repositories
             return !result.IsAcknowledged ? null : _mapper.Map<ClientDto>(clientInDb);
         }
 
-        protected override async Task<bool> CheckConnectionAsync()
+        protected override bool CheckConnection()
         {
             _logger.LogInformation("CheckConnectionAsync() checking connection to the database.");
 
@@ -113,7 +113,7 @@ namespace CarShowroom.Infra.Data.Repositories
 
             try
             {
-                await _mongoClient.ListDatabasesAsync();
+                _mongoClient.ListDatabases();
             }
             catch (Exception ex)
             {
