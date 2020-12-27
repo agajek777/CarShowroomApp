@@ -31,6 +31,13 @@ namespace CarShowroom.Infra.Data.Repositories
             _clients = _mongoDb.GetCollection<Client>(mongoSettings.ClientsCollectionName);
         }
 
+        public ClientRepository(IMongoClient mongoClient, IMongoDatabase mongoDatabase, IMongoCollection<Client> mongoCollection, IMapper mapper, ILogger<ClientRepository> logger) : base(mapper, logger)
+        {
+            _mongoClient = mongoClient;
+            _mongoDb = mongoDatabase;
+            _clients = mongoCollection;
+        }
+
         public async Task<ClientDto> AddAsync(ClientDto client)
         {
             if (!await CheckConnectionAsync())
