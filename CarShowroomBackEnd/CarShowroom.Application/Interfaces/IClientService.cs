@@ -10,14 +10,14 @@ namespace CarShowroom.Application.Interfaces
 {
     public interface IClientService
     {
-        public Task<PagedList<ClientDto>> GetAllClientsAsync(QueryParameters queryParameters);
+        public PagedList<ClientDto> GetAllClients(QueryParameters queryParameters);
         public Task<ClientDto> GetClientAsync(string id);
         public Task<ClientDto> AddClientAsync(ClientDto clientToAdd);
         public Task<ClientDto> UpdateClientAsync(string id, ClientDto clientToUpdate);
         public Task<bool> DeleteClientAsync(string id);
         public Task<bool> ClientExistsAsync(string id);
-        public Task<bool> AddCarOffer(string userId, int? carId);
-        public Task<bool> DeleteCarOffer(string userId, int? carId);
+        public Task<bool> AddCarOfferAsync(string userId, int? carId);
+        public Task<bool> DeleteCarOfferAsync(string userId, int? carId);
         public Task<bool> CheckIfOwnerAsync(string userId, int carId);
     }
 }

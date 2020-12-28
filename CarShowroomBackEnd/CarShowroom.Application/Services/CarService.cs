@@ -18,8 +18,8 @@ namespace CarShowroom.Application.Services
         {
             _carRepository = carRepository;
 
-            OnCarAdded += clientService.AddCarOffer;
-            OnCarDeleted += clientService.DeleteCarOffer;
+            OnCarAdded += clientService.AddCarOfferAsync;
+            OnCarDeleted += clientService.DeleteCarOfferAsync;
         }
         public async Task<CarDto> AddCarAsync(string id, CarDto carToAdd)
         {

@@ -43,7 +43,7 @@ namespace CarShowroom.UI.Controllers
         [Cached(60)]
         public async Task<IActionResult> GetAllAsync([FromQuery] QueryParameters queryParameters)
         {
-            var outcome = await _clientService.GetAllClientsAsync(queryParameters);
+            var outcome = _clientService.GetAllClients(queryParameters);
 
             _logger.LogInformation("User {User} obtained {Num} Clients Models from db", HttpContext.User.Identity.Name, outcome.Count);
 

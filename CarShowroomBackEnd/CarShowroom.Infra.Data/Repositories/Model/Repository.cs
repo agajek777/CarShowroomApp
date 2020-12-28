@@ -27,19 +27,16 @@ namespace CarShowroom.Infra.Data.Repositories.Model
             _logger = logger;
         }
 
-        protected virtual async Task<bool> CheckConnectionAsync()
+        protected virtual bool CheckConnection()
         {
             _logger.LogInformation("CheckConnectionAsync() checking connection to the database.");
 
-            try
+            if(_db.Database == null)
             {
-                await _db.GetService<IRelationalDatabaseCreator>().CanConnectAsync();
-            }
-            catch (SqlException ex)
-            {
-                _logger.LogWarning(ex, "CheckConnectionAsync() got exception: {Message}", ex.Message);
+                _logger.LogWarning("CheckConnectionAsync(): Could not connect to the database.");
                 return false;
             }
+
             return true;
         }
     }

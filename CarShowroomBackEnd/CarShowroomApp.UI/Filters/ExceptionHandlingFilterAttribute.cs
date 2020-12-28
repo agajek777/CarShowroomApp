@@ -13,10 +13,6 @@ namespace CarShowroom.UI.Filters
     {
         public override void OnException(ExceptionContext context)
         {
-            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<ExceptionHandlingFilterAttribute>>();
-
-            logger.LogWarning(context.Exception, "On path: {Path} got exception: {Message}", context.HttpContext.Request.Path, context.Exception.Message);
-
             if (context.Exception is DataException)
             {
                 context.Result = new ContentResult
