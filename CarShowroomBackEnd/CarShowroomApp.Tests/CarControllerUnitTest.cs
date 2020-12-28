@@ -36,149 +36,52 @@ namespace CarShowroom.UI.Tests.Data
 
         }
         [Fact]
-        public async Task GetAll_ValidCall_OkResultAsync()
+        public async Task GetAll_ValidCallDbWorking_OkResultAsync()
         {
-            /*
-             * Arrange
-             */
-
-            // Create DbContext
-            var dbContext = DbContextMocker.GetDatabaseContext(nameof(GetAll_ValidCall_OkResultAsync));
-
-            // Create Mapper
-            var configuration = new MapperConfiguration(cfg =>
+            var cars = new List<CarDto>
             {
-                cfg.AddProfile(new MappingProfile());
-            });
-            var mapper = configuration.CreateMapper();
-
-            var carRepository = new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance);
-
-            var mongoClient = new Mock<IMongoClient>();
-            var mongoDb = new Mock<IMongoDatabase>();
-            var mongoCollection = new Mock<IMongoCollection<Client>>();
-
-            var clientRepository = new ClientRepository(mongoClient.Object, mongoDb.Object, mongoCollection.Object, mapper, NullLogger<ClientRepository>.Instance);
-
-            List<User> _users = new List<User>
-                 {
-                      new User { Id = "1", UserName = "test1" },
-                      new User { Id = "2", UserName = "test2" }
-                 };
-
-            var userManager = UserManagerMocker.MockUserManager(_users);
-
-            var carService = new CarService(carRepository, new ClientService(clientRepository, userManager.Object));
-
-            var clientService = new ClientService(clientRepository, userManager.Object);
-
-            // Create API Controller
-            var controller = new CarController(carService, clientService, new NullLogger<CarController>());
-
-            var fakeIdentity = new GenericIdentity("tester");
-
-            var context = new ControllerContext
-            {
-                HttpContext = new DefaultHttpContext
-                {
-                    User = new ClaimsPrincipal(fakeIdentity)
-                }
+                new CarDto(),
+                new CarDto()
             };
 
-            controller.ControllerContext = context;
+            _carService
+                .Setup(c => c.GetAllCarsAsync(It.IsAny<QueryParameters>()))
+                .ReturnsAsync(
+                    new PagedList<CarDto>(cars, 1, 1, 2)
+                );
 
-            /*
-             * Act
-             */
+            var controller = SetupControllerWithContext();
 
             var response = await controller.GetAllAsync(new QueryParameters() { PageNumber = 1, PageSize = 1 }) as ObjectResult;
 
-            dbContext.Dispose();
-
-
-            /*
-             * Assert
-             */
-
             Assert.IsType<OkObjectResult>(response);
         }
 
         [Fact]
-        public async Task Get_ReturnsOkResult()
+        public async Task Get_ValidIdDbWorking_OkResult()
         {
-            /*
-             * Arrange
-             */
+            _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
 
-            // Create DbContext
-            var dbContext = DbContextMocker.GetDatabaseContext(nameof(GetAll_ValidCall_OkResultAsync));
+            _carService.Setup(c => c.GetCarAsync(It.IsAny<int>())).ReturnsAsync(new CarDto());
 
-            // Create Mapper
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new MappingProfile());
-            });
-            var mapper = configuration.CreateMapper();
-
-            var carRepository = new CarRepository(dbContext, mapper, NullLogger<CarRepository>.Instance);
-
-            var clientRepository = new ClientRepository(new CarShowroomMongoSettings(), mapper, NullLogger<ClientRepository>.Instance);
-
-            List<User> _users = new List<User>
-                 {
-                      new User { Id = "1", UserName = "test1" },
-                      new User { Id = "2", UserName = "test2" }
-                 };
-
-            var userManager = UserManagerMocker.MockUserManager(_users);
-
-            var carService = new CarService(carRepository, new ClientService(clientRepository, userManager.Object));
-
-            var clientService = new ClientService(clientRepository, userManager.Object);
-
-            // Create API Controller
-            var controller = new CarController(carService, clientService, new NullLogger<CarController>());
+            var controller = SetupControllerWithContext();
 
             var id = 3;
 
-            /*
-             * Act
-             */
-
             var response = await controller.Get(id) as ObjectResult;
-
-            dbContext.Dispose();
-
-
-            /*
-             * Assert
-             */
 
             Assert.IsType<OkObjectResult>(response);
         }
 
         [Fact]
-        public async Task Post_ValidCarModel_OkResult()
+        public async Task Post_ValidCarModelDbWorking_OkResult()
         {
             _carService.Setup(c => c.AddCarAsync(It.IsAny<string>(), It.IsAny<CarDto>())).ReturnsAsync(new CarDto());
 
             _clientService.Setup(c => c.AddCarOfferAsync(It.IsAny<string>(), It.IsAny<int?>())).ReturnsAsync(true);
             _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
 
-            // Create API Controller
-            var controller = new CarController(_carService.Object, _clientService.Object, new NullLogger<CarController>());
-
-            var fakeIdentity = new GenericIdentity("tester");
-
-            var context = new ControllerContext
-            {
-                HttpContext = new DefaultHttpContext
-                {
-                    User = new ClaimsPrincipal(fakeIdentity)
-                }
-            };
-
-            controller.ControllerContext = context;
+            var controller = SetupControllerWithContext();
 
             var carDto = new CarDto()
             {
@@ -196,6 +99,56 @@ namespace CarShowroom.UI.Tests.Data
             var response = await controller.Post(carDto) as ObjectResult;
 
             Assert.IsType<OkObjectResult>(response);
+        }
+
+        [Fact]
+        public async Task Put_ValidCarModelDbWorking_OkResult()
+        {
+            _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
+            _carService.Setup(c => c.UpdateCarAsync(It.IsAny<int>(), It.IsAny<CarDto>())).ReturnsAsync(new CarDto());
+
+            _clientService.Setup(c => c.CheckIfOwnerAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var controller = SetupControllerWithContext();
+
+            var carDto = new CarDto()
+            {
+                Brand = "Jeep",
+                Description = "Nice car",
+                Engine = "4.0",
+                ImagePath = "www.jeep.com",
+                Mileage = 83931,
+                Model = "Compass",
+                Power = 231,
+                Price = 39000,
+                Production = new DateTime(2010, 4, 10)
+            };
+
+            var id = 1;
+
+            var response = await controller.Put(id, carDto) as ObjectResult;
+
+            Assert.IsType<OkObjectResult>(response);
+        }
+
+        private CarController SetupControllerWithContext()
+        {
+            var controller = new CarController(_carService.Object, _clientService.Object, new NullLogger<CarController>());
+
+            var fakeIdentity = new GenericIdentity("tester");
+
+            var context = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext
+                {
+                    User = new ClaimsPrincipal(fakeIdentity)
+                }
+            };
+
+            controller.ControllerContext = context;
+
+            return controller;
         }
     }
 }
