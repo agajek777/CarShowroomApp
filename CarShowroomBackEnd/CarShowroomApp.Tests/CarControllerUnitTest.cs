@@ -27,6 +27,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using CarShowroom.UI.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace CarShowroom.UI.Tests.Data
 {
@@ -93,6 +94,22 @@ namespace CarShowroom.UI.Tests.Data
         }
 
         [Fact]
+        public async Task Get_ValidIdDbConflict_ConflictResult()
+        {
+            _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
+
+            _carService.Setup(c => c.GetCarAsync(It.IsAny<int>())).ReturnsAsync(() => null);
+
+            var controller = SetupControllerWithContext();
+
+            var id = 3;
+
+            var response = await controller.Get(id) as ObjectResult;
+
+            Assert.IsType<ConflictObjectResult>(response);
+        }
+
+        [Fact]
         public async Task ExceptionHandlingFilter_DbNotWorking_500StatusCode()
         {
             var actionContext = new ActionContext()
@@ -133,7 +150,7 @@ namespace CarShowroom.UI.Tests.Data
         }
 
         [Fact]
-        public async Task Post_ValidCarModelDbWorking_OkResult()
+        public async Task Post_ValidCarModelIsClientDbWorking_OkResult()
         {
             _carService.Setup(c => c.AddCarAsync(It.IsAny<string>(), It.IsAny<CarDto>())).ReturnsAsync(new CarDto());
 
@@ -158,6 +175,55 @@ namespace CarShowroom.UI.Tests.Data
             var response = await controller.Post(carDto) as ObjectResult;
 
             Assert.IsType<OkObjectResult>(response);
+        }
+
+        [Fact]
+        public async Task Post_ValidCarModelIsNotClientDbWorking_OkResult()
+        {
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(false);
+
+            var controller = SetupControllerWithContext();
+
+            var carDto = new CarDto()
+            {
+                Brand = "Jeep",
+                Description = "Nice car",
+                Engine = "4.0",
+                ImagePath = "www.jeep.com",
+                Mileage = 83931,
+                Model = "Compass",
+                Power = 231,
+                Price = 39000,
+                Production = new DateTime(2010, 4, 10)
+            };
+
+            var response = await controller.Post(carDto) as ObjectResult;
+
+            Assert.True(response.StatusCode == 403);
+        }
+
+        [Fact]
+        public async Task Post_InvalidCarModelIsClientDbWorking_OkResult()
+        {
+            var modelState = new ModelStateDictionary();
+            modelState.AddModelError("", "error");
+            var httpContext = new DefaultHttpContext();
+            var context = new ActionExecutingContext(
+                new ActionContext(
+                    httpContext: httpContext,
+                    routeData: new RouteData(),
+                    actionDescriptor: new ActionDescriptor(),
+                    modelState: modelState
+                ),
+                new List<IFilterMetadata>(),
+                new Dictionary<string, object>(),
+                new Mock<Controller>().Object);
+
+            var sut = new ModelValidationFilterAttribute();
+
+            sut.OnActionExecuting(context);
+
+            Assert.IsType<BadRequestObjectResult>(context.Result);
         }
 
         [Fact]
