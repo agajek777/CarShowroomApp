@@ -22,6 +22,11 @@ using System.Web;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 using CarShowroom.Application.Interfaces;
+using System.Data;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.Filters;
+using CarShowroom.UI.Filters;
 
 namespace CarShowroom.UI.Tests.Data
 {
@@ -71,6 +76,60 @@ namespace CarShowroom.UI.Tests.Data
             var response = await controller.Get(id) as ObjectResult;
 
             Assert.IsType<OkObjectResult>(response);
+        }
+
+        [Fact]
+        public async Task Get_InvalidIdDbWorking_BadRequestResult()
+        {
+            _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
+
+            var controller = SetupControllerWithContext();
+
+            var id = 3;
+
+            var response = await controller.Get(id) as ObjectResult;
+
+            Assert.IsType<BadRequestObjectResult>(response);
+        }
+
+        [Fact]
+        public async Task ExceptionHandlingFilter_DbNotWorking_500StatusCode()
+        {
+            var actionContext = new ActionContext()
+            {
+                HttpContext = new DefaultHttpContext(),
+                RouteData = new RouteData(),
+                ActionDescriptor = new ActionDescriptor()
+            };
+
+            var mockException = new Mock<DataException>();
+
+            mockException.Setup(e => e.StackTrace)
+                .Returns("Test stacktrace");
+            mockException.Setup(e => e.Message)
+                .Returns("Test message");
+            mockException.Setup(e => e.Source)
+                .Returns("Test source");
+
+            var exceptionContext = new ExceptionContext(actionContext, new List<IFilterMetadata>())
+            {
+                Exception = mockException.Object
+            };
+
+            var filter = new ExceptionHandlingFilterAttribute();
+
+            filter.OnException(exceptionContext);
+
+            var assertResult = new ContentResult
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Content = "Database is unavailable. Try again later.",
+                ContentType = "text/plain"
+            };
+
+            var result = exceptionContext.Result as ContentResult;
+
+            Assert.True(result.StatusCode == 500);
         }
 
         [Fact]
@@ -130,6 +189,24 @@ namespace CarShowroom.UI.Tests.Data
             var response = await controller.Put(id, carDto) as ObjectResult;
 
             Assert.IsType<OkObjectResult>(response);
+        }
+
+        [Fact]
+        public async Task Delete_ValidIdDbWorking_OkResult()
+        {
+            _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
+            _carService.Setup(c => c.DeleteCarAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
+
+            _clientService.Setup(c => c.CheckIfOwnerAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var controller = SetupControllerWithContext();
+
+            var id = 1;
+
+            var response = await controller.Delete(id) as ObjectResult;
+
+            Assert.True(response == null);
         }
 
         private CarController SetupControllerWithContext()
