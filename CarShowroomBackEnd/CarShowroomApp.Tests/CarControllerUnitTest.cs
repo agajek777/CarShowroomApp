@@ -154,7 +154,6 @@ namespace CarShowroom.UI.Tests.Data
         {
             _carService.Setup(c => c.AddCarAsync(It.IsAny<string>(), It.IsAny<CarDto>())).ReturnsAsync(new CarDto());
 
-            _clientService.Setup(c => c.AddCarOfferAsync(It.IsAny<string>(), It.IsAny<int?>())).ReturnsAsync(true);
             _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
 
             var controller = SetupControllerWithContext();
@@ -178,7 +177,7 @@ namespace CarShowroom.UI.Tests.Data
         }
 
         [Fact]
-        public async Task Post_ValidCarModelIsNotClientDbWorking_OkResult()
+        public async Task Post_ValidCarModelIsNotClientDbWorking_403StatusCode()
         {
             _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(false);
 
@@ -203,7 +202,7 @@ namespace CarShowroom.UI.Tests.Data
         }
 
         [Fact]
-        public async Task Post_InvalidCarModelIsClientDbWorking_OkResult()
+        public async Task ModelValidationFilter_InvalidCarModel_BadRequestResult()
         {
             var modelState = new ModelStateDictionary();
             modelState.AddModelError("", "error");
@@ -227,7 +226,34 @@ namespace CarShowroom.UI.Tests.Data
         }
 
         [Fact]
-        public async Task Put_ValidCarModelDbWorking_OkResult()
+        public async Task Post_ValidCarModelIsClientDbConflict_ConflictResult()
+        {
+            _carService.Setup(c => c.AddCarAsync(It.IsAny<string>(), It.IsAny<CarDto>())).ReturnsAsync(() => null);
+
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var controller = SetupControllerWithContext();
+
+            var carDto = new CarDto()
+            {
+                Brand = "Jeep",
+                Description = "Nice car",
+                Engine = "4.0",
+                ImagePath = "www.jeep.com",
+                Mileage = 83931,
+                Model = "Compass",
+                Power = 231,
+                Price = 39000,
+                Production = new DateTime(2010, 4, 10)
+            };
+
+            var response = await controller.Post(carDto) as ObjectResult;
+
+            Assert.IsType<ConflictObjectResult>(response);
+        }
+
+        [Fact]
+        public async Task Put_ValidCarModelValidIdIsClientIsOwnerDbWorking_OkResult()
         {
             _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
             _carService.Setup(c => c.UpdateCarAsync(It.IsAny<int>(), It.IsAny<CarDto>())).ReturnsAsync(new CarDto());
@@ -258,7 +284,123 @@ namespace CarShowroom.UI.Tests.Data
         }
 
         [Fact]
-        public async Task Delete_ValidIdDbWorking_OkResult()
+        public async Task Put_ValidCarModelValidIdIsNotClientIsOwnerDbWorking_403StatusCode()
+        {
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(false);
+
+            var controller = SetupControllerWithContext();
+
+            var carDto = new CarDto()
+            {
+                Brand = "Jeep",
+                Description = "Nice car",
+                Engine = "4.0",
+                ImagePath = "www.jeep.com",
+                Mileage = 83931,
+                Model = "Compass",
+                Power = 231,
+                Price = 39000,
+                Production = new DateTime(2010, 4, 10)
+            };
+
+            var id = 1;
+
+            var response = await controller.Put(id, carDto) as ObjectResult;
+
+            Assert.True(response.StatusCode == 403);
+        }
+
+        [Fact]
+        public async Task Put_ValidCarModelValidIdIsClientIsOwnerDbConflict_ConflictResult()
+        {
+            _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
+            _carService.Setup(c => c.UpdateCarAsync(It.IsAny<int>(), It.IsAny<CarDto>())).ReturnsAsync(() => null);
+
+            _clientService.Setup(c => c.CheckIfOwnerAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var controller = SetupControllerWithContext();
+
+            var carDto = new CarDto()
+            {
+                Brand = "Jeep",
+                Description = "Nice car",
+                Engine = "4.0",
+                ImagePath = "www.jeep.com",
+                Mileage = 83931,
+                Model = "Compass",
+                Power = 231,
+                Price = 39000,
+                Production = new DateTime(2010, 4, 10)
+            };
+
+            var id = 1;
+
+            var response = await controller.Put(id, carDto) as ObjectResult;
+
+            Assert.IsType<ConflictObjectResult>(response);
+        }
+
+        [Fact]
+        public async Task Put_ValidCarModelValidIdIsClientIsNotOwnerDbWorking_404StatusCode()
+        {
+            _clientService.Setup(c => c.CheckIfOwnerAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(false);
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var controller = SetupControllerWithContext();
+
+            var carDto = new CarDto()
+            {
+                Brand = "Jeep",
+                Description = "Nice car",
+                Engine = "4.0",
+                ImagePath = "www.jeep.com",
+                Mileage = 83931,
+                Model = "Compass",
+                Power = 231,
+                Price = 39000,
+                Production = new DateTime(2010, 4, 10)
+            };
+
+            var id = 1;
+
+            var response = await controller.Put(id, carDto) as ObjectResult;
+
+            Assert.True(response.StatusCode == 404);
+        }
+
+        [Fact]
+        public async Task Put_ValidCarModelInvalidIdIsClientIsOwnerDbWorking_BadRequestResult()
+        {
+            _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
+
+            _clientService.Setup(c => c.CheckIfOwnerAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var controller = SetupControllerWithContext();
+
+            var carDto = new CarDto()
+            {
+                Brand = "Jeep",
+                Description = "Nice car",
+                Engine = "4.0",
+                ImagePath = "www.jeep.com",
+                Mileage = 83931,
+                Model = "Compass",
+                Power = 231,
+                Price = 39000,
+                Production = new DateTime(2010, 4, 10)
+            };
+
+            var id = 1;
+
+            var response = await controller.Put(id, carDto) as ObjectResult;
+
+            Assert.IsType<BadRequestObjectResult>(response);
+        }
+
+        [Fact]
+        public async Task Delete_ValidIdIsClientIsOwnerDbWorking_OkResult()
         {
             _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
             _carService.Setup(c => c.DeleteCarAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
@@ -273,6 +415,70 @@ namespace CarShowroom.UI.Tests.Data
             var response = await controller.Delete(id) as ObjectResult;
 
             Assert.True(response == null);
+        }
+
+        [Fact]
+        public async Task Delete_InvalidIdIsClientIsOwnerDbWorking_BadRequestResult()
+        {
+            _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
+
+            _clientService.Setup(c => c.CheckIfOwnerAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var controller = SetupControllerWithContext();
+
+            var id = 1;
+
+            var response = await controller.Delete(id) as ObjectResult;
+
+            Assert.IsType<BadRequestObjectResult>(response);
+        }
+
+        [Fact]
+        public async Task Delete_ValidIdIsNotClientIsOwnerDbWorking_403StatusCode()
+        {
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(false);
+
+            var controller = SetupControllerWithContext();
+
+            var id = 1;
+
+            var response = await controller.Delete(id) as ObjectResult;
+
+            Assert.True(response.StatusCode == 403);
+        }
+
+        [Fact]
+        public async Task Delete_ValidIdIsClientIsNotOwnerDbWorking_404StatusCode()
+        {
+            _clientService.Setup(c => c.CheckIfOwnerAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(false);
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var controller = SetupControllerWithContext();
+
+            var id = 1;
+
+            var response = await controller.Delete(id) as ObjectResult;
+
+            Assert.True(response.StatusCode == 404);
+        }
+
+        [Fact]
+        public async Task Delete_ValidIdIsClientIsOwnerDbConflict_ConflictResult()
+        {
+            _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
+            _carService.Setup(c => c.DeleteCarAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(false);
+
+            _clientService.Setup(c => c.CheckIfOwnerAsync(It.IsAny<string>(), It.IsAny<int>())).ReturnsAsync(true);
+            _clientService.Setup(c => c.ClientExistsAsync(It.IsAny<string>())).ReturnsAsync(true);
+
+            var controller = SetupControllerWithContext();
+
+            var id = 1;
+
+            var response = await controller.Delete(id) as ObjectResult;
+
+            Assert.IsType<ConflictObjectResult>(response);
         }
 
         private CarController SetupControllerWithContext()
