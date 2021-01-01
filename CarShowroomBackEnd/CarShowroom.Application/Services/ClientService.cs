@@ -14,15 +14,18 @@ using System.Threading.Tasks;
 
 namespace CarShowroom.Application.Services
 {
+    public delegate void ClientDHandler(ICollection<Offer> offers);
     public class ClientService : IClientService
     {
         private readonly IClientRepository<ClientDto> _clientRepository;
-        private readonly UserManager<User> _userManager;
 
-        public ClientService(IClientRepository<ClientDto> clientRepository, UserManager<User> userManager)
+        private event ClientDHandler OnClientDelete;
+
+        public ClientService(IClientRepository<ClientDto> clientRepository, ICarRepository<CarDto> carRepository)
         {
             _clientRepository = clientRepository;
-            _userManager = userManager;
+
+            OnClientDelete += carRepository.DeleteAll;
         }
 
         public async Task<bool> AddCarOfferAsync(string userId, int? carId)
@@ -115,16 +118,26 @@ namespace CarShowroom.Application.Services
             }
         }
 
-        public Task<bool> DeleteClientAsync(string id)
+        public async Task<bool> DeleteClientAsync(string id)
         {
+            var clientInDb = await _clientRepository.GetAsync(id);
+            bool outcome;
+
             try
             {
-                return _clientRepository.DeleteAsync(id);
+                outcome = await _clientRepository.DeleteAsync(id);
             }
             catch (DataException)
             {
                 throw;
             }
+
+            if (!outcome)
+                return outcome;
+
+            OnClientDelete?.Invoke(clientInDb.Offers);
+
+            return outcome;
         }
 
         public PagedList<ClientDto> GetAllClients(QueryParameters queryParameters)

@@ -9,6 +9,7 @@ using CarShowroom.Infra.Data.Repositories.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -120,6 +121,18 @@ namespace CarShowroom.Infra.Data.Repositories
             }
 
             return true;
+        }
+
+        public void DeleteAll(ICollection<Offer> offers)
+        {
+            var tasks = new List<Task>();
+
+            foreach (var offer in offers)
+            {
+                tasks.Add(DeleteAsync(offer.Id));
+            }
+
+            Task.WaitAll(tasks.ToArray());
         }
 
         public async Task<bool> CarExistsAsync(int id)

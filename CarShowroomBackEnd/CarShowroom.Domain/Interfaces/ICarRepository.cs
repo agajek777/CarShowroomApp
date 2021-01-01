@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using CarShowroom.Domain.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarShowroom.Domain.Interfaces
@@ -10,6 +12,7 @@ namespace CarShowroom.Domain.Interfaces
         Task<TEntityDto> AddAsync(TEntityDto entity);
         Task<TEntityDto> UpdateAsync(int id, TEntityDto entity);
         Task<bool> DeleteAsync(int id);
+        void DeleteAll(ICollection<Offer> offers);
         Task<bool> CarExistsAsync(int id);
     }
 }
