@@ -110,7 +110,7 @@ namespace CarShowroom.UI.Tests.Data
         }
 
         [Fact]
-        public async Task ExceptionHandlingFilter_DbNotWorking_500StatusCode()
+        public void ExceptionHandlingFilter_DbNotWorking_500StatusCode()
         {
             var actionContext = new ActionContext()
             {
@@ -202,7 +202,7 @@ namespace CarShowroom.UI.Tests.Data
         }
 
         [Fact]
-        public async Task ModelValidationFilter_InvalidCarModel_BadRequestResult()
+        public void ModelValidationFilter_InvalidCarModel_BadRequestResult()
         {
             var modelState = new ModelStateDictionary();
             modelState.AddModelError("", "error");
