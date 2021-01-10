@@ -1,7 +1,8 @@
+import { OnDestroy } from '@angular/core';
 import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Message } from 'src/app/models/message';
 import { UserDto } from 'src/app/models/user-dto';
@@ -16,7 +17,7 @@ import { DialogComponent } from '../../cars/details/dialog/dialog.component';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements OnInit, AfterViewChecked {
+export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   userId: string;
   isLogged: boolean = false;
   clicked: boolean = true;
@@ -26,8 +27,14 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   messages: Message[] = undefined;
   options: string[] = [];
   filteredOptions: Observable<string[]>;
+  chatSub: Subscription;
 
   constructor(private jwtService: JWTTokenServiceService, private httpService: HttpService, private dialog: MatDialog, private signalRService: SignalRService) { }
+
+
+  ngOnDestroy(): void {
+    this.chatSub.unsubscribe();
+  }
 
   ngAfterViewChecked(): void {
     var objDiv = document.getElementById("messages");
@@ -44,7 +51,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
       map(value => this._filter(value))
     );
 
-    this.signalRService.signalReceived.subscribe((signal: Message) => {
+    this.chatSub = this.signalRService.signalReceived.subscribe((signal: Message) => {
       console.log(signal);
 
       if (this.recipientControl.value == signal.senderName) {
