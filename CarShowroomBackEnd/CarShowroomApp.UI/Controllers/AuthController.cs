@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarShowroom.Application.Interfaces;
+using CarShowroom.Domain.Models.Authentication;
 using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using Microsoft.AspNetCore.Cors;
@@ -56,7 +57,7 @@ namespace CarShowroom.UI.Controllers
 
             outcome.Password = userDto.Password;
 
-            return Ok(new { Token = await _jwtService.GenerateJSONWebToken(userCreated), Id = userCreated.Id });
+            return Ok(new AuthSuccessResponse { Token = await _jwtService.GenerateJSONWebToken(userCreated), Id = userCreated.Id });
         }
 
         [HttpPost("Login")]
