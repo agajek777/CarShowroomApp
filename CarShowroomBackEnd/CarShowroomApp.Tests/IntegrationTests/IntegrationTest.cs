@@ -3,6 +3,8 @@ using CarShowroom.Domain.Models.DTO;
 using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Infra.Data.Context;
 using CarShowroomApp;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,18 +21,12 @@ namespace CarShowroom.UI.Tests.IntegrationTests
         protected readonly HttpClient TestClient;
         protected IntegrationTest()
         {
-            var appFactory = new WebApplicationFactory<Startup>()
-                .WithWebHostBuilder(builder =>
-                {
-                    builder.ConfigureServices(services =>
-                    {
-                        services.RemoveAll(typeof(DatabaseContext<User, Role>));
-                        services.AddDbContext<DatabaseContext<User, Role>>(options =>
-                        {
-                            options.UseInMemoryDatabase("TestDb");
-                        });
-                    });
-                });
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Testing");
+            Environment.CurrentDirectory = "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.UI\\";
+
+            var serviceProvider = new ServiceCollection().AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
+
+            var appFactory = new WebApplicationFactory<Startup>();
 
             TestClient = appFactory.CreateClient();
         }
@@ -44,11 +40,13 @@ namespace CarShowroom.UI.Tests.IntegrationTests
         {
             var response = await TestClient.PostAsJsonAsync("api/auth/register", new UserForRegisterDto()
             {
-                UserName = "Test",
+                UserName = "TestUser123",
                 Password = "#Mastercard1"
             });
 
-            return (await response.Content.ReadAsAsync<AuthSuccessResponse>()).Token.ToString();
+            var outcome = await response.Content.ReadAsAsync<AuthSuccessResponse>();
+
+            return outcome.Token.ToString();
         }
     }
 }

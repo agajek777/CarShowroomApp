@@ -46,8 +46,18 @@ namespace CarShowroom.UI.Configuration
         }
         public static void AddDb(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<DatabaseContext<User, Role>>(options =>
-                        options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            var isTesting = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "Testing", StringComparison.InvariantCultureIgnoreCase);
+
+            if (isTesting)
+            {
+                services.AddDbContext<DatabaseContext<User, Role>>(options =>
+                    options.UseInMemoryDatabase("TestingDB"));
+            }
+            else
+            {
+                services.AddDbContext<DatabaseContext<User, Role>>(options =>
+                            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            }
 
             services.Configure<CarShowroomMongoSettings>(configuration.GetSection(nameof(CarShowroomMongoSettings)));
 

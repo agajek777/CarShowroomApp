@@ -14,11 +14,17 @@ namespace CarShowroom.Infra.IoC
     {
         public static void Configure(ContainerBuilder builder)
         {
-            var isDevelopment = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "development", StringComparison.InvariantCultureIgnoreCase);
+            var isDevelopmentOrTesting = (
+                string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"),
+                "development", StringComparison.InvariantCultureIgnoreCase)
+                ||
+                string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"),
+                "Testing", StringComparison.InvariantCultureIgnoreCase)
+            );
 
             Assembly assemblyDomain, assemblyInfraData, assemblyApplication;
 
-            if (isDevelopment)
+            if (isDevelopmentOrTesting)
             {
                 assemblyDomain = Assembly.LoadFrom($"..\\{nameof(CarShowroom)}.{nameof(Domain)}\\bin\\Debug\\netcoreapp3.1\\{nameof(CarShowroom)}.{nameof(Domain)}.dll");
                 builder.RegisterAssemblyTypes(assemblyDomain).Where(t => t.Namespace.EndsWith(nameof(Domain.Models.Messaging))).AsImplementedInterfaces();

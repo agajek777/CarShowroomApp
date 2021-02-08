@@ -30,9 +30,16 @@ namespace CarShowroomApp
                     logging.AddConsole();
                 });
 
-            var isDevelopment = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "development", StringComparison.InvariantCultureIgnoreCase);
+            var isDevelopmentOrTesting = (
+                    string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), 
+                    "development", StringComparison.InvariantCultureIgnoreCase)
+                    ||
+                    string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), 
+                    "Testing", StringComparison.InvariantCultureIgnoreCase)
+                );
 
-            if (isDevelopment)
+
+            if (isDevelopmentOrTesting)
             {
                 return hostBuilder.ConfigureWebHostDefaults(webBuilder =>
                  {

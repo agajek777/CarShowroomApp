@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace CarShowroomApp
 {
@@ -36,7 +37,9 @@ namespace CarShowroomApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            if (env.IsDevelopment())
+            var isTesting = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "Testing", StringComparison.InvariantCultureIgnoreCase);
+
+            if (env.IsDevelopment() || isTesting)
             {
                 app.UseDeveloperExceptionPage();
                 loggerFactory.AddLog4Net();

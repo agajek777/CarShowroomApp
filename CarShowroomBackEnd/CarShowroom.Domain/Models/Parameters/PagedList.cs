@@ -13,6 +13,7 @@ namespace CarShowroom.Domain.Models.Parameters
         public int TotalCount { get; private set; }
         public bool HasPrevious => CurrentPage > 1;
         public bool HasNext => CurrentPage < TotalPages;
+        public PagedList() { }
         public PagedList(List<T> items, int count, int pageNumber, int pageSize)
         {
             TotalCount = count;

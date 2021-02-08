@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -44,12 +45,17 @@ namespace CarShowroom.UI.Controllers
             var userCreated = await _userManager.FindByNameAsync(user.UserName);
 
             // Add to Role
-            result = await _userManager.AddToRoleAsync(userCreated, UserRolesEnum.User);
+            var isTesting = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "Testing", StringComparison.InvariantCultureIgnoreCase);
 
-            if (!result.Succeeded)
+            if (!isTesting)
             {
-                await _userManager.DeleteAsync(userCreated);
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                result = await _userManager.AddToRoleAsync(userCreated, UserRolesEnum.User);
+
+                if (!result.Succeeded)
+                {
+                    await _userManager.DeleteAsync(userCreated);
+                    return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+                }
             }
             //
 
