@@ -87,7 +87,7 @@ namespace CarShowroom.UI.Controllers
 
             Response.Headers.Add("Access-Control-Allow-Origin", "*");
 
-            return Ok(new { Token = await _jwtService.GenerateJSONWebToken(user), Id = user.Id });
+            return Ok(new AuthSuccessResponse { Token = await _jwtService.GenerateJSONWebToken(user), Id = user.Id });
         }
     }
 }

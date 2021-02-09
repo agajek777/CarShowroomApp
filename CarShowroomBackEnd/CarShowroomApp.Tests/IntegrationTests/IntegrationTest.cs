@@ -24,8 +24,6 @@ namespace CarShowroom.UI.Tests.IntegrationTests
             Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Testing");
             Environment.CurrentDirectory = "C:\\Users\\adamg\\source\\repos\\CarShowroomApp\\CarShowroomBackEnd\\CarShowroomApp.UI\\";
 
-            var serviceProvider = new ServiceCollection().AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
-
             var appFactory = new WebApplicationFactory<Startup>();
 
             TestClient = appFactory.CreateClient();
@@ -43,6 +41,15 @@ namespace CarShowroom.UI.Tests.IntegrationTests
                 UserName = "TestUser123",
                 Password = "#Mastercard1"
             });
+
+            if (!response.IsSuccessStatusCode)
+            {
+                response = await TestClient.PostAsJsonAsync("api/auth/login", new UserForRegisterDto()
+                {
+                    UserName = "TestUser123",
+                    Password = "#Mastercard1"
+                });
+            }
 
             var outcome = await response.Content.ReadAsAsync<AuthSuccessResponse>();
 

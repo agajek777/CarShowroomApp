@@ -1,5 +1,9 @@
 using Autofac;
+using CarShowroom.Domain.Models;
+using CarShowroom.Domain.Models.DTO;
+using CarShowroom.Domain.Models.Identity;
 using CarShowroom.Domain.Models.Messaging;
+using CarShowroom.Infra.Data.Context;
 using CarShowroom.Infra.IoC;
 using CarShowroom.UI.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace CarShowroomApp
 {
@@ -39,9 +44,17 @@ namespace CarShowroomApp
         {
             var isTesting = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "Testing", StringComparison.InvariantCultureIgnoreCase);
 
+            if (isTesting)
+            {
+                var context = app.ApplicationServices.GetService<DatabaseContext<User, Role>>();
+
+                AddTestData(context);
+            }
+
             if (env.IsDevelopment() || isTesting)
             {
                 app.UseDeveloperExceptionPage();
+
                 loggerFactory.AddLog4Net();
             }
             else
@@ -64,6 +77,41 @@ namespace CarShowroomApp
 
             app.UseSwagger();
             app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v2/swagger.json", "Carshowroom WEB API"));
+        }
+
+        public void AddTestData(DatabaseContext<User, Role> context)
+        {
+            if (context.Cars.Any())
+                return;
+
+            context.Cars.AddRange(
+            new Car()
+                {
+                    Brand = "Test",
+                    Description = "Test",
+                    Engine = "Test",
+                    ImagePath = "Test",
+                    Mileage = 100.0,
+                    Model = "Test",
+                    Power = 100,
+                    Price = 100.0,
+                    Production = DateTime.Now
+                },
+                    new Car()
+                {
+                    Brand = "Test2",
+                    Description = "Test2",
+                    Engine = "Test2",
+                    ImagePath = "Test2",
+                    Mileage = 100.0,
+                    Model = "Test2",
+                    Power = 100,
+                    Price = 100.0,
+                    Production = DateTime.Now
+                }
+            );
+
+            context.SaveChanges();
         }
     }
 }
