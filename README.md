@@ -1,5 +1,5 @@
 ## CarShowroomApp
-Angular 9 Web application with .Net Core 3.1 RESTful Web API backend
+Angular 9 Web application with .Net Core 3.1 RESTful Web API backend.
 
 Application built to manage the Car showroom.
 
