@@ -1,0 +1,28 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Restore dependencies
+      working-directory: /home/runner/work/CarShowroomApp/CarShowroomApp/CarShowroomBackEnd/CarShowroomApp.UI/
+      run: dotnet restore
+    - name: Build
+      working-directory: /home/runner/work/CarShowroomApp/CarShowroomApp/CarShowroomBackEnd/CarShowroomApp.UI/
+      run: dotnet build --no-restore
+    - name: Test
+      working-directory: /home/runner/work/CarShowroomApp/CarShowroomApp/CarShowroomBackEnd/CarShowroomApp.Tests/
+      run: dotnet test --no-build --verbosity normal
