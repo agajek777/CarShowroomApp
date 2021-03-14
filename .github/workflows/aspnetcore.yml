@@ -21,6 +21,8 @@ jobs:
       working-directory: /home/runner/work/CarShowroomApp/CarShowroomApp/CarShowroomBackEnd/CarShowroomApp.UI/
       run: dotnet restore
     - name: Build
+      working-directory: /home/runner/work/CarShowroomApp/CarShowroomApp/CarShowroomBackEnd/CarShowroomApp.UI/
       run: dotnet build --no-restore
     - name: Test
+      working-directory: /home/runner/work/CarShowroomApp/CarShowroomApp/CarShowroomBackEnd/CarShowroomApp.Tests/
       run: dotnet test --no-build --verbosity normal
