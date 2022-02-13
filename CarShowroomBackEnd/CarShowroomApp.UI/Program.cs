@@ -31,10 +31,10 @@ namespace CarShowroomApp
                 });
 
             var isDevelopmentOrTesting = (
-                    string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), 
+                    string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"),
                     "development", StringComparison.InvariantCultureIgnoreCase)
                     ||
-                    string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), 
+                    string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"),
                     "Testing", StringComparison.InvariantCultureIgnoreCase)
                 );
 

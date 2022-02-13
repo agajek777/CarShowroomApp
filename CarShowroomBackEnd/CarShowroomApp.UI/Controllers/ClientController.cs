@@ -69,10 +69,10 @@ namespace CarShowroom.UI.Controllers
             if (!await _clientService.ClientExistsAsync(id))
                 return BadRequest(new { Message = $"No client with ID { id } has been found." });
 
-            var clientInDb = await _clientService.GetClientAsync(id);
+            var clientInDb = _clientService.GetClient(id);
 
             if (clientInDb == null)
-                return Conflict(new { Error = "Request unsuccessfull." });
+                return NotFound(new { Error = "Request unsuccessfull." });
 
 
             _logger.LogInformation("User {User} obtained Client Model from db", HttpContext.User.Identity.Name);

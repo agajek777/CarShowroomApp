@@ -13,7 +13,7 @@
         <mat-icon class="prop">description</mat-icon>
         <span class="value">{{ client.description }}</span>
       </div>
-      <div class="buttons">
+      <div *ngIf="isOwner" class="buttons">
         <button (click)="onClickEdit()" style="margin-right: 10px;" color="primary" mat-raised-button>
           Edit
         </button>

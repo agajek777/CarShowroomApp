@@ -29,7 +29,11 @@ export class ChatComponent implements OnInit, AfterViewChecked, OnDestroy {
   filteredOptions: Observable<string[]>;
   chatSub: Subscription;
 
-  constructor(private jwtService: JWTTokenServiceService, private httpService: HttpService, private dialog: MatDialog, private signalRService: SignalRService) { }
+  constructor(private jwtService: JWTTokenServiceService, 
+    private httpService: HttpService, 
+    private dialog: MatDialog, 
+    private signalRService: SignalRService) 
+    { }
 
 
   ngOnDestroy(): void {

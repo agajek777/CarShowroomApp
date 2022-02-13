@@ -13,6 +13,7 @@
         <p><span>Production</span>: {{ car.production.substr(0, 4) }}</p>
         <p><span>Mileage</span>: {{ car.mileage }} km</p>
         <p><span>Price</span>: {{ car.price }} $</p>
+        <p (click)="onClickViewOwner(ownerId)" style="cursor: pointer; color: blue;"><span>Owner</span>: {{ userName }}</p>
         <p *ngIf="car.description.length !== 0" class="mobile"><span>Description</span>: {{ car.description }}</p>
       </div>
     </div>
@@ -21,7 +22,7 @@
       <div style="max-width: 450px;">{{ car.description }}</div>
     </div>
   </div>
-  <div class="buttons">
+  <div *ngIf="isOwner" class="buttons">
     <button [routerLink]="['/overview']" mat-fab style="background-color: #17b978;">
       <mat-icon>arrow_back</mat-icon>
     </button>

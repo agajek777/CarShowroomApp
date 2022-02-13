@@ -20,5 +20,6 @@ namespace CarShowroom.Domain.Models.DTO
         public string ImagePath { get; set; }
         public string Description { get; set; }
         public double Mileage { get; set; }
+        public string OwnerId { get; set; }
     }
 }

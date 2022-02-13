@@ -68,7 +68,7 @@ namespace CarShowroom.UI.Tests.Data
         {
             _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(true);
 
-            _carService.Setup(c => c.GetCarAsync(It.IsAny<int>())).ReturnsAsync(new CarDto());
+            _carService.Setup(c => c.GetCarAsync(It.IsAny<int>())).ReturnsAsync(new CarWithUserDetails());
 
             var controller = SetupControllerWithContext();
 
@@ -370,7 +370,7 @@ namespace CarShowroom.UI.Tests.Data
         }
 
         [Fact]
-        public async Task Put_ValidCarModelInvalidIdIsClientIsOwnerDbWorking_BadRequestResult()
+        public async Task Put_ValidCarModelInvalidIdIsClientIsOwnerDbWorking_NotFoundResult()
         {
             _carService.Setup(c => c.CarExistsAsync(It.IsAny<int>())).ReturnsAsync(false);
 
@@ -396,7 +396,7 @@ namespace CarShowroom.UI.Tests.Data
 
             var response = await controller.Put(id, carDto) as ObjectResult;
 
-            Assert.IsType<BadRequestObjectResult>(response);
+            Assert.IsType<NotFoundObjectResult>(response);
         }
 
         [Fact]

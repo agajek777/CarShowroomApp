@@ -18,13 +18,14 @@ namespace CarShowroom.Application.Services
     public class ClientService : IClientService
     {
         private readonly IClientRepository<ClientDto> _clientRepository;
+        private readonly UserManager<User> _userManager;
 
         private event ClientDHandler OnClientDelete;
 
-        public ClientService(IClientRepository<ClientDto> clientRepository, ICarRepository<CarDto> carRepository)
+        public ClientService(IClientRepository<ClientDto> clientRepository, ICarRepository<CarDto> carRepository, UserManager<User> userManager)
         {
             _clientRepository = clientRepository;
-
+            _userManager = userManager;
             OnClientDelete += carRepository.DeleteAll;
         }
 
@@ -154,16 +155,34 @@ namespace CarShowroom.Application.Services
             }
         }
 
-        public async Task<ClientDto> GetClientAsync(string id)
+        public ClientWithUsername GetClient(string id)
         {
+            Task<ClientDto> getClientTask;
+            Task<User> getUserTask;
+            ClientWithUsername result;
+
             try
             {
-                return await _clientRepository.GetAsync(id);
+                getClientTask = _clientRepository.GetAsync(id);
+                getUserTask = _userManager.FindByIdAsync(id);
             }
             catch (DataException)
             {
                 throw;
             }
+
+            Task.WaitAll(getClientTask, getUserTask);
+
+            if (getClientTask.Result == null || getUserTask.Result == null)
+                { return null; }
+
+            result = new ClientWithUsername()
+            {
+                Client = getClientTask.Result,
+                UserName = getUserTask.Result.UserName
+            };
+
+            return result;
         }
 
         public Task<ClientDto> UpdateClientAsync(string id, ClientDto clientToUpdate)
