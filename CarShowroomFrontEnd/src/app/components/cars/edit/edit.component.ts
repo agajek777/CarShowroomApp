@@ -63,6 +63,7 @@ export class EditComponent implements OnInit {
 
   onSubmit(editedCar: Car) {
     editedCar.id = +this.id;
+    editedCar.ownerId = this.carWithUserDetails.userId;
     this.carAdapter(editedCar);
     this.httpService.editData(editedCar, this.id, sessionStorage.getItem('access_token')).subscribe(
       (result) => {

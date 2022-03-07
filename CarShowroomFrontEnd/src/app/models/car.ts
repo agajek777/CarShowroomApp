@@ -8,5 +8,6 @@ export interface Car {
   price: number,
   imagePath: string,
   description: string,
-  mileage: number
+  mileage: number,
+  ownerId?: string
 }
