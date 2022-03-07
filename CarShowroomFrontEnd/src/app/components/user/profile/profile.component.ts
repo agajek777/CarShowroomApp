@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   client: Client;
   clientWithUsername: clientWithUsername;
   hasAccount: boolean = false;
+  isLoaded: boolean = false;
   constructor(private signalRService: SignalRService, private router: Router, private jwtTokenService: JWTTokenServiceService, private httpService: HttpService, private route: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnDestroy(): void {
@@ -32,7 +33,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     console.log('signalR unsubscribed.');
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    let response;
     this.signalRSub = this.signalRService.signalReceived.subscribe((signal: Message) => {
       console.log(signal);
 
@@ -53,27 +55,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.userName = sessionStorage.getItem('username');
-    this.httpService.getClient(this.id).subscribe(
-      (response) => {
-        this.clientWithUsername = response.body as clientWithUsername;
-        this.client = this.clientWithUsername.client;
-        this.userName = this.clientWithUsername.userName;
-        console.log(this.client);
+    try {
+      response = await this.httpService.getClient(this.id).toPromise()
+      this.clientWithUsername = response.body as clientWithUsername;
+      this.client = this.clientWithUsername.client;
+      this.userName = this.clientWithUsername.userName;
+      console.log(this.client);
 
-        if (this.client.avatar === "" || this.client.avatar === null) {
-          this.client.avatar = "https://avios.pl/wp-content/uploads/2018/01/no-avatar.png";
-        }
-
-        this.isOwner = this.id === sessionStorage.getItem('id');
-        this.hasAccount = true;
-      },
-      (error) => {
-        var resp = error as HttpErrorResponse;
-        if (resp.status === 400) {
-          this.hasAccount = false;
-        }
+      if (this.client.avatar === "" || this.client.avatar === null) {
+        this.client.avatar = "https://avios.pl/wp-content/uploads/2018/01/no-avatar.png";
       }
-    );
+
+      this.isOwner = this.id === sessionStorage.getItem('id');
+      this.hasAccount = true;
+    } catch (error) {
+      var resp = error as HttpErrorResponse;
+      if (resp.status === 400) {
+        this.hasAccount = false;
+      }
+
+    }
+
+    this.isLoaded = true;
   }
 
   openDialog(result: string, redirect: boolean) {
