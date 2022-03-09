@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Car } from 'src/app/models/car';
 import { HttpService } from 'src/app/services/http.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { FakeData } from 'src/app/models/fake-data';
@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 import { Message } from 'src/app/models/message';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
+import { carWithUserDetails } from 'src/app/models/carWithUserDetails';
+import { Client } from 'src/app/models/client';
 
 @Component({
   selector: 'app-details',
@@ -19,11 +21,17 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class DetailsComponent implements OnInit, OnDestroy {
   public car: Car;
+  public carWithUserDetails: carWithUserDetails;
+  public userName: string;
+  public ownerId: string;
+
+  public isOwner: boolean;
+
   private id: string;
   public isLoaded: boolean = false;
   public signalRSub: Subscription;
 
-  constructor(private httpService: HttpService, private jwtService: JWTTokenServiceService, private route: ActivatedRoute, private dialog: MatDialog, private signalRService: SignalRService) { }
+  constructor(private httpService: HttpService, private jwtService: JWTTokenServiceService, private route: ActivatedRoute, private dialog: MatDialog, private signalRService: SignalRService, private router: Router) { }
 
   ngOnDestroy(): void {
     this.signalRSub.unsubscribe();
@@ -54,8 +62,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.httpService.getData(this.id).subscribe(
       (result) => {
         console.log(result);
-        this.car = result.body as Car;
+        this.carWithUserDetails = result.body as carWithUserDetails;
+        this.car = this.carWithUserDetails.car;
+        this.userName = this.carWithUserDetails.userName;
+        this.ownerId = this.carWithUserDetails.userId;
         this.isLoaded = true;
+        
+        this.isOwner = sessionStorage.getItem('id') === this.ownerId
       },
       (error) => {
         console.log(error);
@@ -99,6 +112,19 @@ export class DetailsComponent implements OnInit, OnDestroy {
         }
       }
     )
+  }
+
+  async onClickViewOwner(ownerId) {
+    let result: any;
+
+    try {
+      result = await this.httpService.getClient(ownerId).toPromise();
+    } catch (error) {
+      this.openDialog('No client account has been found', false);
+      return;
+    }
+
+    this.router.navigate(['profile/'+ownerId]);
   }
 
   openDialog(result: string, redirect: boolean) {

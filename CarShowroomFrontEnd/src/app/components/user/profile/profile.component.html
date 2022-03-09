@@ -1,4 +1,4 @@
-<div class="main">
+<div *ngIf="isLoaded" class="main">
   <ng-container *ngIf="hasAccount">
     <div class="username">
       <h1>{{ userName }}</h1>
@@ -11,9 +11,9 @@
       </div>
       <div class="row">
         <mat-icon class="prop">description</mat-icon>
-        <span class="value">{{ client.description }}</span>
+        <span style="white-space: pre-line;" class="value">{{ client.description }}</span>
       </div>
-      <div class="buttons">
+      <div *ngIf="isOwner" class="buttons">
         <button (click)="onClickEdit()" style="margin-right: 10px;" color="primary" mat-raised-button>
           Edit
         </button>

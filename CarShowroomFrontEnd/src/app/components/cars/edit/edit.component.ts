@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Car } from 'src/app/models/car';
+import { carWithUserDetails } from 'src/app/models/carWithUserDetails';
 import { FakeData } from 'src/app/models/fake-data';
 import { HttpService } from 'src/app/services/http.service';
 import { JWTTokenServiceService } from 'src/app/services/jwttoken-service.service';
@@ -15,7 +16,7 @@ import { DialogComponent } from '../details/dialog/dialog.component';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-  public car: Car;
+  public carWithUserDetails: carWithUserDetails;
   private id: string;
   public carFormEdit: FormGroup;
   public isLoaded: boolean = false;
@@ -27,34 +28,34 @@ export class EditComponent implements OnInit {
     this.httpService.getData(this.id).subscribe(
       (result) => {
         console.log(result);
-        this.car = result.body as Car;
-        console.log(this.car);
+        this.carWithUserDetails = result.body as carWithUserDetails;
+        console.log(this.carWithUserDetails);
 
 
         this.carFormEdit = new FormGroup({
-          brand: new FormControl(this.car.brand, [Validators.required]),
-          model: new FormControl(this.car.model, [Validators.required]),
-          engine: new FormControl(this.car.engine),
-          power: new FormControl(this.car.power, [Validators.min(0)]),
-          production: new FormControl(this.car.production?.substr(0, 4), [
+          brand: new FormControl(this.carWithUserDetails.car.brand, [Validators.required]),
+          model: new FormControl(this.carWithUserDetails.car.model, [Validators.required]),
+          engine: new FormControl(this.carWithUserDetails.car.engine),
+          power: new FormControl(this.carWithUserDetails.car.power, [Validators.min(0)]),
+          production: new FormControl(this.carWithUserDetails.car.production?.substr(0, 4), [
             Validators.required,
-            Validators.min(1970),
-            Validators.max(2020)
+            Validators.min(1950),
+            Validators.max((new Date()).getFullYear())
           ]),
-          price: new FormControl(this.car.price, [
+          price: new FormControl(this.carWithUserDetails.car.price, [
             Validators.required,
             Validators.min(0),
           ]),
-          imagePath: new FormControl(this.car.imagePath),
-          description: new FormControl(this.car.description),
-          mileage: new FormControl(this.car.mileage, [Validators.min(0)])
+          imagePath: new FormControl(this.carWithUserDetails.car.imagePath),
+          description: new FormControl(this.carWithUserDetails.car.description),
+          mileage: new FormControl(this.carWithUserDetails.car.mileage, [Validators.min(0)])
         });
         this.isLoaded = true;
       },
       (error) => {
         console.log(error);
         var fkData = new FakeData();
-        this.car = fkData.cars.find(c => c.id.toString() == this.id);
+        this.carWithUserDetails.car = fkData.cars.find(c => c.id.toString() == this.id);
         this.isLoaded = true;
       }
     );
@@ -62,6 +63,7 @@ export class EditComponent implements OnInit {
 
   onSubmit(editedCar: Car) {
     editedCar.id = +this.id;
+    editedCar.ownerId = this.carWithUserDetails.userId;
     this.carAdapter(editedCar);
     this.httpService.editData(editedCar, this.id, sessionStorage.getItem('access_token')).subscribe(
       (result) => {

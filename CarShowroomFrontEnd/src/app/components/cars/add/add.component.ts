@@ -33,8 +33,8 @@ export class AddComponent implements OnInit, OnDestroy {
     power: new FormControl('', [Validators.min(0)]),
     production: new FormControl('', [
       Validators.required,
-      Validators.min(1970),
-      Validators.max(2020)
+      Validators.min(1950),
+      Validators.max((new Date()).getFullYear())
     ]),
     price: new FormControl('', [
       Validators.required,

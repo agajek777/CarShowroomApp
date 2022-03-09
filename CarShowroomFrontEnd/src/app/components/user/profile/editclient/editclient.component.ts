@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DialogComponent } from 'src/app/components/cars/details/dialog/dialog.component';
 import { Client } from 'src/app/models/client';
+import { clientWithUsername } from 'src/app/models/clientWithUsername';
 import { Message } from 'src/app/models/message';
 import { HttpService } from 'src/app/services/http.service';
 import { SignalRService } from 'src/app/services/signal-r.service';
@@ -21,7 +22,7 @@ export class EditclientComponent implements OnInit, OnDestroy {
   isLoaded: boolean = false;
   id: string;
   userName: string;
-  client: Client;
+  clientWithUsername: clientWithUsername;
   clientFormCreate: FormGroup;
   constructor(private signalRService: SignalRService, private httpService: HttpService, private route: ActivatedRoute, private dialog: MatDialog) { }
 
@@ -54,21 +55,17 @@ export class EditclientComponent implements OnInit, OnDestroy {
     this.userName = sessionStorage.getItem('username');
     this.httpService.getClient(this.id).subscribe(
       (response) => {
-        this.client = response.body as Client;
-        console.log(this.client);
+        this.clientWithUsername = response.body as clientWithUsername;
 
-        if (this.client.avatar === "" || this.client.avatar === null) {
-          this.client.avatar = "https://avios.pl/wp-content/uploads/2018/01/no-avatar.png";
+        if (this.clientWithUsername.client.avatar === "" || this.clientWithUsername.client.avatar === null) {
+          this.clientWithUsername.client.avatar = "https://avios.pl/wp-content/uploads/2018/01/no-avatar.png";
         }
 
         this.clientFormCreate = new FormGroup({
-          email: new FormControl(this.client.email),
-          description: new FormControl(this.client.description),
-          avatar: new FormControl(this.client.avatar)
+          email: new FormControl(this.clientWithUsername.client.email),
+          description: new FormControl(this.clientWithUsername.client.description),
+          avatar: new FormControl(this.clientWithUsername.client.avatar)
         });
-
-        console.log(this.clientFormCreate);
-
 
         this.isLoaded = true;
       },

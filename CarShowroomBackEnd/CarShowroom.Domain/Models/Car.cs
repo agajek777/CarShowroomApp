@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarShowroom.Domain.Models.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,5 +24,8 @@ namespace CarShowroom.Domain.Models
         public string ImagePath { get; set; }
         public string Description { get; set; }
         public double Mileage { get; set; }
+        public User Owner { get; set; }
+        [ForeignKey(nameof(Owner))]
+        public string OwnerId { get; set; }
     }
 }

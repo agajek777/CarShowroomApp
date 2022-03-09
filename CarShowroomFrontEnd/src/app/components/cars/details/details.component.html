@@ -1,7 +1,7 @@
 <div class="main" *ngIf="isLoaded">
   <div class="details-section">
     <div class="title">
-      <h2> {{ car.brand + ' ' + car.model + ' - ' }} <span> {{ car.price + ' $' }} </span></h2>
+      <h2> {{ car.brand + ' ' + car.model + ' - ' }} <span> {{ car.price + ' PLN' }} </span></h2>
     </div>
     <div class="tabandpcs">
       <div class="avatar">
@@ -12,16 +12,17 @@
         <p><span>Engine</span>: {{ car.engine }} {{ car.power }} HP</p>
         <p><span>Production</span>: {{ car.production.substr(0, 4) }}</p>
         <p><span>Mileage</span>: {{ car.mileage }} km</p>
-        <p><span>Price</span>: {{ car.price }} $</p>
+        <p><span>Price</span>: {{ car.price }} PLN</p>
+        <p (click)="onClickViewOwner(ownerId)" style="cursor: pointer; color: blue;"><span>Owner</span>: {{ userName }}</p>
         <p *ngIf="car.description.length !== 0" class="mobile"><span>Description</span>: {{ car.description }}</p>
       </div>
     </div>
-    <div *ngIf="car.description.length !== 0" class="description-bigger">
+    <div *ngIf="car.description.length !== 0" style="white-space: pre-line;" class="description-bigger">
       <div><span>Description:</span></div>
       <div style="max-width: 450px;">{{ car.description }}</div>
     </div>
   </div>
-  <div class="buttons">
+  <div *ngIf="isOwner" class="buttons">
     <button [routerLink]="['/overview']" mat-fab style="background-color: #17b978;">
       <mat-icon>arrow_back</mat-icon>
     </button>

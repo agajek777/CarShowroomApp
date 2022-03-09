@@ -65,7 +65,7 @@ namespace CarShowroom.UI.Controllers
             var carInDb = await _carService.GetCarAsync(id);
 
             if (carInDb == null)
-                return Conflict(new { Error = "Request unsuccessfull." });
+                return NotFound(new { Error = "Request unsuccessfull." });
 
 
             _logger.LogInformation("User {User} obtained Car Model from db", HttpContext.User.Identity.Name);
@@ -100,10 +100,10 @@ namespace CarShowroom.UI.Controllers
             var userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!await _clientService.CheckIfOwnerAsync(userId, id))
-                return StatusCode(StatusCodes.Status404NotFound, "Operation available only for the owner.");
+                return StatusCode(StatusCodes.Status403Forbidden, "Operation available only for the owner.");
 
             if (!await _carService.CarExistsAsync(id))
-                return BadRequest(new { Message = $"No car with ID { id } has been found." });
+                return NotFound(new { Message = $"No car with ID { id } has been found." });
 
             var outcome = await _carService.UpdateCarAsync(id, carDto);
 

@@ -18,7 +18,8 @@ namespace CarShowroom.Infra.Data.Repositories
 {
     public class CarRepository : Repository, ICarRepository<CarDto>
     {
-        public CarRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<CarRepository> logger) : base(db, mapper, logger)
+        public CarRepository(DatabaseContext<User, Role> db, IMapper mapper, ILogger<CarRepository> logger)
+            : base(db, mapper, logger)
         {
 
         }
@@ -106,7 +107,7 @@ namespace CarShowroom.Infra.Data.Repositories
                 throw new DataException("Can't connect to the db.");
 
             var carInDb = await _db.Cars.SingleAsync(a => a.Id == id);
-            
+
 
             _db.Cars.Remove(carInDb);
 
