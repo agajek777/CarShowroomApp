@@ -1,0 +1,6 @@
+@CarShowroom.Offers.API_HostAddress = http://localhost:5032
+
+GET {{CarShowroom.Offers.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
