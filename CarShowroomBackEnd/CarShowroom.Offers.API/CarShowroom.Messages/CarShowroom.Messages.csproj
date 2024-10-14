@@ -10,8 +10,4 @@
     <PackageReference Include="MediatR" Version="12.4.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CarShowroom.Offers.Domain\CarShowroom.Offers.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

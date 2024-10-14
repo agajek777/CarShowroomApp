@@ -8,7 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarShowroom.Offers.Consumer\CarShowroom.Offers.Consumer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

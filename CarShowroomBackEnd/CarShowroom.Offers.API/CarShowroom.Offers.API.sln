@@ -7,9 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroom.Offers.API", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroom.Offers.Domain", "CarShowroom.Offers.Domain\CarShowroom.Offers.Domain.csproj", "{18FE830E-E9F9-4047-ACEA-E3BC19665EAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShowroom.Offers.Application", "CarShowroom.Offers.Application\CarShowroom.Offers.Application.csproj", "{15421815-B28B-4336-A359-440955192927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroom.Offers.Application", "CarShowroom.Offers.Application\CarShowroom.Offers.Application.csproj", "{15421815-B28B-4336-A359-440955192927}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShowroom.Offers.Storage", "CarShowroom.Offers.Storage\CarShowroom.Offers.Storage.csproj", "{8B35C6AE-3262-4228-AF1D-47861710005A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarShowroom.Offers.Storage", "CarShowroom.Offers.Storage\CarShowroom.Offers.Storage.csproj", "{8B35C6AE-3262-4228-AF1D-47861710005A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShowroom.Messages", "CarShowroom.Messages\CarShowroom.Messages.csproj", "{277284A0-67FA-4188-9F86-8705A21222D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarShowroom.Offers.Consumer", "CarShowroom.Offers.Consumer\CarShowroom.Offers.Consumer.csproj", "{7833B221-1F94-40FD-B83A-C364F24D1A66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{8B35C6AE-3262-4228-AF1D-47861710005A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B35C6AE-3262-4228-AF1D-47861710005A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B35C6AE-3262-4228-AF1D-47861710005A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{277284A0-67FA-4188-9F86-8705A21222D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277284A0-67FA-4188-9F86-8705A21222D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277284A0-67FA-4188-9F86-8705A21222D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{277284A0-67FA-4188-9F86-8705A21222D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7833B221-1F94-40FD-B83A-C364F24D1A66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7833B221-1F94-40FD-B83A-C364F24D1A66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7833B221-1F94-40FD-B83A-C364F24D1A66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7833B221-1F94-40FD-B83A-C364F24D1A66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
